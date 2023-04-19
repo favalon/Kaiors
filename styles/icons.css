@@ -1,0 +1,18 @@
+.bottom_navigation_icons {
+  width: 24px;  /* Set the desired width */
+  height: 24px; /* Set the desired height */
+}
+
+.speechButton {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.speechButton:hover {
+  background-color: #45a049;
+}

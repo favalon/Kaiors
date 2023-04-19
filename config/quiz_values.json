@@ -1,0 +1,30 @@
+{"reading_skill" :[
+    "single word meaning guess",
+    "Summarizing the topic of the text",
+    "Reasoning based on contextual content",
+    "Understanding specific details in the text"
+    ],
+    "question_type" :[
+        "Fill-in-the-blank question",
+        "True or False question",
+        "Single-choice question",
+        "Writing question"
+    ],
+    "grammar_point":[
+      "Present simple tense",
+      "Present simple tense",
+      "Present continuous tense",
+      "Articles",
+      "Pronouns",
+      "Prepositions of time and place",
+      "Plurals",  
+      "Demonstratives",
+      "There is/There are",
+      "Possessives",
+      "Adjectives",
+      "Past simple tense",
+      "Past continuous tense"
+    ]
+
+  }
+ 

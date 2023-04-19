@@ -1,0 +1,15 @@
+.iframe_wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+  }
+  
+.iframe_wrapper iframe {
+  position: absolute;
+  top: 0%; /* Adjust this value to move the iframe content up or down */
+  left: 0px; /* Adjust this value to move the iframe content left or right */
+  width: 100%; /* Adjust this value to zoom in or out of the iframe content */
+  height: 100%; /* Adjust this value to zoom in or out of the iframe content */
+  transform: scale(1); /* Adjust this value to zoom in or out of the iframe content */
+}
