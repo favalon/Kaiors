@@ -134,6 +134,8 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ messageText, isRecording,
       variant="contained"
       onMouseDown={handleStartRecording}
       // onMouseUp={handleStopRecording}
+      onTouchStart={handleStartRecording}
+      onTouchEnd={handleStopRecording}
       sx={{
         flexGrow: 1,
         my: '8px',
