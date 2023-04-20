@@ -132,7 +132,6 @@ const ChatPage: React.FC<ChatPageProps> = ({
                     }
                   });
             } else {
-                console.log('newMessage called');
                 setCurrentMessages((prev) => {
                     const lastMessage = prev[prev.length - 1];
                   
@@ -180,7 +179,6 @@ const ChatPage: React.FC<ChatPageProps> = ({
 
     useEffect(() => {
         if (messageText && !isRecording && autoSubmit) {
-            console.log('auto submit');
             handleSendMessage();
             setAutoSubmit(false);
             setMessageText("");
@@ -315,7 +313,6 @@ const ChatPage: React.FC<ChatPageProps> = ({
             botName: botchatSettings.botName,
         });
 
-        console.log("send message", request_message);
 
         // Send user question and history to API
         const response = await fetch('/api/chat1', {
@@ -485,7 +482,7 @@ const ChatPage: React.FC<ChatPageProps> = ({
                             // Decode the audio data from the TTS result
                             const audioContext = new AudioContext();
                             const audioBuffer = await audioContext.decodeAudioData(result.audioData);
-                            console.log('audioBuffer', audioBuffer.sampleRate);
+                            // console.log('audioBuffer', audioBuffer.sampleRate);
                             // Convert the AudioBuffer to a .wav file
                             const wav = toWav(audioBuffer);
                             const wavBlob = new Blob([new DataView(wav)], { type: 'audio/wav' });
@@ -579,7 +576,6 @@ const ChatPage: React.FC<ChatPageProps> = ({
 
     useEffect(() => {
         if (initialMessageSent) {
-            console.log('auto submit 2');
             handleSendMessage();
         }
         

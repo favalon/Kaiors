@@ -21,7 +21,7 @@ function Settings({ pageData, setPageData }: SettingtPageProps){
             updatedPageData.setting.englishLevel = englishLevel;
             updatedPageData.setting.concept = concept;
             
-            console.log('save setting', userName, language, englishLevel, concept);
+            //console.log('save setting', userName, language, englishLevel, concept);
             setPageData(updatedPageData);
         } 
 
