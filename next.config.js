@@ -13,6 +13,7 @@ const nextConfig = {
   exportPathMap: async function () {
     return {
       '/': { page: '/' },
+      '/chat_page': { page: '/chat_page' }, // Add this line
       // Add other routes here, e.g.,
       // '/about': { page: '/about' },
     };
