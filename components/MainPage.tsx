@@ -306,7 +306,7 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
   };
 
   const handleSendMessage = (text: string) => {
-    console.log('Message sent:', text);
+    //console.log('Message sent:', text);
   };
 
   const handleResetClick = () => {

@@ -119,11 +119,37 @@ const ChatPage: React.FC<ChatPageProps> = ({
                 isOwnMessage: true,
             };
             if (isQuiz) {
-                setQuizMessages((prev) => [...prev, newMessage]);
+                setQuizMessages((prev) => {
+                    const lastMessage = prev[prev.length - 1];
+                  
+                    // Check if the last message's text is equal to the new message's text
+                    if (lastMessage && lastMessage.text === newMessage.text) {
+                      // If they are equal, don't add the new message and return the previous state
+                      return prev;
+                    } else {
+                      // If they are not equal, add the new message
+                      return [...prev, newMessage];
+                    }
+                  });
             } else {
-                setCurrentMessages((prevMessages) => [...prevMessages, newMessage]);
+                console.log('newMessage called');
+                setCurrentMessages((prev) => {
+                    const lastMessage = prev[prev.length - 1];
+                  
+                    // Check if the last message's text is equal to the new message's text
+                    if (lastMessage && lastMessage.text === newMessage.text) {
+                      // If they are equal, don't add the new message and return the previous state
+                      return prev;
+                    } else {
+                      // If they are not equal, add the new message
+                      return [...prev, newMessage];
+                    }
+                  });
             }
             setSubmitFlag(true);
+
+
+            
         }
 
     };
@@ -153,8 +179,8 @@ const ChatPage: React.FC<ChatPageProps> = ({
     };
 
     useEffect(() => {
-
         if (messageText && !isRecording && autoSubmit) {
+            console.log('auto submit');
             handleSendMessage();
             setAutoSubmit(false);
             setMessageText("");
@@ -276,7 +302,6 @@ const ChatPage: React.FC<ChatPageProps> = ({
             history_messages = latestNMessages(currentMessages, n_history);
             roleSettings = botchatSettings.description
         }
-
 
 
         let request_message = FormattedMessage({
@@ -541,8 +566,7 @@ const ChatPage: React.FC<ChatPageProps> = ({
 
     // First submit
     const [initialMessageSent, setInitialMessageSent] = useState(false);
-    const greeting_messages = [
-        "let's go"]
+    const greeting_messages = ["Let's start this"]
 
     const getRandomValue = (list: string | any[]) => list[Math.floor(Math.random() * list.length)];
 
@@ -554,9 +578,11 @@ const ChatPage: React.FC<ChatPageProps> = ({
     }, [currentMessages]);
 
     useEffect(() => {
-        if (messageText !== '') {
+        if (initialMessageSent) {
+            console.log('auto submit 2');
             handleSendMessage();
         }
+        
     }, [initialMessageSent]);
 
 
