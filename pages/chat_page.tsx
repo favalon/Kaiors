@@ -541,6 +541,12 @@ const ChatPage: React.FC<ChatPageProps> = ({
     }, [initialMessageSent]);
 
 
+    // read the select text
+    const [selectedText, setSelectedText] = useState('');
+    const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0 });
+    
+
+
 
     return (
         <>
