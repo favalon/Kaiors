@@ -1,4 +1,4 @@
-import React, { useState, forwardRef, useEffect } from 'react';
+import React, { useState, forwardRef, useEffect, useRef } from 'react';
 import { Box, Avatar, Typography, List, ListItem, ListItemText, IconButton, Chip } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -6,6 +6,13 @@ import DialogContent from "@mui/material/DialogContent";
 import { rootCertificates } from 'tls';
 import FormattedMessage from '@/components/FormattedMessage';
 import ReactMarkdown from 'react-markdown';
+import toWav from 'audiobuffer-to-wav';
+import { AudioConfig, SpeechConfig, SpeechSynthesizer } from 'microsoft-cognitiveservices-speech-sdk';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import TranslateIcon from '@mui/icons-material/Translate';
+import SpellcheckIcon from '@mui/icons-material/Spellcheck';
+
+
 
 interface Message {
   id: string;
@@ -22,7 +29,11 @@ interface ChatMessageProps {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({ message, isOwnMessage, setLoading }, ref) => {
+const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
+  message,
+  isOwnMessage,
+  setLoading,
+}, ref) => {
 
   const [showOptions, setShowOptions] = useState(false);
   const [showFunctionArea, setShowFunctionArea] = useState(false);
@@ -34,7 +45,7 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({ message, isO
 
 
   const handleOnClick = () => {
-    setShowOptions(!showOptions);
+    setShowOptions(true);
     setResultString(" ");
   };
 
@@ -50,7 +61,7 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({ message, isO
     setShowFunctionArea(true);
     setRoleSettings(translate_role);
     setResultTitle("Translate");
-
+    setShowButton(false);
   };
 
   useEffect(() => {
@@ -63,6 +74,7 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({ message, isO
     setShowFunctionArea(true);
     setRoleSettings(grammer_role);
     setResultTitle("Grammer Check");
+    setShowButton(false);
   };
 
   const handleSubmit = async (e: any) => {
@@ -124,6 +136,108 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({ message, isO
     setLoading(false);
   }
 
+  // read select text
+  const [showButton, setShowButton] = useState(false);
+  const [selectedText, setSelectedText] = useState('');
+  const getSelectedText = () => {
+    const selection = window.getSelection();
+    return selection ? selection.toString() : '';
+  };
+
+  const speakSelectedText = async () => {
+    if (selectedText) {
+      try {
+        await synthesizeTextToSpeech(selectedText);
+        setShowOptions(false);
+      } catch (error) {
+        console.error('Error synthesizing selected text:', error);
+      }
+    }
+  };
+
+  const handleMouseUp = () => {
+    const text = getSelectedText();
+    if (text) {
+      setSelectedText(text);
+      setShowButton(true);
+
+      // Get the position of the selected text
+      const range = window.getSelection()?.getRangeAt(0);
+      if (range) {
+        const rect = range.getBoundingClientRect();
+        setButtonPosition({ x: rect.right, y: rect.top });
+      }
+    } else {
+      setShowButton(false);
+    }
+  };
+
+  // Inside your component
+  useEffect(() => {
+    document.addEventListener('mouseup', handleMouseUp);
+
+    return () => {
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, []);
+
+  const speechConfig = SpeechConfig.fromSubscription(
+    process.env.REACT_APP_AZURE_SPEECH_KEY as string,
+    process.env.REACT_APP_AZURE_SPEECH_REGION as string
+
+  );
+
+  const playAudioRef = useRef(true);
+
+  const synthesizeTextToSpeech = async (text: string) => {
+    return new Promise(async (resolve, reject) => {
+      const audioConfig = AudioConfig.fromDefaultSpeakerOutput();
+      const synthesizer = new SpeechSynthesizer(speechConfig, audioConfig);
+
+      playAudioRef.current = true;
+
+      synthesizer.speakTextAsync(
+        text,
+        async (result) => {
+          if (result) {
+            if (playAudioRef.current) {
+              // Decode the audio data from the TTS result
+              const audioContext = new AudioContext();
+              const audioBuffer = await audioContext.decodeAudioData(result.audioData);
+              console.log('audioBuffer', audioBuffer.sampleRate);
+              // Get the volume sequence from the audio buffer
+
+              // volumeSequence = await getVolumeSequence(audioBuffer, 10);
+
+              // Convert the AudioBuffer to a .wav file
+              const wav = toWav(audioBuffer);
+              const wavBlob = new Blob([new DataView(wav)], { type: 'audio/wav' });
+
+              // Store the .wav file in the browser
+              const wavUrl = URL.createObjectURL(wavBlob);
+              localStorage.setItem('tts_wav_url', wavUrl);
+
+              synthesizer.close();
+              resolve(result);
+            } else {
+              synthesizer.close();
+              reject(new Error('Synthesis stopped.'));
+            }
+          } else {
+            synthesizer.close();
+            reject(new Error('Synthesis failed.'));
+          }
+        },
+        (error) => {
+          synthesizer.close();
+          reject(error);
+        }
+      );
+    });
+  };
+
+  const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0 });
+
 
   return (
     <div ref={ref} >
@@ -149,7 +263,8 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({ message, isO
 
           sx={{
             position: 'relative',
-            padding: '12px',
+            px: '12px',
+            py: '4px',
             mx: '8px',
             borderRadius: '12px',
             backgroundColor: isOwnMessage ? '#FFC300' : '#ffffff',
@@ -185,50 +300,94 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({ message, isO
 
           >{message.text}
           </ReactMarkdown>
+          {showOptions && (
+          <Box
+            sx={{
+              borderTop: isOwnMessage ? '1px solid #fff' : '1px solid #333333',
+              display: 'flex',
+              flexDirection: 'row',
+              mx: '8px',
+              marginY: '2px',
+              width: 'fit-content',
+              marginLeft: isOwnMessage ? 'auto' : '0px',
+              marginRight: isOwnMessage ? '0px' : 'auto',
+            }}
+          >
+            {!isOwnMessage && (<Box
+              sx={{
+                color: isOwnMessage ? '#fff' : '#333333',
+                borderRadius: '12px',
+                mx: '8px',
+                my: '2px',
+                px: '8px',
+                width: 'fit-content',
+                ':hover': {
+                  backgroundColor: '#333333',
+                  color: '#fff',
+                },
+              }}
+              onClick={handleTranslate}
+            >
+              <TranslateIcon sx={{ fontSize: '1rem', padding: 0 }} />
+            </Box>
+            )}
+            {isOwnMessage && (<Box
+              sx={{
+                color: isOwnMessage ? '#fff' : '#333333',
+                borderRadius: '12px',
+                mx: '8px',
+                my: '2px',
+                px: '8px',
+                width: 'fit-content',
+                ':hover': {
+                  backgroundColor: '#333333',
+                  color: '#fff',
+                },
+              }}
+              onClick={handleGrammer}
+            >
+              <SpellcheckIcon sx={{ fontSize: '1rem', padding: 0 }} />
+            </Box>
+            )}
+            {!isOwnMessage && (<Box
+              sx={{
+                color: isOwnMessage ? '#fff' : '#333333',
+                borderRadius: '12px',
+                mx: '8px',
+                my: '2px',
+                px: '8px',
+                width: 'fit-content',
+                ':hover': {
+                  backgroundColor: '#333333',
+                  color: '#fff',
+                },
+              }}
+              onClick={speakSelectedText}
+            >
+              <VolumeUpIcon sx={{ fontSize: '1rem', padding: 0 }} />
+            </Box>
+            )}
+          </Box>
+          )}
         </Box>
       </Box>
-      {showOptions && (
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            backgroundColor: '#333333',
-            borderRadius: '12px',
-            padding: '8px',
-            mx: '8px',
-            width: 'fit-content',
-            marginLeft: isOwnMessage ? 'auto' : '60px',
-            marginRight: isOwnMessage ? '60px' : 'auto',
+      {/* {showButton && (
+        <button
+          onClick={speakSelectedText}
+          style={{
+            position: 'absolute',
+            left: buttonPosition.x,
+            top: buttonPosition.y,
+            zIndex: 1000, // Ensure the button is above other elements
           }}
         >
-          <Box
-            sx={{
-              color: '#FFC300',
-              backgroundColor: '#333333',
-              borderRadius: '12px',
-              padding: '2px',
-              mx: '8px',
-              width: 'fit-content',
-            }}
-            onClick={handleTranslate}
-          >
-            <Typography variant="body1">Translate</Typography>
-          </Box>
-          <Box
-            sx={{
-              color: '#FFC300',
-              backgroundColor: '#333333',
-              borderRadius: '12px',
-              padding: '2px',
-              mx: '8px',
-              width: 'fit-content',
-            }}
-            onClick={handleGrammer}
-          >
-            <Typography variant="body1">Grammar</Typography>
-          </Box>
-        </Box>
-      )}
+          <VolumeUpIcon />
+        </button>
+      )} */}
+
+
+      {/* {(showOptions || showButton) && ( */}
+
       {showFunctionArea && (
         <Dialog open={showFunctionArea} onClose={handleClose}
         >

@@ -3,6 +3,7 @@ import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
 import toWav from 'audiobuffer-to-wav';
 import { Button } from '@mui/material';
 import { useTheme, Box } from '@mui/material';
+import styles from '@/styles/Home.module.css';
 
 interface AudioRecorderProps {
   messageText: string;
@@ -118,32 +119,16 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ messageText, isRecording,
 
 
   return (
-    <Button
+    <button
       id="record-button"
-      variant="contained"
       onPointerDown={handleStartRecording}
       onPointerUp={handleStopRecording}
       onPointerCancel={handleStopRecording}
       onContextMenu={(e) => e.preventDefault()}
-      sx={{
-        flexGrow: 1,
-        my: '8px',
-        height: '48px',
-        color: '#333333',
-        fontWeight: 'bold',
-        fontSize: '16px',
-        '&:hover': {
-          backgroundColor: '#FFC300',
-          color: '#333333',
-        },
-        backgroundColor: '#ffffff',
-        '@media (max-width: 600px)': {
-          fontSize: '12px', // Change the font size based on the breakpoint
-        },
-      }}
+      className={`${styles.button} ${styles.holdToTalk} `}
     >
       Hold to Record
-    </Button>
+    </button>
 
   );
 };
