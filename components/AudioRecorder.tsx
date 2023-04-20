@@ -24,7 +24,8 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ messageText, isRecording,
   );
 
 
-  const handleStartRecording = async (event: React.MouseEvent | React.TouchEvent) => {
+  const handleStartRecording = async (event: any) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
     event.preventDefault();
     setIsRecording(true);
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -37,7 +38,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ messageText, isRecording,
   };
 
   const convertToWav = async (audioBlob: Blob): Promise<Blob> => {
-    
+
     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
 
     const arrayBuffer = await audioBlob.arrayBuffer();
@@ -53,7 +54,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ messageText, isRecording,
     });
 
     console.log('Converting to WAV');
-    
+
     const wav = toWav(buffer);
     const wavBlob = new Blob([wav], { type: 'audio/wav' });
     return wavBlob;
@@ -63,7 +64,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ messageText, isRecording,
 
 
   const handleStopRecording = async (event: any) => {
-    event.preventDefault();
+    if (event.pointerType === "mouse" && event.button !== 0) return;
     if (!mediaRecorderRef.current) {
       return;
     }
@@ -90,7 +91,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ messageText, isRecording,
     const audioFile = new File([audioBlob], 'audio.wav', { type: 'audio/wav', lastModified: Date.now() });
     const audioConfig = sdk.AudioConfig.fromWavFileInput(audioFile);
     const recognizer = new sdk.SpeechRecognizer(speechConfig, audioConfig);
-  
+
     recognizer.recognizeOnceAsync(
       async result => {
         if (result.text === undefined && retryCount < 5) {
@@ -115,27 +116,15 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ messageText, isRecording,
     handleSendMessage();
   }, [messageText]);
 
-  useEffect(() => {
-    const buttonElement = document.getElementById("record-button");
-    if (buttonElement) {
-      buttonElement.addEventListener("mouseup", handleStopRecording);
-    }
-  
-    return () => {
-      if (buttonElement) {
-        buttonElement.removeEventListener("mouseup", handleStopRecording);
-      }
-    };
-  }, []);
 
   return (
     <Button
       id="record-button"
       variant="contained"
-      onMouseDown={handleStartRecording}
-      // onMouseUp={handleStopRecording}
-      onTouchStart={handleStartRecording}
-      onTouchEnd={handleStopRecording}
+      onPointerDown={handleStartRecording}
+      onPointerUp={handleStopRecording}
+      onPointerCancel={handleStopRecording}
+      onContextMenu={(e) => e.preventDefault()}
       sx={{
         flexGrow: 1,
         my: '8px',
