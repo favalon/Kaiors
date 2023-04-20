@@ -62,7 +62,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ messageText, isRecording,
 
 
 
-  const handleStopRecording = async (event: React.MouseEvent | React.TouchEvent) => {
+  const handleStopRecording = async (event: any) => {
     event.preventDefault();
     if (!mediaRecorderRef.current) {
       return;
@@ -115,20 +115,25 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ messageText, isRecording,
     handleSendMessage();
   }, [messageText]);
 
-    //test
-  const playAudio = (audioFile: File) => {
-    const audioElement = document.createElement('audio');
-    audioElement.src = URL.createObjectURL(audioFile);
-    audioElement.controls = true;
-    document.body.appendChild(audioElement);
-    audioElement.play();
-  };
+  useEffect(() => {
+    const buttonElement = document.getElementById("record-button");
+    if (buttonElement) {
+      buttonElement.addEventListener("mouseup", handleStopRecording);
+    }
+  
+    return () => {
+      if (buttonElement) {
+        buttonElement.removeEventListener("mouseup", handleStopRecording);
+      }
+    };
+  }, []);
 
   return (
     <Button
+      id="record-button"
       variant="contained"
       onMouseDown={handleStartRecording}
-      onMouseUp={handleStopRecording}
+      // onMouseUp={handleStopRecording}
       sx={{
         flexGrow: 1,
         my: '8px',

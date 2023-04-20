@@ -31,7 +31,9 @@ import DraggableWindowContainer from '@/components/DraggableWindowContainer';
 import FormattedMessage from '@/components/FormattedMessage';
 import AudioRecorder from '@/components/AudioRecorder';
 import { AudioConfig, SpeechConfig, SpeechSynthesizer } from 'microsoft-cognitiveservices-speech-sdk';
+import toWav from 'audiobuffer-to-wav';
 
+// ...
 
 interface Message {
     id: string;
@@ -89,7 +91,7 @@ const ChatPage: React.FC<ChatPageProps> = ({
     const [lastMessageRef, setLastMessageRef] = useState<null | HTMLDivElement>(null);
     const [loading, setLoading] = useState(false);
     const [useTTS, setUseTTS] = useState(false);
-    const [isVoiceInput, setIsVoiceInput] = useState(false);
+    const [isVoiceInput, setIsVoiceInput] = useState(true);
     const [showWindow, setShowWindow] = useState(false);
     const [functionalButtons, setFunctionalButtons] = useState([
         { id: 'get_result', label: 'Get Result', isVisible: false },
@@ -391,8 +393,37 @@ const ChatPage: React.FC<ChatPageProps> = ({
     };
     const playAudioRef = useRef(true);
 
+    const getVolumeSequence = async (audioBuffer: AudioBuffer, sampleRate: number) => {
+        const numChannels = audioBuffer.numberOfChannels;
+        const bufferSize = audioBuffer.length;
+
+        const chunkSize = Math.floor(audioBuffer.sampleRate / sampleRate);
+
+        let volumeSequence = [];
+
+        for (let i = 0; i < bufferSize; i += chunkSize) {
+            let sumOfSquares = 0;
+            let numSamples = 0;
+
+            for (let j = 0; j < chunkSize && i + j < bufferSize; j++) {
+                for (let c = 0; c < numChannels; c++) {
+                    const sample = audioBuffer.getChannelData(c)[i + j];
+                    sumOfSquares += sample * sample;
+                }
+                numSamples++;
+            }
+
+            const rms = Math.sqrt(sumOfSquares / (numSamples * numChannels));
+            volumeSequence.push(rms);
+        }
+
+        return volumeSequence;
+    };
+
+    let volumeSequence: number[] = [];
+
     const synthesizeTextToSpeech = async (text: string) => {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             const audioConfig = AudioConfig.fromDefaultSpeakerOutput();
             const synthesizer = new SpeechSynthesizer(speechConfig, audioConfig);
 
@@ -400,9 +431,25 @@ const ChatPage: React.FC<ChatPageProps> = ({
 
             synthesizer.speakTextAsync(
                 text,
-                (result) => {
+                async (result) => {
                     if (result) {
                         if (playAudioRef.current) {
+                            // Decode the audio data from the TTS result
+                            const audioContext = new AudioContext();
+                            const audioBuffer = await audioContext.decodeAudioData(result.audioData);
+                            console.log('audioBuffer', audioBuffer.sampleRate);
+                            // Get the volume sequence from the audio buffer
+
+                            // volumeSequence = await getVolumeSequence(audioBuffer, 10);
+
+                            // Convert the AudioBuffer to a .wav file
+                            const wav = toWav(audioBuffer);
+                            const wavBlob = new Blob([new DataView(wav)], { type: 'audio/wav' });
+
+                            // Store the .wav file in the browser
+                            const wavUrl = URL.createObjectURL(wavBlob);
+                            localStorage.setItem('tts_wav_url', wavUrl);
+
                             synthesizer.close();
                             resolve(result);
                         } else {
@@ -421,6 +468,7 @@ const ChatPage: React.FC<ChatPageProps> = ({
             );
         });
     };
+
 
     useEffect(() => {
         const latestMessage = currentMessages[currentMessages?.length - 1];
@@ -830,7 +878,6 @@ const ChatPage: React.FC<ChatPageProps> = ({
             <DraggableWindowContainer>
                 <DraggableWindow showWindow={showWindow} setShowWindow={coloseWindow} />
             </DraggableWindowContainer>
-
         </>
     );
 };
