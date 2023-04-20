@@ -27,12 +27,14 @@ interface ChatMessageProps {
   message: Message;
   isOwnMessage: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedModel: string;
 }
 
 const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
   message,
   isOwnMessage,
   setLoading,
+  selectedModel
 }, ref) => {
 
   const [showOptions, setShowOptions] = useState(false);
@@ -192,6 +194,7 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
   const synthesizeTextToSpeech = async (text: string) => {
     return new Promise(async (resolve, reject) => {
       const audioConfig = AudioConfig.fromDefaultSpeakerOutput();
+      speechConfig.speechSynthesisVoiceName = selectedModel;
       const synthesizer = new SpeechSynthesizer(speechConfig, audioConfig);
 
       playAudioRef.current = true;

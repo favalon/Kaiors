@@ -4,9 +4,8 @@ import {
     AppBar,
     Box,
     Button,
-    Card,
-    CardContent,
-    CardMedia,
+    Menu,
+    MenuItem,
     Container,
     IconButton,
     TextField,
@@ -384,8 +383,29 @@ const ChatPage: React.FC<ChatPageProps> = ({
         process.env.REACT_APP_AZURE_SPEECH_REGION as string
 
     );
-    // enable/disable TTS
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [selectedModel, setSelectedModel] = React.useState("en-US-AnaNeural");
 
+    const handleClick = (event: any) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleMenuItemClick = (model: any) => {
+        setSelectedModel(model);
+        setAnchorEl(null);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const getModelName = (voiceId:string) => {
+        const nameParts = voiceId.split('-');
+        return nameParts.length > 2 ? nameParts[2].replace(/Neural$/, '') : voiceId;
+      };
+
+
+    // enable/disable TTS
     const [prevMessages, setPrevMessages] = useState<Message>();
 
     const toggleTTS = () => {
@@ -425,6 +445,9 @@ const ChatPage: React.FC<ChatPageProps> = ({
     const synthesizeTextToSpeech = async (text: string) => {
         return new Promise(async (resolve, reject) => {
             const audioConfig = AudioConfig.fromDefaultSpeakerOutput();
+
+            // The language of the voice that speaks.
+            speechConfig.speechSynthesisVoiceName = selectedModel;
             const synthesizer = new SpeechSynthesizer(speechConfig, audioConfig);
 
             playAudioRef.current = true;
@@ -438,10 +461,6 @@ const ChatPage: React.FC<ChatPageProps> = ({
                             const audioContext = new AudioContext();
                             const audioBuffer = await audioContext.decodeAudioData(result.audioData);
                             console.log('audioBuffer', audioBuffer.sampleRate);
-                            // Get the volume sequence from the audio buffer
-
-                            // volumeSequence = await getVolumeSequence(audioBuffer, 10);
-
                             // Convert the AudioBuffer to a .wav file
                             const wav = toWav(audioBuffer);
                             const wavBlob = new Blob([new DataView(wav)], { type: 'audio/wav' });
@@ -541,11 +560,6 @@ const ChatPage: React.FC<ChatPageProps> = ({
     }, [initialMessageSent]);
 
 
-    // read the select text
-    const [selectedText, setSelectedText] = useState('');
-    const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0 });
-    
-
 
 
     return (
@@ -574,6 +588,32 @@ const ChatPage: React.FC<ChatPageProps> = ({
                     }}>
                         {chatName}
                     </Typography>
+                    <Button 
+                    sx={{color: '#FFC300'}}
+                    onClick={handleClick}
+                    >{getModelName(selectedModel)}</Button>
+                    <Menu
+                        anchorEl={anchorEl}
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}
+                    >
+                        <MenuItem onClick={() => handleMenuItemClick('en-US-AmberNeural')}>
+                            Amber
+                        </MenuItem>
+                        <MenuItem onClick={() => handleMenuItemClick('en-US-AnaNeural')}>
+                            Ana
+                        </MenuItem>
+                        <MenuItem onClick={() => handleMenuItemClick('en-US-AriaNeural')}>
+                            Aria
+                        </MenuItem>
+                        <MenuItem onClick={() => handleMenuItemClick('en-US-BrandonNeural')}>
+                            Brandon
+                        </MenuItem>
+                        <MenuItem onClick={() => handleMenuItemClick('zh-CN-XiaohanNeural')}>
+                            Xiaohan
+                        </MenuItem>
+                        {/* Add more MenuItem components for each model you want to include */}
+                    </Menu>
 
                     <IconButton
                         edge="end"
@@ -670,6 +710,7 @@ const ChatPage: React.FC<ChatPageProps> = ({
                             message={message}
                             isOwnMessage={message.isOwnMessage}
                             setLoading={setLoading}
+                            selectedModel={selectedModel}
                             ref={index === currentMessages?.length - 2 ? setLastMessageRef : null}
                         />
                     ))}
@@ -853,6 +894,7 @@ const ChatPage: React.FC<ChatPageProps> = ({
                                     message={message}
                                     setLoading={setLoading}
                                     isOwnMessage={message.isOwnMessage}
+                                    selectedModel={selectedModel}
                                 />
                             ))}
                             <div ref={messagesEndRef} /> {/* Add this line to create a reference point at the end of the messages */}

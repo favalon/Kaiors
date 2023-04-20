@@ -99,7 +99,6 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
           );
         }
 
-        console.log("allmesage", allMessages);
 
         // Save updated allMessages to local storage
         saveAllMessagesToLocalStorage(updatedAllMessages);
