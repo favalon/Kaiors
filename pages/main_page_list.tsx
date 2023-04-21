@@ -88,6 +88,12 @@ const MainPageList: React.FC<MainPageListProps> = ({ userSetting, test_item, tas
         setUserTopicDescription('')
     }
 
+    const handleTextFieldKeyDown = (event: any) => {
+        if (event.key === ' ') {
+          event.stopPropagation(); // Stop the 'space' key event from propagating to the parent Card component
+        }
+      };
+
 
 
     return (
@@ -632,6 +638,7 @@ const MainPageList: React.FC<MainPageListProps> = ({ userSetting, test_item, tas
                             ))}
                             <Card
                                 onClick={() => handleUserAddTopic(userTopicDescription)}
+                                onKeyDown={handleTextFieldKeyDown}
                                 sx={{
                                     maxWidth: '450px',
                                     width: '100%',

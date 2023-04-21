@@ -9,13 +9,14 @@ interface AudioRecorderProps {
   messageText: string;
   isRecording: boolean;
   autoSubmit: boolean;
+  setLoading: (loading: boolean) => void;
   setMessageText: (text: string) => void;
   setIsRecording: (isRecording: boolean) => void;
   setAutoSubmit: (autoSubmit: boolean) => void;
   handleSendMessage: () => void;
 }
 
-const AudioRecorder: React.FC<AudioRecorderProps> = ({ messageText, isRecording, autoSubmit, setMessageText, setIsRecording, setAutoSubmit, handleSendMessage }) => {
+const AudioRecorder: React.FC<AudioRecorderProps> = ({ messageText, isRecording, autoSubmit, setLoading, setMessageText, setIsRecording, setAutoSubmit, handleSendMessage }) => {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const recordedChunksRef = useRef<Blob[]>([]);
   const speechConfig = sdk.SpeechConfig.fromSubscription(
@@ -70,6 +71,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ messageText, isRecording,
       return;
     }
     console.log("Recording stopped")
+    setLoading(true);
 
     const currentMediaRecorder = mediaRecorderRef.current;
 

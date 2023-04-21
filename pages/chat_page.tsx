@@ -779,6 +779,7 @@ const ChatPage: React.FC<ChatPageProps> = ({
                             messageText={messageText}
                             isRecording={isRecording}
                             autoSubmit={autoSubmit}
+                            setLoading={setLoading}
                             setMessageText={setMessageText}
                             setIsRecording={setIsRecording}
                             setAutoSubmit={setAutoSubmit}
