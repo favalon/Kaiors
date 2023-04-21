@@ -366,7 +366,7 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
                 <SpellcheckIcon sx={{ fontSize: '1rem', padding: 0 }} />
               </Box>
               )}
-              {!isOwnMessage && (<Box
+              {(<Box
                 sx={{
                   color: isOwnMessage ? '#fff' : '#333333',
                   borderRadius: '12px',
