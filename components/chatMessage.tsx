@@ -11,6 +11,7 @@ import { AudioConfig, SpeechConfig, SpeechSynthesizer } from 'microsoft-cognitiv
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import TranslateIcon from '@mui/icons-material/Translate';
 import SpellcheckIcon from '@mui/icons-material/Spellcheck';
+import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
 
 
 
@@ -42,6 +43,7 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
   const [roleSettings, setRoleSettings] = useState(" ");
   const grammer_role = "Act as a grammar check, check the input grammar problem, and explain it only in Chinese.\nInput:${function_message}";
   const translate_role = "Act as a translator, translating the user input between Chinese and English. Only Response with target language result. \nTranslate the following : ${function_message}";
+  const tips_role = "Give me 1 breif reply, no more than 15 tokens, for the following: '${function_message}'";
   const [resultString, setResultString] = useState(" ");
   const [resultTitle, setResultTitle] = useState(" ");
 
@@ -63,6 +65,13 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
     setShowFunctionArea(true);
     setRoleSettings(translate_role);
     setResultTitle("Translate");
+    setShowButton(false);
+  };
+
+  const handleTips = () => {
+    setShowFunctionArea(true);
+    setRoleSettings(tips_role);
+    setResultTitle("Tips");
     setShowButton(false);
   };
 
@@ -167,7 +176,6 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
       const range = window.getSelection()?.getRangeAt(0);
       if (range) {
         const rect = range.getBoundingClientRect();
-        setButtonPosition({ x: rect.right, y: rect.top });
       }
     } else {
       setShowButton(false);
@@ -239,7 +247,13 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
     });
   };
 
-  const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0 });
+  const OlComponent = ({ node, ...props }: any) => (
+    <ol style={{ listStyleType: 'decimal' }} {...props} />
+  );
+
+  const components = {
+    ol: OlComponent,
+  };
 
 
   return (
@@ -304,73 +318,91 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
           >{message.text}
           </ReactMarkdown>
           {showOptions && (
-          <Box
-            sx={{
-              borderTop: isOwnMessage ? '1px solid #fff' : '1px solid #333333',
-              display: 'flex',
-              flexDirection: 'row',
-              mx: '8px',
-              marginY: '2px',
-              width: 'fit-content',
-              marginLeft: isOwnMessage ? 'auto' : '0px',
-              marginRight: isOwnMessage ? '0px' : 'auto',
-            }}
-          >
-            {!isOwnMessage && (<Box
+            <Box
               sx={{
-                color: isOwnMessage ? '#fff' : '#333333',
-                borderRadius: '12px',
+                borderTop: isOwnMessage ? '1px solid #fff' : '1px solid #333333',
+                display: 'flex',
+                flexDirection: 'row',
                 mx: '8px',
-                my: '2px',
-                px: '8px',
+                marginY: '2px',
                 width: 'fit-content',
-                ':hover': {
-                  backgroundColor: '#333333',
-                  color: '#fff',
-                },
+                marginLeft: isOwnMessage ? 'auto' : '0px',
+                marginRight: isOwnMessage ? '0px' : 'auto',
               }}
-              onClick={handleTranslate}
             >
-              <TranslateIcon sx={{ fontSize: '1rem', padding: 0 }} />
+              {!isOwnMessage && (<Box
+                sx={{
+                  color: isOwnMessage ? '#fff' : '#333333',
+                  borderRadius: '12px',
+                  mx: '8px',
+                  my: '2px',
+                  px: '8px',
+                  width: 'fit-content',
+                  ':hover': {
+                    backgroundColor: '#333333',
+                    color: '#fff',
+                  },
+                }}
+                onClick={handleTranslate}
+              >
+                <TranslateIcon sx={{ fontSize: '1rem', padding: 0 }} />
+              </Box>
+              )}
+              {isOwnMessage && (<Box
+                sx={{
+                  color: isOwnMessage ? '#fff' : '#333333',
+                  borderRadius: '12px',
+                  mx: '8px',
+                  my: '2px',
+                  px: '8px',
+                  width: 'fit-content',
+                  ':hover': {
+                    backgroundColor: '#333333',
+                    color: '#fff',
+                  },
+                }}
+                onClick={handleGrammer}
+              >
+                <SpellcheckIcon sx={{ fontSize: '1rem', padding: 0 }} />
+              </Box>
+              )}
+              {!isOwnMessage && (<Box
+                sx={{
+                  color: isOwnMessage ? '#fff' : '#333333',
+                  borderRadius: '12px',
+                  mx: '8px',
+                  my: '2px',
+                  px: '8px',
+                  width: 'fit-content',
+                  ':hover': {
+                    backgroundColor: '#333333',
+                    color: '#fff',
+                  },
+                }}
+                onClick={speakSelectedText}
+              >
+                <VolumeUpIcon sx={{ fontSize: '1rem', padding: 0 }} />
+              </Box>
+              )}
+              {!isOwnMessage && (<Box
+                sx={{
+                  color: isOwnMessage ? '#fff' : '#333333',
+                  borderRadius: '12px',
+                  mx: '8px',
+                  my: '2px',
+                  px: '8px',
+                  width: 'fit-content',
+                  ':hover': {
+                    backgroundColor: '#333333',
+                    color: '#fff',
+                  },
+                }}
+                onClick={handleTips}
+              >
+                <TipsAndUpdatesIcon sx={{ fontSize: '1rem', padding: 0 }} />
+              </Box>
+              )}
             </Box>
-            )}
-            {isOwnMessage && (<Box
-              sx={{
-                color: isOwnMessage ? '#fff' : '#333333',
-                borderRadius: '12px',
-                mx: '8px',
-                my: '2px',
-                px: '8px',
-                width: 'fit-content',
-                ':hover': {
-                  backgroundColor: '#333333',
-                  color: '#fff',
-                },
-              }}
-              onClick={handleGrammer}
-            >
-              <SpellcheckIcon sx={{ fontSize: '1rem', padding: 0 }} />
-            </Box>
-            )}
-            {!isOwnMessage && (<Box
-              sx={{
-                color: isOwnMessage ? '#fff' : '#333333',
-                borderRadius: '12px',
-                mx: '8px',
-                my: '2px',
-                px: '8px',
-                width: 'fit-content',
-                ':hover': {
-                  backgroundColor: '#333333',
-                  color: '#fff',
-                },
-              }}
-              onClick={speakSelectedText}
-            >
-              <VolumeUpIcon sx={{ fontSize: '1rem', padding: 0 }} />
-            </Box>
-            )}
-          </Box>
           )}
         </Box>
       </Box>
@@ -415,8 +447,18 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
               display: 'flex', // Add this line
               alignItems: 'center', // Add this line
               justifyContent: 'center', // Add this line
+              
+              '& h1': { fontSize: '2em', margin: '0.67em 0' },
+              '& h2': { fontSize: '1.5em', margin: '0.83em 0' },
+              '& h3': { fontSize: '1.17em', margin: '1em 0' },
+              '& h4': { fontSize: '1em', margin: '1.33em 0' },
+              '& h5': { fontSize: '0.83em', margin: '1.67em 0' },
+              '& h6': { fontSize: '0.67em', margin: '2.33em 0' },
+          
             }}>
-            <Typography variant="h5">{resultString}</Typography>
+
+                <ReactMarkdown>{resultString}</ReactMarkdown>
+
           </DialogContent>
         </Dialog>
       )}
