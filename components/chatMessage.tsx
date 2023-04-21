@@ -43,7 +43,7 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
   const [roleSettings, setRoleSettings] = useState(" ");
   const grammer_role = "Act as a grammar check, check the input grammar problem, and explain it only in Chinese.\nInput:${function_message}";
   const translate_role = "Act as a translator, translating the user input between Chinese and English. Only Response with target language result. \nTranslate the following : ${function_message}";
-  const tips_role = "Give me 1 breif reply, no more than 15 tokens, for the following: '${function_message}'";
+  const tips_role = "Give me 1 breif reply to keep the conversation continue, no more than 15 tokens, for the following: '${function_message}'";
   const [resultString, setResultString] = useState(" ");
   const [resultTitle, setResultTitle] = useState(" ");
 
@@ -439,8 +439,8 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
           >{resultTitle}</DialogTitle>
           <DialogContent
             sx={{
-              backgroundColor: '#333333',
-              color: '#FFC300',
+              //backgroundColor: '#333333',
+              //color: '#FFC300',
               minWidth: '300px',
               minHeight: '100px',
               padding: '8px',
