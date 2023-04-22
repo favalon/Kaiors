@@ -71,7 +71,6 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ messageText, isRecording,
       return;
     }
     console.log("Recording stopped")
-    setLoading(true);
 
     const currentMediaRecorder = mediaRecorderRef.current;
 
