@@ -25,9 +25,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         messages: request_message,
       });
 
-
-      console.log(completion.data.choices[0].message)
-
       if (completion.data.choices && completion.data.choices.length > 0&&
         completion.data.choices[0].message) {
         res.status(200).json({ answer: completion.data.choices[0].message.content.trim() });
