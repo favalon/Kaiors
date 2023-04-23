@@ -313,8 +313,6 @@ const ChatPage: React.FC<ChatPageProps> = ({
             botName: botchatSettings.botName,
         });
 
-        console.log('request_message', request_message)
-
         // Send user question and history to API
         const response = await fetch('/api/chat1', {
             method: 'POST',

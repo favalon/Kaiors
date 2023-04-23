@@ -35,8 +35,6 @@ const FormattedMessage = ({
 
     const replacePlaceholders = (template: string, values: { [key: string]: string } | undefined): string => {
         
-        console.log('template:', template);
-        console.log('values:', values);
         if (values === undefined) {
             return template;
         } else {
