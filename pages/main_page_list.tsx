@@ -108,7 +108,7 @@ const MainPageList: React.FC<MainPageListProps> = ({ userSetting, test_item, tas
                 mx: 'auto',
             }}
         >
-            {userEnglishLevel === 'C2' ? (
+            {userEnglishLevel === 'C1' ? (
 
                 <Box sx={{ width: '100%', maxWidth: '500px' }}>
                     <Box sx={{
