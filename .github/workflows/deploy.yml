@@ -18,12 +18,18 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: 18
+    
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2.2.4
+      with:
+        version: 8
+        run_install: false
 
     - name: Install dependencies
-      run: yarn
+      run: pnpm install
 
     - name: Build
-      run: yarn run build
+      run: pnpm run build
 
     - name: Deploy to VPS
       uses: appleboy/ssh-action@v0.1.10
