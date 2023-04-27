@@ -38,10 +38,6 @@ jobs:
         REACT_APP_AZURE_SPEECH_KEY = 'mytestkey'
         REACT_APP_AZURE_SPEECH_REGION = 'eastus'
         EOF
-        cat << EOF >> .env.local
-        REACT_APP_AZURE_SPEECH_KEY = 'mytestkey'
-        REACT_APP_AZURE_SPEECH_REGION = 'eastus'
-        EOF
 
     - name: Build
       run: pnpm run build
