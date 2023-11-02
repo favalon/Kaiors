@@ -26,7 +26,7 @@ const AboutPage: React.FC<AboutPageProps> = () => {
                 About Kairos
             </Typography>
             <Typography variant="body1" component="p" paragraph>
-                Kairos is an innovative language learning app designed to help you master a new language quickly and efficiently. Our app offers a wide range of features, including interactive lessons, immersive exercises, and real-time conversation practice, all tailored to your individual learning style and goals.
+               AAA Kairos is an innovative language learning app designed to help you master a new language quickly and efficiently. Our app offers a wide range of features, including interactive lessons, immersive exercises, and real-time conversation practice, all tailored to your individual learning style and goals.
             </Typography>
             <Typography variant="body1" component="p" paragraph>
                 By leveraging cutting-edge artificial intelligence and machine learning techniques, Kairos creates personalized learning paths that adapt to your progress, ensuring that you stay engaged and motivated throughout your language learning journey.

@@ -31,9 +31,10 @@ const LeftSideMenu: React.FC<LeftSideMenuProps> = ({ onSelect }) => {
 
   const menuItems = [
     { label: 'Main Page', value: 'main', icon: <HomeIcon /> },
-    { label: 'Concept Base', value: 'concept base', icon: <BlurOnIcon /> },
-    { label: 'Account', value: 'account', icon: <AccountIcon /> },
-    { label: 'Setting', value: 'setting', icon: <SettingIcon /> },
+    { label: 'Partice Test Page', value: 'sound wave', icon: <AboutIcon /> },
+    // { label: 'Concept Base', value: 'concept base', icon: <BlurOnIcon /> },
+    // { label: 'Account', value: 'account', icon: <AccountIcon /> },
+    // { label: 'Setting', value: 'setting', icon: <SettingIcon /> },
     { label: 'About', value: 'about', icon: <AboutIcon /> },
   ];
 
@@ -52,7 +53,7 @@ const LeftSideMenu: React.FC<LeftSideMenuProps> = ({ onSelect }) => {
         onClose={toggleDrawer}
         PaperProps={{
           sx: {
-            backgroundColor: '#333333',
+            backgroundColor: '#edede9',
             width: '20%',
             minWidth: '200px',
           },
@@ -70,18 +71,21 @@ const LeftSideMenu: React.FC<LeftSideMenuProps> = ({ onSelect }) => {
               toggleDrawer();
             }}
             sx={{
-              backgroundColor: '#333333',
-              color: '#FFC300',
+              backgroundColor: '#edede9',
+              color: '#333333',
               '&:hover': {
-                backgroundColor: '#2a2b32',
+                backgroundColor: '#70ae6e',
               },
             }}
           >
             <ListItemIcon
-            sx={{
-                backgroundColor: '#333333',
-                color: '#FFC300',
-              }}
+            // sx={{
+            //     backgroundColor: '#edede9',
+            //     color: '#333333',
+            //     '&:hover': {
+            //       backgroundColor: '#70ae6e',
+            //     },
+            //   }}
             >{item.icon}</ListItemIcon>
             <ListItemText primary={item.label} />
           </ListItem>

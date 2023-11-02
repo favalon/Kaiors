@@ -25,6 +25,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ messageText, isRecording,
 
   );
 
+  speechConfig.speechRecognitionLanguage = 'ja-JP';
 
   const handleStartRecording = async (event: any) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;

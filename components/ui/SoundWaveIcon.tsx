@@ -1,15 +1,13 @@
 import React from 'react';
 import styles from '@/styles/SoundWave.module.css';
 
-interface SoundWaveProps {
+interface SoundWaveIconProps {
   color?: string;
 }
 
-const SoundWave: React.FC<SoundWaveProps> = ({ color = '#000' }) => {
+const SoundWaveIcon: React.FC<SoundWaveIconProps> = ({ color = '#fff' }) => {
   return (
     <div className={styles.soundWave}>
-        <div className={styles.bar} style={{ backgroundColor: color }} />
-        <div className={styles.bar} style={{ backgroundColor: color }} />
         <div className={styles.bar} style={{ backgroundColor: color }} />
         <div className={styles.bar} style={{ backgroundColor: color }} />
         <div className={styles.bar} style={{ backgroundColor: color }} />
@@ -18,4 +16,4 @@ const SoundWave: React.FC<SoundWaveProps> = ({ color = '#000' }) => {
   );
 };
 
-export default SoundWave;
+export default SoundWaveIcon;

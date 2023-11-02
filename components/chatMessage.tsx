@@ -156,6 +156,7 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
   };
 
   const speakSelectedText = async () => {
+    console.log('speakSelectedText')
     if (selectedText) {
       try {
         await synthesizeTextToSpeech(selectedText);

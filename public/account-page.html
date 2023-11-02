@@ -7,12 +7,27 @@
     <script src="https://unpkg.com/core-js-bundle@3.6.1/minified.js"></script>
     <script src="/Core/live2dcubismcore.js"></script>
     <script src="/bundle.js"></script>
-    <script src="/volume.js"></script>
+    <!-- <script src="/volume.js"></script> -->
   </head>
   <body>
     <div id="account-page-container" ></div>
     <script>
       // Add your Live2D related initialization script here
-    </script>
+
+      // Event listener to handle the volume message
+      window.addEventListener('message', function(event) {
+          // Security measure: Make sure the message is coming from your website's origin
+          // if (event.origin !== "http://your-website-domain.com") return;
+          // Check if the message contains a volume key and update the volume
+          if (event.data && typeof event.data.volume !== 'undefined') {
+              const volumeValue = parseFloat(event.data.volume);
+              // Log the received volume
+              // console.log("Received volume:", volumeValue);
+              // Call the appropriate method/function in your JS to update the volume.
+              // For example:
+              updateVolume(volumeValue);
+          }
+      });
+  </script>
   </body>
 </html>

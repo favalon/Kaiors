@@ -7,8 +7,11 @@ import AudioRecorder from "./AudioRecorder";
 import { PageData } from "./types";
 import MainPageList from "@/pages/main_page_list";
 import basic_value from "@/public/basic_value.json";
+import scene_practice_data from "@/public/jp_practice_data/info.json";
 import AboutPage from "@/pages/AboutPage";
 import AccountPage from "@/pages/live2D";
+import PracticeBasic from "@/pages/practice_basic";
+import ParticePage from "@/pages/partice_list";
 
 interface MainPageProps {
   selectedPage: string;
@@ -49,10 +52,12 @@ interface Message {
 
 function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPageData }: MainPageProps) {
 
+  console.log("pageData", scene_practice_data[0])
   const [chatSettings, setChatSettings] = useState<any>(null);
   const [taskItem, setTaskItems] = useState<CharacterSetting>();
   const [piazzaCharacter, setPiazzaCharacter] = useState<CharacterSetting>();
   const [chatPageData, setChatPageData] = useState<ChatPageData>({} as ChatPageData);
+  const [praticeBasicPageData, setPraticeBasicPageData] = useState<any>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   // Initialize allMessages state with data from local storage
   const [allMessages, setAllMessages] = useState<ChatPageData[]>([]);
@@ -138,6 +143,7 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
         title: "Get Your English Level",
         description: basic_value.role_setting.test,
         quiz: basic_value.role_setting.quiz,
+        objective: "objective",
         imageUrl: '/mentor1.png',
         createNote: basic_value.role_setting.create_note,
         getResult: basic_value.role_setting.get_level,
@@ -159,6 +165,7 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
           title: "The influence of the internet on the way we communicate",
           description: basic_value.role_setting.concept,
           quiz: basic_value.role_setting.quiz,
+          objective: "objective",
           imageUrl: '/mentor1.png',
           createNote: basic_value.role_setting.create_note,
           getResult: basic_value.role_setting.get_level,
@@ -177,6 +184,7 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
           botName: "Kairos",
           title: "Alpha and Beta testing",
           description: basic_value.role_setting.concept,
+          objective: "objective",
           quiz: basic_value.role_setting.quiz,
           imageUrl: '/mentor2.png',
           createNote: basic_value.role_setting.create_note,
@@ -197,6 +205,7 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
           title: "Bitcoin",
           description: basic_value.role_setting.concept,
           quiz: basic_value.role_setting.quiz,
+          objective: "objective",
           imageUrl: '/mentor3.png',
           createNote: basic_value.role_setting.create_note,
           getResult: basic_value.role_setting.get_level,
@@ -216,6 +225,7 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
           title: "The History of the Internet",
           description: basic_value.role_setting.concept,
           quiz: basic_value.role_setting.quiz,
+          objective: "objective",
           imageUrl: '/mentor4.png',
           createNote: basic_value.role_setting.create_note,
           getResult: basic_value.role_setting.get_level,
@@ -231,13 +241,14 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
     {
       id: 0,
       imageUrl: '/character.png',
-      title: 'Reasoning Game',
-      description: "I am your game mate, now let's enjoy it.",
+      title: '咖啡馆',
+      description: "",
       chatSettings: {
         bot: {
-          botName: "Kairos",
-          title: "Amadeus",
-          description: "You are a Game designer. \nYou create a text-based game for the user.It can be any game you want, you just have to describe the rules, and as it is a text-based game, you must explain everything in depth with the following markdown format. \n# Game title: [title] \n## Objective:[...] \n## Gameplay:\n[\n1.\n2.\n3.\n] \n## Tips: \n[\n1.\n2.\n3.\n]",
+          botName: "Frank",
+          title: "咖啡馆",
+          description: basic_value.scene_interative.coffee_shop.prompt,
+          objective: basic_value.scene_interative.coffee_shop.objective,
           imageUrl: '/character.png',
           createNote: basic_value.role_setting.create_note,
           getResult: basic_value.role_setting.get_level,
@@ -248,15 +259,16 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
     },
     {
       id: 1,
-      imageUrl: '/dnd.png',
-      title: 'Dungeon Master',
-      description: 'Hello adventurers, prepare to embark on an epic journey in Harray Potter World.',
+      imageUrl: '/character.png',
+      title: '机场：值机',
+      description: "",
       chatSettings: {
         bot: {
-          botName: "Kairos",
-          title: "Dungeon Master",
-          description: basic_value.role_setting.dnd,
-          imageUrl: '/dnd.png',
+          botName: "Frank",
+          title: "机场：值机",
+          description: basic_value.scene_interative.airport_checkin.prompt,
+          objective: basic_value.scene_interative.airport_checkin.objective,
+          imageUrl: '/character.png',
           createNote: basic_value.role_setting.create_note,
           getResult: basic_value.role_setting.get_level,
         },
@@ -267,13 +279,33 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
     {
       id: 2,
       imageUrl: '/character.png',
-      title: 'Makise Kurisu',
-      description: "Tuturu! I am Makise Kurisu, a brilliant scientist with a background in neuroscience and time travel research. ",
+      title: '机场：免税店"',
+      description: "",
       chatSettings: {
         bot: {
-          botName: "Kairos",
-          title: "Amadeus",
-          description: basic_value.role_setting.character,
+          botName: "Frank",
+          title: "机场：免税店",
+          description: basic_value.scene_interative.duty_free_shop.prompt,
+          objective: basic_value.scene_interative.duty_free_shop.objective,
+          imageUrl: '机场：免税店',
+          createNote: basic_value.role_setting.create_note,
+          getResult: basic_value.role_setting.get_level,
+        },
+        user: userSetting
+      },
+      show: true
+    },
+    {
+      id: 3,
+      imageUrl: '/character.png',
+      title: '机场：信息台',
+      description: "",
+      chatSettings: {
+        bot: {
+          botName: "Frank",
+          title: "机场：信息台",
+          description: basic_value.scene_interative.information_desk.prompt,
+          objective: basic_value.scene_interative.information_desk.objective,
           imageUrl: '/character.png',
           createNote: basic_value.role_setting.create_note,
           getResult: basic_value.role_setting.get_level,
@@ -282,7 +314,62 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
       },
       show: true
     },
-    // ... more items
+    {
+      id: 3,
+      imageUrl: '/character.png',
+      title: '电影院：购票',
+      description: "",
+      chatSettings: {
+        bot: {
+          botName: "Frank",
+          title: "电影院：购票",
+          description: basic_value.scene_interative.movie_ticket_purchase.prompt,
+          objective: basic_value.scene_interative.movie_ticket_purchase.objective,
+          imageUrl: '/character.png',
+          createNote: basic_value.role_setting.create_note,
+          getResult: basic_value.role_setting.get_level,
+        },
+        user: userSetting
+      },
+      show: true
+    },
+    // {
+    //   id: 1,
+    //   imageUrl: '/dnd.png',
+    //   title: 'Dungeon Master',
+    //   description: 'Hello adventurers, prepare to embark on an epic journey in Harray Potter World.',
+    //   chatSettings: {
+    //     bot: {
+    //       botName: "Kairos",
+    //       title: "Dungeon Master",
+    //       description: basic_value.role_setting.dnd,
+    //       imageUrl: '/dnd.png',
+    //       createNote: basic_value.role_setting.create_note,
+    //       getResult: basic_value.role_setting.get_level,
+    //     },
+    //     user: userSetting
+    //   },
+    //   show: true
+    // },
+    // {
+    //   id: 2,
+    //   imageUrl: '/character.png',
+    //   title: 'Makise Kurisu',
+    //   description: "Tuturu! I am Makise Kurisu, a brilliant scientist with a background in neuroscience and time travel research. ",
+    //   chatSettings: {
+    //     bot: {
+    //       botName: "Kairos",
+    //       title: "Amadeus",
+    //       description: basic_value.role_setting.character,
+    //       imageUrl: '/character.png',
+    //       createNote: basic_value.role_setting.create_note,
+    //       getResult: basic_value.role_setting.get_level,
+    //     },
+    //     user: userSetting
+    //   },
+    //   show: true
+    // },
+    // // ... more items
   ];
 
   const handleListItemClick = (item: CharacterSetting) => {
@@ -296,8 +383,27 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
         messages: allMessages.find((chat) => chat.id === item.title)?.messages || []
       }
     );
-
     setSelectPage("chat");
+  };
+
+  const handlePracticeListItemClick = (item: any) => {
+
+    // Update chatPageData
+    setPraticeBasicPageData(
+      {
+        audio_path: item.wav_path,
+        text_content:{
+          jp_text: item.jp_text,
+          zh_text: item.zh_text,
+          roma_text: item.roma_text,
+          stable_ts: item.stable_ts,
+        },
+        n: 100,
+        color: "#FFC300"
+      }
+    );
+
+    setSelectPage("practice basic");
   };
 
   const handleBackClick = () => {
@@ -328,7 +434,7 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
       setShowHeader(false);
     } else {
 
-      setShowHeader(true);
+      setShowHeader(true); 
     }
   }, [selectedPage]);
 
@@ -341,7 +447,12 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
     case "concept base":
       return pageData && <ConceptBase pageData={pageData} setPageData={setPageData} />;
     case "main":
-      return pageData && <MainPageList userSetting={userSetting} test_item={test_item} task_items={task_items} piazza_character={piazza_items} userEnglishLevel={pageData.setting.englishLevel} onListItemClick={handleListItemClick} />;
+      return pageData && <MainPageList userSetting={userSetting} 
+                                      test_item={test_item} 
+                                      task_items={task_items} 
+                                      piazza_character={piazza_items} 
+                                      userEnglishLevel={pageData.setting.englishLevel}
+                                       onListItemClick={handleListItemClick} />;
     case "chat":
       return <ChatPage
         key={chatPageData.messages.length}
@@ -358,8 +469,12 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
       />
     case "about":
       return <AboutPage />;
+    
+    case "practice basic":
+      return <PracticeBasic  userSetting={userSetting} scene_items={scene_practice_data[0]} onListItemClick={handlePracticeListItemClick} audio_path={praticeBasicPageData.audio_path} text_content={praticeBasicPageData.text_content} n={120} color="#70ae6e" />;
     default:
-      return pageData && <MainPageList userSetting={userSetting} test_item={test_item} task_items={task_items} piazza_character={piazza_items} userEnglishLevel={pageData.setting.englishLevel} onListItemClick={handleListItemClick} />;
+      return <ParticePage userSetting={userSetting} scene_items={scene_practice_data[0]} onListItemClick={handlePracticeListItemClick} />;
+      //return pageData && <MainPageList userSetting={userSetting} test_item={test_item} task_items={task_items} piazza_character={piazza_items} userEnglishLevel={pageData.setting.englishLevel} onListItemClick={handleListItemClick} />;
   }
 }
 

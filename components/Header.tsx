@@ -49,8 +49,10 @@ const Header: React.FC<HeaderProps> = ({ selectedPage, onMenuItemSelect }) => {
             setTitle("Concept Base");
         } else if (selectedPage === "quiz") {
             setTitle("Quiz");
+        } else if (selectedPage === "sound wave") {
+            setTitle("Partice Test Page");
         } else{
-            setTitle("Kairos");
+            setTitle("Partice Test Page");
         }
     }, [selectedPage]);
 
@@ -87,10 +89,10 @@ const Header: React.FC<HeaderProps> = ({ selectedPage, onMenuItemSelect }) => {
         <AppBar position="static">
             <Toolbar
                 sx={{
-                    backgroundColor: '#333333',
-                    color: '#FFC300',
+                    backgroundColor: '#edede9',
+                    color: '#333333',
                     '&:hover': {
-                        backgroundColor: '#333333',
+                        backgroundColor: '#edede9',
                     },
                 }}>
                 <Box

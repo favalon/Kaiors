@@ -54,6 +54,7 @@ interface ChatSettings {
     title: string;
     describe: string;
     botName: string;
+    objective: string;
     [key: string]: string;
 }
 
@@ -89,7 +90,8 @@ const ChatPage: React.FC<ChatPageProps> = ({
     const messageListRef = useRef<HTMLDivElement>(null);
     const [lastMessageRef, setLastMessageRef] = useState<null | HTMLDivElement>(null);
     const [loading, setLoading] = useState(false);
-    const [useTTS, setUseTTS] = useState(false);
+    const [useTTS, setUseTTS] = useState(true);
+    const [ttsSpeaking, setTtsSpeaking] = useState(false);
     const [isVoiceInput, setIsVoiceInput] = useState(true);
     const [showWindow, setShowWindow] = useState(false);
     const [functionalButtons, setFunctionalButtons] = useState([
@@ -102,7 +104,9 @@ const ChatPage: React.FC<ChatPageProps> = ({
     const [submitFalg, setSubmitFlag] = useState(false);
     const [isRecording, setIsRecording] = useState<boolean>(false);
     const [autoSubmit, setAutoSubmit] = useState<boolean>(false);
+    const isSynthesizingRef = useRef(false);
 
+    const safeBotChatSettings = botchatSettings || { objective: 'Default Objective' };
 
     const handleSendMessage = () => {
         if (!messageText) {
@@ -405,10 +409,15 @@ const ChatPage: React.FC<ChatPageProps> = ({
 
     );
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [selectedModel, setSelectedModel] = React.useState("en-US-AnaNeural");
+    const [anchorElInfo, setAnchorElInfo] = React.useState(null);
+    const [selectedModel, setSelectedModel] = React.useState("ja-JP-NanamiNeural");
 
     const handleClick = (event: any) => {
         setAnchorEl(event.currentTarget);
+    };
+
+    const handleClickInfo = (event: any) => {
+        setAnchorElInfo(event.currentTarget);
     };
 
     const handleMenuItemClick = (model: any) => {
@@ -416,8 +425,16 @@ const ChatPage: React.FC<ChatPageProps> = ({
         setAnchorEl(null);
     };
 
+    const handleInfoItemClick = (model: any) => {
+        setAnchorElInfo(null);
+    };
+
     const handleClose = () => {
         setAnchorEl(null);
+    };
+
+    const handleInfoClose = () => {
+        setAnchorElInfo(null);
     };
 
     const getModelName = (voiceId:string) => {
@@ -492,6 +509,7 @@ const ChatPage: React.FC<ChatPageProps> = ({
 
                             synthesizer.close();
                             resolve(result);
+
                         } else {
                             synthesizer.close();
                             reject(new Error('Synthesis stopped.'));
@@ -509,16 +527,24 @@ const ChatPage: React.FC<ChatPageProps> = ({
         });
     };
 
+    const filterText = (text:string) => {
+        return text.replace(/[!@#$%^&*]/g, '');
+    };
 
     useEffect(() => {
         const latestMessage = currentMessages[currentMessages?.length - 1];
-
+        console.log('tts check 1');
+        console.log('latestMessage', latestMessage);
+        console.log('isSynthesizingRef', isSynthesizingRef);
         if (latestMessage && !latestMessage.isOwnMessage && useTTS
-            && latestMessage.text !== prevMessages?.text) {
+            && latestMessage.text !== prevMessages?.text && !isSynthesizingRef.current) {
+            
+            // Set the flag to true, indicating synthesis is in progress
+            isSynthesizingRef.current = true;
+            console.log('tts check 2');
             // Set the flag to false, which will stop the previous synthesized audio
             playAudioRef.current = false;
-
-            synthesizeTextToSpeech(latestMessage.text)
+            synthesizeTextToSpeech(filterText(latestMessage.text))
                 .then((result) => {
                     console.log('Text-to-speech synthesis succeeded:', result);
                 })
@@ -526,12 +552,16 @@ const ChatPage: React.FC<ChatPageProps> = ({
                     if (error.message !== 'Synthesis stopped.') {
                         console.error('Text-to-speech synthesis failed:', error);
                     }
+                })
+                .finally(() => {
+                    // Reset the flag when synthesis is done (whether successful or not)
+                    isSynthesizingRef.current = false;
                 });
-
-
+    
         }
-        setPrevMessages(latestMessage)
+        setPrevMessages(latestMessage);
     }, [currentMessages?.length, useTTS, prevMessages]);
+    
 
 
 
@@ -611,6 +641,20 @@ const ChatPage: React.FC<ChatPageProps> = ({
                     </Typography>
                     <Button 
                     sx={{color: '#FFC300'}}
+                    onClick={handleClickInfo}
+                    >查看目标</Button>
+                    <Menu
+                        anchorEl={anchorElInfo}
+                        open={Boolean(anchorElInfo)}
+                        onClose={handleInfoClose}
+                    >
+                        <MenuItem style={{ whiteSpace: 'pre-wrap' }}>
+                            {safeBotChatSettings.objective}
+                        </MenuItem>
+                    </Menu>
+                    
+                    <Button 
+                    sx={{color: '#FFC300'}}
                     onClick={handleClick}
                     >{getModelName(selectedModel)}</Button>
                     <Menu
@@ -618,14 +662,8 @@ const ChatPage: React.FC<ChatPageProps> = ({
                         open={Boolean(anchorEl)}
                         onClose={handleClose}
                     >
-                        <MenuItem onClick={() => handleMenuItemClick('en-US-AmberNeural')}>
-                            Amber
-                        </MenuItem>
-                        <MenuItem onClick={() => handleMenuItemClick('en-US-AnaNeural')}>
-                            Ana
-                        </MenuItem>
-                        <MenuItem onClick={() => handleMenuItemClick('en-US-AriaNeural')}>
-                            Aria
+                        <MenuItem onClick={() => handleMenuItemClick('ja-JP-NanamiNeural')}>
+                            Nanami
                         </MenuItem>
                         <MenuItem onClick={() => handleMenuItemClick('en-US-BrandonNeural')}>
                             Brandon
@@ -635,7 +673,7 @@ const ChatPage: React.FC<ChatPageProps> = ({
                         </MenuItem>
                         {/* Add more MenuItem components for each model you want to include */}
                     </Menu>
-
+                    
                     <IconButton
                         edge="end"
                         color="inherit"
@@ -740,13 +778,13 @@ const ChatPage: React.FC<ChatPageProps> = ({
                 </Box>
 
 
-                {functionalButtons.some((button) => button.isVisible) && (
+                {/* {functionalButtons.some((button) => button.isVisible) && (
                     <FunctionalButtons
                         buttons={functionalButtons}
                         onCreateNote={handleCreateNote}
                         onStartQuiz={handleStartQuiz}
                         onGetResult={handleGetResult} />
-                )}
+                )} */}
                 <Box
                     sx={{
                         display: 'flex',
@@ -946,7 +984,10 @@ const ChatPage: React.FC<ChatPageProps> = ({
             ) : null}
 
             <DraggableWindowContainer>
-                <DraggableWindow showWindow={showWindow} setShowWindow={coloseWindow} />
+                <DraggableWindow showWindow={showWindow} setShowWindow={coloseWindow} volume={0}/>
+            </DraggableWindowContainer>
+            <DraggableWindowContainer>
+                <DraggableWindow showWindow={showWindow} setShowWindow={coloseWindow} volume={0}/>
             </DraggableWindowContainer>
         </>
     );

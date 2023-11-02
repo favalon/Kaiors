@@ -1,0 +1,27 @@
+.soundWave {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    gap: 1px;
+    height: 150px;
+    max-width: 50%;
+    background-color: #333333;
+    overflow: hidden;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#333333 0 -3px 0 inset;
+  }
+  
+  .bar {
+    flex: 1;
+    width: 5px;
+    background-color: '#D2D2D2'; 
+    transition-property: background-color;
+  }
+  
+  .bar[data-color-change="true"] {
+    background-color: #D2D2D2;
+  }
+  

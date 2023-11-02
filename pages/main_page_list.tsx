@@ -108,7 +108,7 @@ const MainPageList: React.FC<MainPageListProps> = ({ userSetting, test_item, tas
                 mx: 'auto',
             }}
         >
-            {userEnglishLevel === 'C2' ? (
+            {userEnglishLevel === 'N2' ? (
 
                 <Box sx={{ width: '100%', maxWidth: '500px' }}>
                     <Box sx={{
@@ -272,7 +272,7 @@ const MainPageList: React.FC<MainPageListProps> = ({ userSetting, test_item, tas
                         mx: 'auto',
                     }}
                 >
-                    <Box sx={{
+                    {/* <Box sx={{
                         display: 'flex',
                         alignItems: 'flex-start',
                         marginLeft: '50px',
@@ -352,8 +352,9 @@ const MainPageList: React.FC<MainPageListProps> = ({ userSetting, test_item, tas
                                 </CardContent>
                             </CardActionArea>
                         </Card>
-                    </Box>
-                    <Box sx={{ width: '100%', maxWidth: '500px' }}>
+                    </Box> */}
+                    
+                    {/* <Box sx={{ width: '100%', maxWidth: '500px' }}>
                         <Box sx={{
                             display: 'flex',
                             alignItems: 'center',
@@ -464,7 +465,8 @@ const MainPageList: React.FC<MainPageListProps> = ({ userSetting, test_item, tas
 
                             ))}
                         </Box>
-                    </Box>
+                    </Box> */}
+
                     <Box sx={{ width: '100%', maxWidth: '500px', }}>
                         <Box sx={{
                             display: 'flex',
@@ -476,7 +478,7 @@ const MainPageList: React.FC<MainPageListProps> = ({ userSetting, test_item, tas
                             <Typography variant="h4" component="h1" gutterBottom
                                 sx={{ fontSize: '30px', fontWeight: 'bold', color: '#333333' }
                                 }>
-                                Kairos Piazza
+                                Interative
                             </Typography>
                         </Box>
                         <Box
@@ -496,14 +498,14 @@ const MainPageList: React.FC<MainPageListProps> = ({ userSetting, test_item, tas
                                     sx={{
                                         maxWidth: '450px',
                                         width: '100%',
-                                        height: '150px',
+                                        height: '100px',
                                         borderRadius: '20px',
                                         mx: '25px',
                                         display: 'flex',
                                         color: '#333333',
                                         boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
                                         opacity: "90%",
-                                        backgroundColor: '#82BE00',
+                                        backgroundColor: '#f4a261',
 
                                     }}
                                 >
@@ -511,18 +513,16 @@ const MainPageList: React.FC<MainPageListProps> = ({ userSetting, test_item, tas
                                         sx={{
                                             display: 'flex',
                                             flexDirection: 'row',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
+                                            alignItems: 'start',
+                                            justifyContent: 'start',
                                         }}
                                     >
                                         <Box sx={{
-                                            width: '150px', height: '100%',
-                                            minWidth: '150px',
-                                            maxWidth: '150px',
+                                            width: '100px', height: '100%',
                                             alignItems: 'end',
                                             justifyContent: 'end',
                                             overflow: 'hidden',
-                                            backgroundColor: '#333333',
+                                            backgroundColor: '#f4a261',
                                             borderRadius: '20px 0px 0px 0px ',
                                         }}>
                                             <CardMedia
@@ -535,11 +535,11 @@ const MainPageList: React.FC<MainPageListProps> = ({ userSetting, test_item, tas
                                         </Box>
                                         <CardContent sx={{ marginLeft: "20px" }}>
                                             <Typography gutterBottom variant="h5" component="div"
-                                                sx={{ fontWeight: 'bold', color: '#333333', fontSize: 'clamp(14px, 4vw, 24px)' }}
+                                                sx={{ fontWeight: 'bold', color: '#000000', fontSize: 'clamp(14px, 4vw, 24px)' }}
                                             >
                                                 {item.title || 'Default title'}
                                             </Typography>
-                                            <Typography variant="body2" color="#EEEEEE">
+                                            <Typography variant="body2" color="#333333">
                                                 {item.description || 'Default description'}
                                             </Typography>
                                         </CardContent>
@@ -549,7 +549,7 @@ const MainPageList: React.FC<MainPageListProps> = ({ userSetting, test_item, tas
                             ))}
                         </Box>
                     </Box>
-                    <Box sx={{ width: '100%', maxWidth: '500px', }}>
+                    {/* <Box sx={{ width: '100%', maxWidth: '500px', }}>
                         <Box sx={{
                             display: 'flex',
                             alignItems: 'flex-start',
@@ -720,7 +720,7 @@ const MainPageList: React.FC<MainPageListProps> = ({ userSetting, test_item, tas
 
                             
                         </Box>
-                    </Box>
+                    </Box> */}
                 </Box>
             )}
 
