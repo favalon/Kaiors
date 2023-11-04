@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 //import ChatPage from '../pages/home';
 import ChatPage from "@/pages/chat_page";
+import WorkChatPage from "@/pages/work_chat_page";
 import ConceptBase from '../pages/concept_base';
 import Settings from '@/pages/settings';
 import AudioRecorder from "./AudioRecorder";
@@ -11,7 +12,8 @@ import scene_practice_data from "@/public/jp_practice_data/info.json";
 import AboutPage from "@/pages/AboutPage";
 import AccountPage from "@/pages/live2D";
 import PracticeBasic from "@/pages/practice_basic";
-import ParticePage from "@/pages/partice_list";
+import InterativeListPage from "@/pages/interative_list_page";
+import WorkPage from "@/pages/work_page";
 
 interface MainPageProps {
   selectedPage: string;
@@ -54,13 +56,13 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
 
   console.log("pageData", scene_practice_data[0])
   const [chatSettings, setChatSettings] = useState<any>(null);
-  const [taskItem, setTaskItems] = useState<CharacterSetting>();
-  const [piazzaCharacter, setPiazzaCharacter] = useState<CharacterSetting>();
   const [chatPageData, setChatPageData] = useState<ChatPageData>({} as ChatPageData);
-  const [praticeBasicPageData, setPraticeBasicPageData] = useState<any>(null);
   const [messages, setMessages] = useState<Message[]>([]);
-  // Initialize allMessages state with data from local storage
   const [allMessages, setAllMessages] = useState<ChatPageData[]>([]);
+
+  const [practiceBasicPageData, setPracticeBasicPageData] = useState<any>(null);
+  const [practiceChatData, setPracticeChatData] = useState<any>(null);
+
 
 
   // Helper function to save allMessages to local storage
@@ -131,111 +133,6 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
       });
     }
   }, [pageData]);
-
-  const test_item = {
-    id: 1,
-    imageUrl: '/mentor1.png',
-    title: 'Get Your English Level',
-    description: '',
-    chatSettings: {
-      bot: {
-        botName: "Kairos",
-        title: "Get Your English Level",
-        description: basic_value.role_setting.test,
-        quiz: basic_value.role_setting.quiz,
-        objective: "objective",
-        imageUrl: '/mentor1.png',
-        createNote: basic_value.role_setting.create_note,
-        getResult: basic_value.role_setting.get_level,
-      },
-      user: userSetting
-    },
-    show: true
-  }
-
-  const task_items = [
-    {
-      id: 1,
-      imageUrl: '/mentor1.png',
-      title: 'The influence of the internet on the way we communicate',
-      description: '',
-      chatSettings: {
-        bot: {
-          botName: "Kairos",
-          title: "The influence of the internet on the way we communicate",
-          description: basic_value.role_setting.concept,
-          quiz: basic_value.role_setting.quiz,
-          objective: "objective",
-          imageUrl: '/mentor1.png',
-          createNote: basic_value.role_setting.create_note,
-          getResult: basic_value.role_setting.get_level,
-        },
-        user: userSetting
-      },
-      show: true
-    },
-    {
-      id: 2,
-      imageUrl: '/mentor2.png',
-      title: 'Alpha and Beta testing',
-      description: '',
-      chatSettings: {
-        bot: {
-          botName: "Kairos",
-          title: "Alpha and Beta testing",
-          description: basic_value.role_setting.concept,
-          objective: "objective",
-          quiz: basic_value.role_setting.quiz,
-          imageUrl: '/mentor2.png',
-          createNote: basic_value.role_setting.create_note,
-          getResult: basic_value.role_setting.get_level,
-        },
-        user: userSetting
-      },
-      show: true
-    },
-    {
-      id: 3,
-      imageUrl: '/mentor3.png',
-      title: 'Bitcoin',
-      description: '',
-      chatSettings: {
-        bot: {
-          botName: "Kairos",
-          title: "Bitcoin",
-          description: basic_value.role_setting.concept,
-          quiz: basic_value.role_setting.quiz,
-          objective: "objective",
-          imageUrl: '/mentor3.png',
-          createNote: basic_value.role_setting.create_note,
-          getResult: basic_value.role_setting.get_level,
-        },
-        user: userSetting
-      },
-      show: true
-    },
-    {
-      id: 4,
-      imageUrl: '/mentor4.png',
-      title: 'The History of the Internet',
-      description: '',
-      chatSettings: {
-        bot: {
-          botName: "Kairos",
-          title: "The History of the Internet",
-          description: basic_value.role_setting.concept,
-          quiz: basic_value.role_setting.quiz,
-          objective: "objective",
-          imageUrl: '/mentor4.png',
-          createNote: basic_value.role_setting.create_note,
-          getResult: basic_value.role_setting.get_level,
-        },
-        user: userSetting
-      },
-      show: true
-    }
-    // ... more items
-  ];
 
   const piazza_items = [
     {
@@ -333,43 +230,6 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
       },
       show: true
     },
-    // {
-    //   id: 1,
-    //   imageUrl: '/dnd.png',
-    //   title: 'Dungeon Master',
-    //   description: 'Hello adventurers, prepare to embark on an epic journey in Harray Potter World.',
-    //   chatSettings: {
-    //     bot: {
-    //       botName: "Kairos",
-    //       title: "Dungeon Master",
-    //       description: basic_value.role_setting.dnd,
-    //       imageUrl: '/dnd.png',
-    //       createNote: basic_value.role_setting.create_note,
-    //       getResult: basic_value.role_setting.get_level,
-    //     },
-    //     user: userSetting
-    //   },
-    //   show: true
-    // },
-    // {
-    //   id: 2,
-    //   imageUrl: '/character.png',
-    //   title: 'Makise Kurisu',
-    //   description: "Tuturu! I am Makise Kurisu, a brilliant scientist with a background in neuroscience and time travel research. ",
-    //   chatSettings: {
-    //     bot: {
-    //       botName: "Kairos",
-    //       title: "Amadeus",
-    //       description: basic_value.role_setting.character,
-    //       imageUrl: '/character.png',
-    //       createNote: basic_value.role_setting.create_note,
-    //       getResult: basic_value.role_setting.get_level,
-    //     },
-    //     user: userSetting
-    //   },
-    //   show: true
-    // },
-    // // ... more items
   ];
 
   const handleListItemClick = (item: CharacterSetting) => {
@@ -386,13 +246,25 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
     setSelectPage("chat");
   };
 
+  const handleInterativeListItemClick = (item: any) => {
+    setChatPageData(
+      {
+        id: item.title,
+        title: item.title,
+        chatSettings: item.chatSettings,
+        messages: allMessages.find((chat) => chat.id === item.title)?.messages || []
+      }
+    );
+    setSelectPage("practice");
+  }
+
   const handlePracticeListItemClick = (item: any) => {
 
     // Update chatPageData
-    setPraticeBasicPageData(
+    setPracticeBasicPageData(
       {
         audio_path: item.wav_path,
-        text_content:{
+        text_content: {
           jp_text: item.jp_text,
           zh_text: item.zh_text,
           roma_text: item.roma_text,
@@ -403,7 +275,7 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
       }
     );
 
-    setSelectPage("practice basic");
+    setSelectPage("practice");
   };
 
   const handleBackClick = () => {
@@ -434,47 +306,49 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
       setShowHeader(false);
     } else {
 
-      setShowHeader(true); 
+      setShowHeader(false);
     }
   }, [selectedPage]);
 
   switch (selectedPage) {
-    case "account":
-      
-      return <AccountPage />
-    case "setting":
-      return <Settings pageData={pageData} setPageData={setPageData} />;
-    case "concept base":
-      return pageData && <ConceptBase pageData={pageData} setPageData={setPageData} />;
-    case "main":
-      return pageData && <MainPageList userSetting={userSetting} 
-                                      test_item={test_item} 
-                                      task_items={task_items} 
-                                      piazza_character={piazza_items} 
-                                      userEnglishLevel={pageData.setting.englishLevel}
-                                       onListItemClick={handleListItemClick} />;
-    case "chat":
-      return <ChatPage
-        key={chatPageData.messages.length}
-        chatName={chatPageData.title || "Chat Name"}
-        messages={chatPageData.messages}
-        botchatSettings={chatPageData.chatSettings.bot}
-        userChatSettings={chatPageData.chatSettings.user}
+    // case "account":
+    //   return <AccountPage />
+    // case "setting":
+    //   return <Settings pageData={pageData} setPageData={setPageData} />;
+    // case "concept base":
+    //   return pageData && <ConceptBase pageData={pageData} setPageData={setPageData} />;
+    // case "main":
+    //   return pageData && <InterativeListPage interative_scene={piazza_items} onListItemClick={handleListItemClick} />;
+    // case "chat":
+    //   return <ChatPage
+    //     key={chatPageData.messages.length}
+    //     chatName={chatPageData.title || "Chat Name"}
+    //     messages={chatPageData.messages}
+    //     botchatSettings={chatPageData.chatSettings.bot}
+    //     userChatSettings={chatPageData.chatSettings.user}
+    //     pageData={pageData}
+    //     setPageData={setPageData}
+    //     setMessages={setMessages}
+    //     onReset={handleResetClick}
+    //     onBackClick={handleBackClick}
+    //     onSendMessage={handleSendMessage}
+    //   />
+    case "about":
+      return <AboutPage />;
+    case "practice":
+      return <WorkPage
+        work_data={scene_practice_data[0].partice}
+        practice_page_data={practiceBasicPageData}
+        chat_page_data={chatPageData}
+        onListItemClick={handlePracticeListItemClick}
         pageData={pageData}
         setPageData={setPageData}
         setMessages={setMessages}
         onReset={handleResetClick}
         onBackClick={handleBackClick}
-        onSendMessage={handleSendMessage}
-      />
-    case "about":
-      return <AboutPage />;
-    
-    case "practice basic":
-      return <PracticeBasic  userSetting={userSetting} scene_items={scene_practice_data[0]} onListItemClick={handlePracticeListItemClick} audio_path={praticeBasicPageData.audio_path} text_content={praticeBasicPageData.text_content} n={120} color="#70ae6e" />;
+        onSendMessage={handleSendMessage}/>;
     default:
-      return <ParticePage userSetting={userSetting} scene_items={scene_practice_data[0]} onListItemClick={handlePracticeListItemClick} />;
-      //return pageData && <MainPageList userSetting={userSetting} test_item={test_item} task_items={task_items} piazza_character={piazza_items} userEnglishLevel={pageData.setting.englishLevel} onListItemClick={handleListItemClick} />;
+      return <InterativeListPage interative_scene={piazza_items} onListItemClick={handleInterativeListItemClick} />;
   }
 }
 

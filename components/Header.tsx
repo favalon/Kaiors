@@ -29,7 +29,7 @@ const Header: React.FC<HeaderProps> = ({ selectedPage, onMenuItemSelect }) => {
 
     useEffect(() => {
         if (selectedPage === "mian") {
-            setTitle("Kairos");
+            setTitle("主页");
         } else if (selectedPage === "chat") {
             setTitle("Kairos");
             setIcon(ChatIcon);
@@ -52,7 +52,7 @@ const Header: React.FC<HeaderProps> = ({ selectedPage, onMenuItemSelect }) => {
         } else if (selectedPage === "sound wave") {
             setTitle("Partice Test Page");
         } else{
-            setTitle("Partice Test Page");
+            setTitle("主页");
         }
     }, [selectedPage]);
 

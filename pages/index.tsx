@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Box } from '@mui/material';
 import MainPage from '@/components/MainPage';
 import Header from 'components/Header';
 import { PageData } from 'components/types';
 import styles from '@/styles/MainPageList.module.css';
+import LeftSideMenu from '@/components/LeftSideMenu';
 
 const fetchBasicValue = async () => {
     const response = await fetch('/basic_value.json');
@@ -53,26 +55,31 @@ const Home: React.FC = () => {
         }
     }, [pageData]);
 
+    console.log("selectedPage 1234", selectedPage);
 
 
     return (
         <ThemeProvider theme={theme}>
-            {showHeader && (
-                <div>
-                    <Header selectedPage={selectedPage} onMenuItemSelect={handleMenuItemSelect} />
-                </div>
-            )}
-            {Object.keys(pageData).length > 0 && (
-                <div className={styles.allWidth}>
-                    <MainPage
-                        setShowHeader={setShowHeader}
-                        selectedPage={selectedPage}
-                        setSelectPage={setSelectedPage}
-                        pageData={pageData}
-                        setPageData={setPageData}
-                    />
-                </div >
-            )}
+            <Box sx={{ display: 'flex', width: '100%', backgroundColor: '#faf6f6', overflow: 'hidden'}}>
+                {/* LeftSideMenu with fixed width of 5% */}
+                <Box sx={{ width: '6%', flexShrink: 0}}>
+                    <LeftSideMenu onSelect={handleMenuItemSelect} />
+                </Box>
+                {/* MainPage taking the rest of the width */}
+                <Box sx={{ flexGrow: 1, width: '95%' }}>
+                    {Object.keys(pageData).length > 0 && (
+                        <div className={styles.allWidth}>
+                            <MainPage
+                                setShowHeader={setShowHeader}
+                                selectedPage={selectedPage}
+                                setSelectPage={setSelectedPage}
+                                pageData={pageData}
+                                setPageData={setPageData}
+                            />
+                        </div>
+                    )}
+                </Box>
+            </Box>
         </ThemeProvider>
     );
 

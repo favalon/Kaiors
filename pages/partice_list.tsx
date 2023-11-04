@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import {
     Box,
     Card,
@@ -9,37 +9,41 @@ import {
     LinearProgress,
     TextField
 } from '@mui/material';
-import styles from '@/styles/MainPageList.module.css';
-import { width } from '@mui/system';
-import basic_value from "@/public/basic_value.json";
+import CircularProgress from '@mui/material/CircularProgress';
 
 
-interface PraticePageProps {
-    userSetting: any;
+
+interface PraticeListProps {
     scene_items: any;
     onListItemClick: (chatSettings: any) => void;
 }
 
 
-const PraticePage: React.FC<PraticePageProps> = ({ userSetting, scene_items, onListItemClick }) => {
+const PraticeList: React.FC<PraticeListProps> = ({scene_items, onListItemClick }) => {
 
     console.log("scene_items", scene_items)
     const safeSceneItems = scene_items || { partice: [] };
 
+    // Conditional rendering based on the data
+    if (!scene_items?.length) {
+        // Show loading only if the data is undefined or the array is empty
+        return (
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <CircularProgress />
+            </Box>
+        );
+    }
     return (
-            
         <Box
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                //gap: '2px',
-                my: '5px',
                 width: '100%',
             }}
         >
-            {Array.from(safeSceneItems.partice || []).map((item: any, idx: number) => (
+            {scene_items.map((item: any, idx: any) => (
                 <Card
                     onClick={() => onListItemClick(item)}
                     key={item.id}
@@ -69,13 +73,6 @@ const PraticePage: React.FC<PraticePageProps> = ({ userSetting, scene_items, onL
                                 }}>
                                 {idx || '0'}
                         </Typography>
-                    {/* <Box sx={{
-                            width: '100%', height: '10px',
-                            backgroundColor: '#70ae6e',
-                            margin: '0px',
-                            padding: '0px',
-                        }}> 
-                    </Box> */}
                     <CardActionArea
                         sx={{
                             display: 'flex',
@@ -115,4 +112,4 @@ const PraticePage: React.FC<PraticePageProps> = ({ userSetting, scene_items, onL
 };
 
 
-export default PraticePage;
+export default PraticeList;

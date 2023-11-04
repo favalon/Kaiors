@@ -273,7 +273,7 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
           sx={{
             marginRight: isOwnMessage ? '8px' : '2px',
             marginLeft: isOwnMessage ? '2px' : '8px',
-            backgroundColor: isOwnMessage ? '#FFC300' : '#ffffff',
+            backgroundColor: isOwnMessage ? '#70ae6e' : '#ffffff',
           }}
         />
         <Box
@@ -285,7 +285,7 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
             py: '4px',
             mx: '8px',
             borderRadius: '12px',
-            backgroundColor: isOwnMessage ? '#FFC300' : '#ffffff',
+            backgroundColor: isOwnMessage ? '#70ae6e' : '#ffffff',
             color: isOwnMessage ? '#fff' : '#333333',
             maxWidth: '75%',
             wordBreak: 'break-word',
@@ -294,7 +294,7 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
               position: 'absolute',
               width: '12px',
               height: '12px',
-              backgroundColor: isOwnMessage ? '#FFC300' : '#ffffff',
+              backgroundColor: isOwnMessage ? '#70ae6e' : '#ffffff',
               borderRadius: '50%',
               bottom: '2px',
               right: isOwnMessage ? '-7px' : 'auto',
@@ -429,7 +429,7 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
         >
           <DialogTitle
             sx={{
-              backgroundColor: '#FFC300',
+              backgroundColor: '#70ae6e',
               color: '#333333',
               padding: '4px',
               minWidth: '300px',
@@ -441,7 +441,7 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
           <DialogContent
             sx={{
               //backgroundColor: '#333333',
-              //color: '#FFC300',
+              //color: '#70ae6e',
               minWidth: '300px',
               minHeight: '100px',
               padding: '8px',

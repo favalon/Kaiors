@@ -5,6 +5,7 @@ import {
   ListItemIcon,
   ListItemText,
   Drawer,
+  Box
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
@@ -18,7 +19,7 @@ import BlurOnIcon from '@mui/icons-material/BlurOn';
 import { color } from '@mui/system';
 
 interface LeftSideMenuProps {
-    onSelect: (selectedItem: string) => void;
+  onSelect: (selectedItem: string) => void;
 }
 
 const LeftSideMenu: React.FC<LeftSideMenuProps> = ({ onSelect }) => {
@@ -30,12 +31,11 @@ const LeftSideMenu: React.FC<LeftSideMenuProps> = ({ onSelect }) => {
   };
 
   const menuItems = [
-    { label: 'Main Page', value: 'main', icon: <HomeIcon /> },
-    { label: 'Partice Test Page', value: 'sound wave', icon: <AboutIcon /> },
+    { label: '主页', value: 'main', icon: <HomeIcon /> },
     // { label: 'Concept Base', value: 'concept base', icon: <BlurOnIcon /> },
     // { label: 'Account', value: 'account', icon: <AccountIcon /> },
     // { label: 'Setting', value: 'setting', icon: <SettingIcon /> },
-    { label: 'About', value: 'about', icon: <AboutIcon /> },
+    { label: '关于', value: 'about', icon: <AboutIcon /> },
   ];
 
   const toggleDrawer = () => {
@@ -44,34 +44,27 @@ const LeftSideMenu: React.FC<LeftSideMenuProps> = ({ onSelect }) => {
 
   return (
     <>
-      <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer}>
-        <MenuIcon />
-      </IconButton>
-      <Drawer
-        anchor="left"
-        open={menuOpen}
-        onClose={toggleDrawer}
-        PaperProps={{
-          sx: {
-            backgroundColor: '#edede9',
-            width: '20%',
-            minWidth: '200px',
-          },
-        }}
-        SlideProps={{
-          unmountOnExit: true,
+      <Box
+        sx={{
+          width: 'auto', // Width of the side menu
+          height: '100vh', // Full viewport height
+          backgroundColor: '#edede9',
+          overflow: 'auto',
+          borderRadius: '20px',
+          margin: '5px',
         }}
       >
+        {/* Menu items */}
         {menuItems.map((item, index) => (
           <ListItem
             button
             key={index}
-            onClick={() => {
-              handleMenuItemClick(item.value);
-              toggleDrawer();
-            }}
+            onClick={() => handleMenuItemClick(item.value)}
             sx={{
               backgroundColor: '#edede9',
+              width: 'auto',
+              alignItems: 'center',
+              justifyContent: 'center',
               color: '#333333',
               '&:hover': {
                 backgroundColor: '#70ae6e',
@@ -79,18 +72,17 @@ const LeftSideMenu: React.FC<LeftSideMenuProps> = ({ onSelect }) => {
             }}
           >
             <ListItemIcon
-            // sx={{
-            //     backgroundColor: '#edede9',
-            //     color: '#333333',
-            //     '&:hover': {
-            //       backgroundColor: '#70ae6e',
-            //     },
-            //   }}
+            sx={{
+              color: '#000000',
+              width: 'auto',
+              height: '50px',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
             >{item.icon}</ListItemIcon>
-            <ListItemText primary={item.label} />
           </ListItem>
         ))}
-      </Drawer>
+      </Box>
     </>
   );
 };

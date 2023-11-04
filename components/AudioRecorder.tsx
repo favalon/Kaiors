@@ -127,9 +127,9 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ messageText, isRecording,
       onPointerUp={handleStopRecording}
       onPointerCancel={handleStopRecording}
       onContextMenu={(e) => e.preventDefault()}
-      className={`${styles.button} ${styles.holdToTalk} `}
+      className={`${styles.button} ${styles.holdToTalk2} `}
     >
-      Hold to Record
+      按住录音
     </button>
 
   );

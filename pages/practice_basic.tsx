@@ -1,10 +1,9 @@
 import SoundWave from 'components/SoundWave';
 import Box from '@mui/material/Box'; // Assuming you're using MUI's Box component
 import React, { useState, useEffect } from "react";
-import PraticePage from './partice_list';
+import PraticeList from './partice_list';
 
 interface PracticeBasicProps {
-    userSetting: any;
     scene_items: any;
     onListItemClick: (chatSettings: any) => void;
     audio_path: string;
@@ -13,7 +12,7 @@ interface PracticeBasicProps {
     color: string;
 }
 
-const PracticeBasic: React.FC<PracticeBasicProps> = ({ userSetting,  scene_items, onListItemClick, audio_path, text_content, n, color  }) => {
+const PracticeBasic: React.FC<PracticeBasicProps> = ({ scene_items, onListItemClick, audio_path, text_content, n, color  }) => {
   return (
     <Box
     sx={{
@@ -32,7 +31,7 @@ const PracticeBasic: React.FC<PracticeBasicProps> = ({ userSetting,  scene_items
             height: '100vh',    // Optional, make the box take the full viewport height
         }}
     >
-        <PraticePage userSetting={userSetting} scene_items={scene_items} onListItemClick={onListItemClick} />
+        <PraticeList scene_items={scene_items} onListItemClick={onListItemClick} />
     </Box>
     <SoundWave audioPath={audio_path} text_content={text_content} n={n} color={color} />
 </Box>
