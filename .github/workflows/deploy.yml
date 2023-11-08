@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 jobs:
@@ -18,12 +18,29 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: 18
+    
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2.2.4
+      with:
+        version: 8
+        run_install: false
 
     - name: Install dependencies
-      run: yarn
+      run: pnpm install
+
+    - name: Create env files
+      run: |
+        cat << EOF >> .env
+        OPENAI_API_KEY = "sk-mytestkey"
+        PINECONE_API_KEY = "mytestkey"
+        PINECONE_ENVIRONMENT = "eu-west1-gcp"
+        PINECONE_INDEX_NAME = "langchiantest"
+        REACT_APP_AZURE_SPEECH_KEY = 'mytestkey'
+        REACT_APP_AZURE_SPEECH_REGION = 'eastus'
+        EOF
 
     - name: Build
-      run: yarn run build
+      run: pnpm run build
 
     - name: Deploy to VPS
       uses: appleboy/ssh-action@v0.1.10
