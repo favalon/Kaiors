@@ -11,14 +11,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { request_message} = req.body;
 
     try {
-      // const messages = [
-      //   { role: "system", content: role_setting },
-      //   ...history.map(({ role, message }: { role: string; message: string }) => ({
-      //     role,
-      //     content: message,
-      //   })),
-      //   { role: "user", content: question },
-      // ];
       
       const completion = await openai.createChatCompletion({
         model: 'gpt-3.5-turbo',

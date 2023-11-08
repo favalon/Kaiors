@@ -13,11 +13,10 @@ interface FormattedMessageProps {
     chat_history: Message[];
     history_messages: Message[];
     roleSettings: string;
-    title: string;
     userName: string;
-    userEnglishLevel: string;
-    userLanguage: string;
+    title: string;
     botName: string;
+    objective: string;
     [key: string]: any;
 }
 
@@ -25,11 +24,9 @@ const FormattedMessage = ({
     chat_history,
     history_messages,
     roleSettings,
-    title,
     userName,
-    userEnglishLevel,
-    userLanguage,
     botName,
+    objective,
     functionMessage,
   }: FormattedMessageProps): { role: string; content: string; }[] => {
 
@@ -51,52 +48,16 @@ const FormattedMessage = ({
     }, '');
     formattedMessages = "\n" + formattedMessages + "\n";
 
-    //place name 
-    const dnd_places = [
-        "Privet Drive",
-        "Hogwarts School of Witchcraft and Wizardry",
-        "Diagon Alley",
-        "Hogsmeade",
-        "Godric's Hollow",
-        "Azkaban",
-        "Ministry of Magic",
-        "The Burrow",
-        "Platform Nine and Three-Quarters",
-        "Forbidden Forest",
-        "Gringotts Wizarding Bank",
-        "St. Mungo's Hospital for Magical Maladies and Injuries",
-        "The Leaky Cauldron",
-        "The Great Hall",
-        "The Room of Requirement",
-        "The Chamber of Secrets",
-        "The Forbidden Corridor",
-        "The Quidditch Pitch",
-        "The Astronomy Tower",
-        "The Shrieking Shack",
-        "The Triwizard Maze",
-        "The Department of Mysteries",
-        "The Battle of Hogwarts"
-      ];
-      
-
+    
     const getRandomValue = (list: string | any[]) => list[Math.floor(Math.random() * list.length)];
 
     const replaceSettings = {
-        "topic": title,
-        "chat_history": formattedMessages,
         "user_name": userName,
-        "user_english_level": userEnglishLevel,
-        "language": userLanguage,
         "bot_name": botName,
-        "reading_skill": getRandomValue(quiz_values.reading_skill),
-        "grammer_point": getRandomValue(quiz_values.grammar_point),
-        "question_type": getRandomValue(quiz_values.question_type),
-        "dnd_take_place":getRandomValue(dnd_places),
-        "dnd_arrive_place":getRandomValue(dnd_places),
         "function_message":functionMessage,
+        "objective":objective
     };
 
-    
 
     const replacedTemplate = replacePlaceholders(roleSettings, replaceSettings);
 
@@ -107,6 +68,8 @@ const FormattedMessage = ({
             content: message.text,
         })),
       ];
+    
+    console.log("messages:  123123 ", messages);
 
     return messages
 

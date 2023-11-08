@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      background: transparent; /* Make background transparent */
+      overflow: hidden; /* Hide scrollbars */
+    }
+
+    #account-page-container {
+      width: 100%;
+      height: 100%;
+      /* Any additional styling for your container */
+    }
+  </style>
+  <script src="https://unpkg.com/core-js-bundle@3.6.1/minified.js"></script>
+  <script src="/Core/live2dcubismcore.js"></script>
+  <script src="/bundle.js"></script>
+</head>
+<body>
+  <div id="account-page-container">
+    <!-- Content of your account page goes here -->
+  </div>
+
+  <script>
+
+    // Default background image URL
+    // var defaultBackgroundImageUrl = 'https://cdna.artstation.com/p/assets/images/images/022/521/258/original/bogdan-mb0sco-coffee-shop-animationfullhd.gif?1575731432';
+
+    // Event listener to handle the volume message
+    window.addEventListener('message', function (event) {
+      if (event.data && typeof event.data.volume !== 'undefined') {
+        const volumeValue = parseFloat(event.data.volume);
+        updateVolume(volumeValue);
+      }
+
+      if (event.data && typeof event.data.expression !== 'undefined' && typeof event.data.motion !== 'undefined') {
+        setExpression(event.data.expression);
+        setMotion(event.data.motion)
+      }
+
+      // Check for background image data
+      if (event.data && typeof event.data.backgroundImage !== 'undefined') {
+        const newBackgroundImageUrl = event.data.backgroundImage;
+        changeBackgroundImage(newBackgroundImageUrl);
+      }
+    });
+  </script>
+</body>
+
+</html>

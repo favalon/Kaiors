@@ -42,7 +42,7 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
   const [showFunctionArea, setShowFunctionArea] = useState(false);
   const [roleSettings, setRoleSettings] = useState(" ");
   const grammer_role = "Act as a grammar check, check the input grammar problem, and explain it only in Chinese.\nInput:${function_message}";
-  const translate_role = "Act as a translator, translating the user input between Chinese and English. Only Response with target language result. \nTranslate the following : ${function_message}";
+  const translate_role = "Act as a translator, translating the user to Chinese. \nTranslate the following : ${function_message}";
   const tips_role = "Give me 1 breif reply to keep the conversation continue, no more than 15 tokens, for the following: '${function_message}'";
   const [resultString, setResultString] = useState(" ");
   const [resultTitle, setResultTitle] = useState(" ");
@@ -101,9 +101,8 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
       history_messages: [],
       roleSettings: roleSettings,
       title: "Functional button",
+      objective: "Your objective here",
       userName: "",
-      userEnglishLevel: "",
-      userLanguage: "",
       botName: "",
       functionMessage: message.text,
     });
@@ -112,7 +111,7 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
     console.log('send-messages:', request_message)
 
     // Send user question and history to API
-    const response = await fetch('/api/chat1', {
+    const response = await fetch('/api/chat_azure', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -121,6 +120,7 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
       ),
     });
 
+    console.log('fetch', response, "azure")
 
     if (!response.ok) {
       console.log('response not ok');
@@ -263,7 +263,7 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
         sx={{
           display: 'flex',
           flexDirection: isOwnMessage ? 'row-reverse' : 'row',
-          alignItems: 'flex-start',
+          //flexDirection: 'row',
           my: '12px',
         }}
       >
@@ -271,38 +271,41 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
           alt={message.senderName}
           src={message.senderImage}
           sx={{
-            marginRight: isOwnMessage ? '8px' : '2px',
-            marginLeft: isOwnMessage ? '2px' : '8px',
+            marginRight: isOwnMessage ? '8px' : '8px',
+            marginLeft: isOwnMessage ? '8px' : '8px',
             backgroundColor: isOwnMessage ? '#70ae6e' : '#ffffff',
           }}
         />
         <Box
           onClick={handleOnClick}
-
           sx={{
             position: 'relative',
             px: '12px',
             py: '4px',
             mx: '8px',
             borderRadius: '12px',
-            backgroundColor: isOwnMessage ? '#70ae6e' : '#ffffff',
+            backgroundColor: isOwnMessage ? '#70ae6e' : 'white',
             color: isOwnMessage ? '#fff' : '#333333',
-            maxWidth: '75%',
+            maxWidth: '100%',
             wordBreak: 'break-word',
             '&::before': {
               content: "''",
               position: 'absolute',
               width: '12px',
               height: '12px',
-              backgroundColor: isOwnMessage ? '#70ae6e' : '#ffffff',
+              backgroundColor: isOwnMessage ? '#70ae6e' : 'white',
               borderRadius: '50%',
               bottom: '2px',
-              right: isOwnMessage ? '-7px' : 'auto',
-              left: isOwnMessage ? 'auto' : '-7px',
-              clipPath: isOwnMessage
-                ? 'polygon(0% 0%, 100% 50%, 0% 100%)'
-                : 'polygon(0% 50%, 100% 0%, 100% 100%)',
+              // right: isOwnMessage ? '-7px' : 'auto',
+              // left: isOwnMessage ? 'auto' : '-7px',
+              // clipPath: isOwnMessage
+              //   ? 'polygon(0% 0%, 100% 50%, 0% 100%)'
+              //   : 'polygon(0% 50%, 100% 0%, 100% 100%)',
 
+            },
+            fontSize: '1.25em', // Increase the base font size
+            '& *': { // This ensures all child elements will inherit the base font size unless they have a specific font size set
+              fontSize: 'inherit',
             },
 
             '& h1': { fontSize: '2em', margin: '0.67em 0' },
@@ -310,7 +313,6 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
             '& h3': { fontSize: '1.17em', margin: '1em 0' },
             '& h4': { fontSize: '1em', margin: '1.33em 0' },
             '& h5': { fontSize: '0.83em', margin: '1.67em 0' },
-            '& h6': { fontSize: '0.67em', margin: '2.33em 0' },
 
           }}
         >
@@ -321,7 +323,7 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
           {showOptions && (
             <Box
               sx={{
-                borderTop: isOwnMessage ? '1px solid #fff' : '1px solid #333333',
+                // borderTop: isOwnMessage ? '1px solid #fff' : '1px solid #333333',
                 display: 'flex',
                 flexDirection: 'row',
                 mx: '8px',

@@ -1,27 +1,97 @@
+.soundWaveContainer {
+  position: relative;
+  max-width: 85%;
+  margin: auto;
+}
+
 .soundWave {
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    margin-bottom: 10px;
-    border-radius: 20px;
-    padding-left: 30px;
-    padding-right: 30px;
-    gap: 1px;
-    height: 150px;
-    max-width: 90%;
-    background-color: #333333;
-    overflow: hidden;
-    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#333333 0 -3px 0 inset;
-  }
-  
-  .bar {
-    flex: 1;
-    width: 5px;
-    background-color: '#D2D2D2'; 
-    transition-property: background-color;
-  }
-  
-  .bar[data-color-change="true"] {
-    background-color: #D2D2D2;
-  }
-  
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  border-radius: 20px;
+  gap: 1px;
+  height: 150px;
+  background-color: #333333;
+  overflow: hidden;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #333333 0 -3px 0 inset;
+}
+
+.bar {
+  flex: 1;
+  width: 5px;
+  background-color: '#D2D2D2';
+  transition-property: background-color;
+}
+
+.bar[data-color-change="true"] {
+  background-color: #D2D2D2;
+}
+
+
+.soundWaveButton {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Button styling */
+}
+
+.soundWave:hover .soundWaveButton {
+  display: block;
+}
+
+.soundWaveOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0; /* Ensures it spans the full width of the parent */
+  bottom: 0; /* Ensures it spans the full height of the parent */
+  pointer-events: none; /* Allows clicks to pass through to the elements below */
+  border-radius: 20px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1px;
+  overflow: hidden;
+}
+
+.represent_image {
+  margin: 00px;
+  width: 90%;
+  height: 300px;
+  border-radius: 10px;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #333333 0 -3px 0 inset;
+}
+
+.represent_image_alt {
+  width: 90%;
+  height: 300px;
+  border-radius: 10px;
+  display: flex;        /* Declare the container as a flex container */
+  align-items: center;  /* Center children along the cross axis */
+  justify-content: center; /* Center children along the main axis */
+  font-size: 3.0rem;
+  background-color: #70ae6e;
+  color: #FFFFFF;
+  padding: 50px;
+  font-weight: bold;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #333333 0 -3px 0 inset;
+}
+
+.scoreTypo {
+  position: absolute;
+  width: 80px;
+  height: 50px;
+  display: flex;        /* Declare the container as a flex container */
+  align-items: center;  /* Center children along the cross axis */
+  justify-content: center; /* Center children along the main axis */
+  top: 0;
+  right: 20px;
+  font-size: 1.4rem;
+  background-color: #ffc300;
+  font-weight: bold;
+  color: #333333;
+  padding: 10px;
+  border-radius: 0px 0px 20px 20px;
+}

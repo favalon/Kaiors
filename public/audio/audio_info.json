@@ -1,0 +1,427 @@
+{
+    "hiragana_a": {
+        "easy": [
+            { "jp_text": "あめ", "zh_text": "雨", "roma_text": "a me" },
+            { "jp_text": "あおい", "zh_text": "蓝色的", "roma_text": "aoi" },
+            { "jp_text": "いぬ", "zh_text": "狗", "roma_text": "inu" },
+            { "jp_text": "いす", "zh_text": "椅子", "roma_text": "isu" },
+            { "jp_text": "うた", "zh_text": "歌", "roma_text": "uta" },
+            { "jp_text": "うみ", "zh_text": "海", "roma_text": "umi" },
+            { "jp_text": "えいが", "zh_text": "电影", "roma_text": "eiga" },
+            { "jp_text": "えき", "zh_text": "车站", "roma_text": "eki" },
+            { "jp_text": "おかね", "zh_text": "钱", "roma_text": "okane" },
+            { "jp_text": "おねえさん", "zh_text": "姐姐", "roma_text": "oneesan" }
+          ],
+        "mid": [],
+        "hard": []
+    },
+    "hiragana_k": {
+        "easy": [
+            { "jp_text": "かみ", "zh_text": "纸", "roma_text": "ka mi" },
+            { "jp_text": "かぜ", "zh_text": "风", "roma_text": "ka ze" },
+            { "jp_text": "きもの", "zh_text": "和服", "roma_text": "ki mo no" },
+            { "jp_text": "きょう", "zh_text": "今天", "roma_text": "kyou" },
+            { "jp_text": "くすり", "zh_text": "药", "roma_text": "ku su ri" },
+            { "jp_text": "くるま", "zh_text": "车", "roma_text": "ku ru ma" },
+            { "jp_text": "けいかん", "zh_text": "警察", "roma_text": "kei kan" },
+            { "jp_text": "けしゴム", "zh_text": "橡皮", "roma_text": "ke shi go mu" },
+            { "jp_text": "こうえん", "zh_text": "公园", "roma_text": "kou en" },
+            { "jp_text": "ことば", "zh_text": "语言", "roma_text": "ko to ba" }
+          ],
+        "mid": [],
+        "hard": []
+    },
+    "hiragana_s": {
+        "easy": [
+            {
+                "jp_text": "さかな",
+                "zh_text": "鱼",
+                "roma_text": "sa ka na"
+            },
+            {
+                "jp_text": "さとう",
+                "zh_text": "糖",
+                "roma_text": "sa tou"
+            },
+            {
+                "jp_text": "しお",
+                "zh_text": "盐",
+                "roma_text": "shi o"
+            },
+            {
+                "jp_text": "した",
+                "zh_text": "下",
+                "roma_text": "shi ta"
+            },
+            {
+                "jp_text": "すし",
+                "zh_text": "寿司",
+                "roma_text": "su shi"
+            },
+            {
+                "jp_text": "すみません",
+                "zh_text": "对不起",
+                "roma_text": "su mi ma sen"
+            },
+            {
+                "jp_text": "せかい",
+                "zh_text": "世界",
+                "roma_text": "se ka i"
+            },
+            {
+                "jp_text": "せんせい",
+                "zh_text": "老师",
+                "roma_text": "sen sei"
+            },
+            {
+                "jp_text": "そと",
+                "zh_text": "外面",
+                "roma_text": "so to"
+            },
+            {
+                "jp_text": "そば",
+                "zh_text": "旁边",
+                "roma_text": "so ba"
+            }
+        ],
+        "mid": [],
+        "hard": []
+    },
+    "hiragana_t": {
+        "easy": [
+            {
+                "jp_text": "たべる",
+                "zh_text": "吃",
+                "roma_text": "ta be ru"
+            },
+            {
+                "jp_text": "たまご",
+                "zh_text": "蛋",
+                "roma_text": "ta ma go"
+            },
+            {
+                "jp_text": "ちち",
+                "zh_text": "父亲",
+                "roma_text": "chi chi"
+            },
+            {
+                "jp_text": "ちず",
+                "zh_text": "地图",
+                "roma_text": "chi zu"
+            },
+            {
+                "jp_text": "つき",
+                "zh_text": "月亮",
+                "roma_text": "tsu ki"
+            },
+            {
+                "jp_text": "つくえ",
+                "zh_text": "桌子",
+                "roma_text": "tsu ku e"
+            },
+            {
+                "jp_text": "てがみ",
+                "zh_text": "信",
+                "roma_text": "te ga mi"
+            },
+            {
+                "jp_text": "てんき",
+                "zh_text": "天气",
+                "roma_text": "ten ki"
+            },
+            {
+                "jp_text": "としょかん",
+                "zh_text": "图书馆",
+                "roma_text": "to sho kan"
+            },
+            {
+                "jp_text": "とけい",
+                "zh_text": "手表",
+                "roma_text": "to kei"
+            }
+        ],
+        "mid": [],
+        "hard": []
+    },
+    "hiragana_n": {
+        "easy": [
+            {
+                "jp_text": "なまえ",
+                "zh_text": "名字",
+                "roma_text": "na ma e"
+            },
+            {
+                "jp_text": "なつ",
+                "zh_text": "夏天",
+                "roma_text": "na tsu"
+            },
+            {
+                "jp_text": "にわ",
+                "zh_text": "院子",
+                "roma_text": "ni wa"
+            },
+            {
+                "jp_text": "にほん",
+                "zh_text": "日本",
+                "roma_text": "ni hon"
+            },
+            {
+                "jp_text": "ぬの",
+                "zh_text": "布",
+                "roma_text": "nu no"
+            },
+            {
+                "jp_text": "ぬれる",
+                "zh_text": "湿",
+                "roma_text": "nu re ru"
+            },
+            {
+                "jp_text": "ねこ",
+                "zh_text": "猫",
+                "roma_text": "ne ko"
+            },
+            {
+                "jp_text": "ねる",
+                "zh_text": "睡",
+                "roma_text": "ne ru"
+            },
+            {
+                "jp_text": "のむ",
+                "zh_text": "喝",
+                "roma_text": "no mu"
+            },
+            {
+                "jp_text": "のり",
+                "zh_text": "贴",
+                "roma_text": "no ri"
+            }
+        ],
+        "mid": [],
+        "hard": []
+    },
+    "hiragana_h": {
+        "easy": [
+            {
+                "jp_text": "はな",
+                "zh_text": "花",
+                "roma_text": "ha na"
+            },
+            {
+                "jp_text": "はい",
+                "zh_text": "是",
+                "roma_text": "ha i"
+            },
+            {
+                "jp_text": "ひと",
+                "zh_text": "人",
+                "roma_text": "hi to"
+            },
+            {
+                "jp_text": "ひま",
+                "zh_text": "空闲",
+                "roma_text": "hi ma"
+            },
+            {
+                "jp_text": "ふね",
+                "zh_text": "船",
+                "roma_text": "fu ne"
+            },
+            {
+                "jp_text": "ふとい",
+                "zh_text": "胖",
+                "roma_text": "fu to i"
+            },
+            {
+                "jp_text": "へや",
+                "zh_text": "房间",
+                "roma_text": "he ya"
+            },
+            {
+                "jp_text": "へる",
+                "zh_text": "减少",
+                "roma_text": "he ru"
+            },
+            {
+                "jp_text": "ほしい",
+                "zh_text": "想要",
+                "roma_text": "ho shi i"
+            },
+            {
+                "jp_text": "ほん",
+                "zh_text": "书",
+                "roma_text": "hon"
+            }
+        ],
+        "mid": [],
+        "hard": []
+    },
+    "hiragana_m": {
+        "easy": [
+            {
+                "jp_text": "まど",
+                "zh_text": "窗户",
+                "roma_text": "ma do"
+            },
+            {
+                "jp_text": "まいにち",
+                "zh_text": "每天",
+                "roma_text": "ma i ni chi"
+            },
+            {
+                "jp_text": "みず",
+                "zh_text": "水",
+                "roma_text": "mi zu"
+            },
+            {
+                "jp_text": "みみ",
+                "zh_text": "耳朵",
+                "roma_text": "mi mi"
+            },
+            {
+                "jp_text": "むし",
+                "zh_text": "虫",
+                "roma_text": "mu shi"
+            },
+            {
+                "jp_text": "むら",
+                "zh_text": "村",
+                "roma_text": "mu ra"
+            },
+            {
+                "jp_text": "め",
+                "zh_text": "眼睛",
+                "roma_text": "me"
+            },
+            {
+                "jp_text": "めがね",
+                "zh_text": "眼镜",
+                "roma_text": "me ga ne"
+            },
+            {
+                "jp_text": "もち",
+                "zh_text": "饭团",
+                "roma_text": "mo chi"
+            },
+            {
+                "jp_text": "もの",
+                "zh_text": "东西",
+                "roma_text": "mo no"
+            }
+        ],
+        "mid": [],
+        "hard": []
+    },
+    "hiragana_y": {
+        "easy": [
+            {
+                "jp_text": "やま",
+                "zh_text": "山",
+                "roma_text": "ya ma"
+            },
+            {
+                "jp_text": "やさい",
+                "zh_text": "蔬菜",
+                "roma_text": "ya sai"
+            },
+            {
+                "jp_text": "ゆき",
+                "zh_text": "雪",
+                "roma_text": "yu ki"
+            },
+            {
+                "jp_text": "ゆめ",
+                "zh_text": "梦",
+                "roma_text": "yu me"
+            },
+            {
+                "jp_text": "よる",
+                "zh_text": "晚上",
+                "roma_text": "yo ru"
+            },
+            {
+                "jp_text": "よい",
+                "zh_text": "好",
+                "roma_text": "yo i"
+            }
+        ],
+        "mid": [],
+        "hard": []
+    },
+    "hiragana_r": {
+        "easy": [
+            {
+                "jp_text": "らいおん",
+                "zh_text": "狮子",
+                "roma_text": "ra i o n"
+            },
+            {
+                "jp_text": "らくがき",
+                "zh_text": "涂鸦",
+                "roma_text": "ra ku ga ki"
+            },
+            {
+                "jp_text": "りんご",
+                "zh_text": "苹果",
+                "roma_text": "ri n go"
+            },
+            {
+                "jp_text": "りゅう",
+                "zh_text": "龙",
+                "roma_text": "ryū"
+            },
+            {
+                "jp_text": "るす",
+                "zh_text": "不在",
+                "roma_text": "ru su"
+            },
+            {
+                "jp_text": "るい",
+                "zh_text": "类",
+                "roma_text": "rui"
+            },
+            {
+                "jp_text": "れい",
+                "zh_text": "零",
+                "roma_text": "re i"
+            },
+            {
+                "jp_text": "れきし",
+                "zh_text": "历史",
+                "roma_text": "re ki shi"
+            },
+            {
+                "jp_text": "ろうか",
+                "zh_text": "走廊",
+                "roma_text": "rō ka"
+            },
+            {
+                "jp_text": "ろく",
+                "zh_text": "六",
+                "roma_text": "ro ku"
+            }
+        ],
+        "mid": [],
+        "hard": []
+    },
+    "hiragana_wa": {
+        "easy": [
+            {
+                "jp_text": "わたし",
+                "zh_text": "我",
+                "roma_text": "wa ta shi"
+            },
+            {
+                "jp_text": "わるい",
+                "zh_text": "坏",
+                "roma_text": "wa ru i"
+            },
+            {
+                "jp_text": "を",
+                "zh_text": "（助词，标记直接受词）",
+                "roma_text": "o"
+            }
+        ],
+        "mid": [],
+        "hard": []
+    }
+}

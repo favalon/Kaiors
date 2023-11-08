@@ -1,42 +1,43 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Typography, Box, Link, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import styles from '@/styles/AudioWave.module.css';
 import Button from '@mui/material/Button';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import MicIcon from '@mui/icons-material/Mic';
 import StopIcon from '@mui/icons-material/Stop';
-import SoundWaveIcon from "./ui/SoundWaveIcon";
-import DraggableWindow from "../components/DraggableWindow";
-import DraggableWindowContainer from '@/components/DraggableWindowContainer';
-import { margin } from "@mui/system";
+
 
 interface SoundWaveProps {
     audioPath: string;
     text_content: any;
     n: number;
-    color: string;
 }
 
-
-const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n, color }) => {
+const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n }) => {
     // Function to resample the data to the desired length (n)
     const [changedBars, setChangedBars] = useState<number[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
+    let color = "#70ae6e";
+    let recordColor = "#FFC300";
+
 
     // text conent  
     const [jpText, setJpText] = useState<string>("");
     const [zhText, setZhText] = useState<string>("");
     const [romaText, setRomaText] = useState<string>("");
     const [stableTs, setStableTs] = useState<any>(null);
-
+    const [imageUrl, setImageUrl] = useState<string>("");
 
     // play audio
     const [audioData, setAudioData] = useState<Float32Array | null>(null);
     const [audioDuration, setAudioDuration] = useState<number>(0);
     const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
     const [audioBuffer, setAudioBuffer] = useState<AudioBuffer | null>(null);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [currentHighlightedIndex, setCurrentHighlightedIndex] = useState<number | null>(null);
+    const sourceRef = useRef<AudioBufferSourceNode | null>(null);
+    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-    const [text, setText] = useState<string[] | null>([]);
 
     // record audio
     const [recording, setRecording] = useState(false);
@@ -70,6 +71,24 @@ const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n, color
             }
         }
     }, [volume]);
+
+    useEffect(() => {
+        if (iframeRef.current && !isNaN(Number(score))) {
+            const contentWindow = iframeRef.current.contentWindow;
+            if (contentWindow) {
+                let expression = "F05"
+                let motion = 1
+                if (score > 0) {
+                    expression = "F05"
+                } else {
+                    expression = "F03"
+                    motion = 4
+                }
+                contentWindow.postMessage({ expression: expression, motion: motion }, '*');
+                console.log("score", expression);
+            }
+        }
+    }, [score]);
 
 
     // Function to resample the data to the desired length (n) and normalize values between [0, 1]
@@ -128,18 +147,22 @@ const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n, color
         return dotProduct(derivative1, derivative2);
     };
 
+    const allWords = text_content.stable_ts.segments.reduce((accumulator: any, segment: any) => {
+        return accumulator.concat(segment.words);
+    }, []);
+
 
     useEffect(() => {
         // Fetch the JSON content and set it to the text state
         setJpText(text_content.jp_text);
         setZhText(text_content.zh_text);
         setRomaText(text_content.roma_text);
-        setStableTs(text_content.stable_ts);
+        setStableTs(allWords);
+        setImageUrl(text_content.imageUrl);
     }, [text_content]);
 
 
     useEffect(() => {
-        console.log("audioPath", audioPath);
         // Initialize AudioContext and load the audio file
         const context = new AudioContext();
 
@@ -149,7 +172,6 @@ const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n, color
             .then(buffer => {
                 setAudioBuffer(buffer);
                 setAudioDuration(buffer.duration);
-                // console.log("channelData", audioDuration);
 
                 // Extract pitch or any other data from the buffer.
                 const channelData = buffer.getChannelData(0);
@@ -182,28 +204,67 @@ const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n, color
     }, [audioPath]);
 
     useEffect(() => {
-        if (recordAudioData && audioData) {
+        if (recordAudioData && audioData && recordAudioData.length === audioData.length) {
             setResampledRecordData(recordAudioData);
             const similarity = computeSimilarity(audioData, recordAudioData);
             setScore(similarity * 100);
         }
     }, [recordAudioData, audioRecorDuration]);
 
+    // Function to clear the interval safely
+    const getHighlightedIndex = (currentTime: any) => {
+        return stableTs.findIndex((segment: { start: number, end: number }) => {
+            return currentTime >= segment.start && currentTime < segment.end;
+        });
+    };
+
     const handlePlay = () => {
         if (!audioBuffer || !audioContext) return;
 
+        if (iframeRef.current) {
+            const contentWindow = iframeRef.current.contentWindow;
+            if (contentWindow) {
+                let expression = "F01"
+                let motion = 3
+                contentWindow.postMessage({ expression: expression, motion: motion }, '*');
+                console.log("score", expression);
+            }
+        }
+
+        // Stop any previously playing audio
+        if (sourceRef.current) {
+            sourceRef.current.stop();
+            sourceRef.current.disconnect();
+            sourceRef.current = null;
+        }
+
         setCurrentIndex(0);
+        setCurrentTime(0);
+        setCurrentHighlightedIndex(null);
 
         const source = audioContext.createBufferSource();
         source.buffer = audioBuffer;
         source.connect(audioContext.destination);
         source.start();
+        sourceRef.current = source;
+
+        // Set up the end event listener
+        source.onended = () => {
+            //setCurrentIndex(0);
+            setCurrentTime(0);
+            setCurrentHighlightedIndex(null);
+            sourceRef.current = null;
+        };
 
         let index = 0;
         const interval = audioDuration / n;
         const intervalId = setInterval(() => {
             setCurrentIndex(prev => prev + 1);
             index++;
+
+            // Update the current time state based on the interval progress
+            setCurrentTime(index * interval);
+            setCurrentHighlightedIndex(getHighlightedIndex(index * interval));
 
             if (volumeData) {
                 setVolume(volumeData[index] * 0.8);
@@ -213,15 +274,10 @@ const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n, color
                 clearInterval(intervalId);
             }
         }, interval * 1000); // Convert to milliseconds
+
     };
 
-
-
-
     if (!audioData) return null;  // Wait until audio data is loaded
-
-    // const resampledDataNumbers = Array.from(audioData);
-    //let resampledRecordData = Array.from(recordAudioData || []);
 
     const startRecording = async () => {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -234,7 +290,6 @@ const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n, color
         };
 
         mediaRecorder.onstop = () => {
-            console.log("onstop");
             const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
             setRecordedBlob(audioBlob);
             // Process and visualize the recorded audio here...
@@ -261,7 +316,6 @@ const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n, color
             mediaRecorder.stream.getTracks().forEach(track => track.stop());
         };
 
-        console.log("onstart");
         mediaRecorder.start();
         setRecording(true);
     };
@@ -282,6 +336,7 @@ const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n, color
             audio.play();
 
             setChangedRecordBars([]);
+            setCurrentRecordIndex(0);
 
             let index = 0;
             const interval = audioRecorDuration / n;
@@ -294,6 +349,34 @@ const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n, color
                 }
             }, interval * 1000)
         }
+
+    };
+
+    const playSegment = (start: any, end: any) => {
+        if (!audioBuffer || !audioContext) return;
+
+        if (sourceRef.current) {
+            sourceRef.current.stop();
+            sourceRef.current = null; // Clear the current source
+        }
+
+        // Create a new source for the audioContext
+        const source = audioContext.createBufferSource();
+        source.buffer = audioBuffer;
+
+        // Connect the source to the context's destination
+        source.connect(audioContext.destination);
+
+
+        // Start playing the segment
+        source.start(0, start, end - start);
+        setCurrentHighlightedIndex(null); // Optional: Reset highlighted index
+
+        // Optional: when the segment finishes playing, execute some code
+        source.onended = () => {
+            // Code to execute after playback
+            setCurrentHighlightedIndex(null); // Reset highlighted index if necessary
+        };
     };
 
     return (
@@ -304,6 +387,38 @@ const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n, color
                 flexDirection: 'row',
                 width: '100%',
             }}>
+                <Box
+                sx={{
+                    width: '60%',
+                    height: '80%',
+                    backgroundColor: 'transparent',
+                    padding: '0px',
+                    pointerEvents: 'auto',
+                    overflow: 'hidden', // This will hide any overflow
+                    borderRadius: '20px',
+                    right: '5px',
+                    bottom: '5px',
+                    position: 'absolute',
+
+                }}
+            >
+                <iframe
+                    title="live2d"
+                    ref={iframeRef}
+                    src="/live2d.html"
+                    allowFullScreen
+                    style={{
+                        position: 'relative', // This enables the iframe to be moved with top and left
+                        left: `${200}px`, // Replace xValue with the desired x offset
+                        top: `${-100}px`, // Replace yValue with the desired y offset
+                        width: '110%',
+                        height: '300%',
+                        border: 'none',
+                        borderRadius: '20px',
+                    }}
+                ></iframe>
+
+            </Box>
             <Box
                 sx={{
                     display: 'flex',
@@ -314,25 +429,19 @@ const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n, color
                     alignItems: 'center',
                     justifyContent: 'start',
                     margin: '10px',
+                    maxWidth: '800px',
                 }}
             >
-                <Typography variant="h4" component="p" paragraph>
-                    Score {parseFloat(score.toFixed(2))}
-                </Typography>
-                <div className={styles.soundWave}>
-                    {Array.from(audioData || []).map((value: number, idx: number) => (
-                        <div
-                            key={idx}
-                            className={styles.bar}
-                            style={{
-                                backgroundColor: idx < currentIndex ? color : '#D2D2D2',
-                                height: `${Math.abs(value * 80)}%`,
-                                transitionDuration: `${(audioDuration / n) * 1000}ms`,
-                            }}
-                        />
-                    ))}
-                </div>
-                {jpText && zhText && (
+                {
+                    imageUrl && imageUrl !== "/images/" ? (
+                        <img src={imageUrl} alt={jpText} className={styles.represent_image} />
+                    ) : (
+                        <div className={styles.represent_image_alt}>
+                            {jpText}
+                        </div>
+                    )
+                }
+                {stableTs && zhText && (
                     <Box
                         sx={{
                             display: 'flex',
@@ -344,63 +453,104 @@ const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n, color
                             py: 1,
                         }}
                     >
-                        <Typography variant="h5" component="p" paragraph sx={{ margin: '3px' }}>
-                            {jpText}
-                        </Typography>
-                        <Typography variant="body1" component="p" paragraph sx={{ margin: '0px' }}>
-                            {romaText}
-                        </Typography>
-                        <Typography variant="body1" component="p" paragraph sx={{ margin: '0px' }}>
+                        <Typography variant="body1" component="p" paragraph sx={{ margin: '3px' }}>
                             {zhText}
                         </Typography>
-                        <Button
-                            variant="contained"
-                            onClick={handlePlay}
-                            sx={{
-                                alignSelf: 'center',
-                                marginTop: '16px',
-                                color: '#333333',
-                                '&:hover': {
-                                    backgroundColor: '#FFC300',
-                                    color: '#333333',
-                                },
-                            }}>
-                            <PlayArrowIcon /> Play
-                        </Button>
+                        <Typography variant="body1" component="p" paragraph sx={{ margin: '3px' }}>
+                            {romaText}
+                        </Typography>
+
+                        <Typography variant="h5" component="p" paragraph sx={{ margin: '3px' }}>
+                            {stableTs.map((segment: any, index: any) => (
+                                <span
+                                    key={index}
+                                    onClick={() => playSegment(segment.start, segment.end)}
+                                    onMouseEnter={() => setHoveredIndex(index)}
+                                    onMouseLeave={() => setHoveredIndex(null)}
+                                    style={{
+                                        background: currentHighlightedIndex === index || hoveredIndex === index ? '#70ae6e' : 'transparent',
+                                        borderRadius: currentHighlightedIndex === index || hoveredIndex === index ? '20px' : '0',
+                                        color: currentHighlightedIndex === index || hoveredIndex === index ? '#ffffff' : 'black',
+                                        padding: currentHighlightedIndex === index || hoveredIndex === index ? '0.5em' : '0',
+                                        cursor: 'pointer',
+                                        transition: 'all 0.3s ease',
+                                    }}
+                                >
+                                    {segment.word}
+                                </span>
+                            ))}
+                            {/* {`  (${jpText})`} */}
+                        </Typography>
+                        {/* <Typography variant="body1" component="p" paragraph sx={{ margin: '0px' }}>
+                            {jpText}
+                        </Typography> */}
+                        <div className={styles.soundWaveContainer}>
+                            <div className={styles.soundWave}>
+                                {Array.from(audioData || []).map((value: number, idx: number) => (
+                                    <div
+                                        key={idx}
+                                        className={styles.bar}
+                                        style={{
+                                            backgroundColor: idx < currentIndex ? color : '#D2D2D2',
+                                            height: `${Math.abs(value * 80)}%`,
+                                            transitionDuration: `${(audioDuration / n) * 1000}ms`,
+                                        }}
+                                    />
+                                ))}
+                            </div>
+                            <div className={styles.soundWaveOverlay}>
+                                {Array.from(recordAudioData || []).map((value: number, idx: number) => {
+                                    const height = Math.abs(value * 80);
+                                    return (
+                                        <div
+                                            key={idx}
+                                            className={styles.bar}
+                                            style={{
+                                                backgroundColor: idx < currentRecordIndex ? recordColor : '#edede9',
+                                                height: `${height}%`,
+                                                transitionDuration: `${(audioDuration / n) * 1000}ms`,
+                                            }}
+                                        />
+                                    );
+                                })}
+                            </div>
+                            <div className={styles.scoreTypo}>
+                                {parseFloat(score.toFixed(0))}
+                            </div>
+                        </div>
                     </Box>
                 )}
-                <div className={styles.soundWave}>
-                    {Array.from(recordAudioData || []).map((value: number, idx: number) => {
-                        const height = Math.abs(value * 80);
-                        return (
-                            <div
-                                key={idx}
-                                className={styles.bar}
-
-                                style={{
-                                    backgroundColor: idx < currentRecordIndex ? color : '#D2D2D2',
-                                    height: `${height}%`,
-                                    transitionDuration: `${(audioDuration / n) * 1000}ms`,
-                                }}
-                            />
-                        );
-                    })}
-                </div>
                 <div style={{ display: 'flex', justifyContent: 'center', gap: '16px' }}>
+                    <Button
+                        variant="contained"
+                        onClick={handlePlay}
+                        sx={{
+                            alignSelf: 'center',
+                            marginTop: '16px',
+                            color: '#333333',
+                            backgroundColor: '#ffffff !important',
+                            '&:hover': {
+                                backgroundColor: '#70ae6e',
+                                color: '#333333',
+                            },
+                        }}>
+                        <PlayArrowIcon /> 播放
+                    </Button>
                     <Button
                         variant="contained"
                         onClick={recording ? stopRecording : startRecording}
                         sx={{
                             alignSelf: 'center',
                             marginTop: '16px',
+                            backgroundColor: '#ffffff !important',
                             color: '#333333',
                             '&:hover': {
-                                backgroundColor: '#FFC300',
+                                backgroundColor: '#70ae6e',
                                 color: '#333333',
                             },
                         }}>
-                        {recording ? <div> <StopIcon /> Stop Recording </div> :
-                            <div>  <MicIcon /> Start Recording </div>}
+                        {recording ? <div> <StopIcon /> 停止录音 </div> :
+                            <div>  <MicIcon /> 开始录音 </div>}
                     </Button>
                     <Button
                         variant="contained"
@@ -408,56 +558,18 @@ const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n, color
                         sx={{
                             alignSelf: 'center',
                             marginTop: '16px',
+                            backgroundColor: '#ffffff !important',
                             color: '#333333',
                             '&:hover': {
-                                backgroundColor: '#FFC300',
+                                backgroundColor: '#70ae6e',
                                 color: '#333333',
                             },
                         }}>
-                        <PlayArrowIcon /> RePlay
+                        <PlayArrowIcon /> 回放录音
                     </Button>
                 </div>
-
-
-
-                {/* <DraggableWindowContainer>
-                <DraggableWindow showWindow={true} setShowWindow={closeWindow} volume={volume}/> 
-            </DraggableWindowContainer> */}
             </Box>
-            <Box
-                sx={{
-                    width: '20%',
-                    height: '80vh',
-                    backgroundColor: '#333333',
-                    padding: '0px',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                    pointerEvents: 'auto',
-                    overflow: 'hidden', // This will hide any overflow
-                    borderRadius: '20px',
-                    position:'fixed',
-                    right:'5px',
-                    top:'100px',
-                    
-                }}
-            >
-                <div className={styles.iframe_wrapper} style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
-                    <iframe
-                        title="Account Page"
-                        ref={iframeRef}
-                        src="/account-page.html"
-                        allowFullScreen
-                        style={{
-                            position: 'relative', // This enables the iframe to be moved with top and left
-                            left: `${-10}px`, // Replace xValue with the desired x offset
-                            top: `${-100}px`, // Replace yValue with the desired y offset
-                            width: '110%',
-                            height: '300%',
-                            border: 'none',
-                            borderRadius: '20px',
-                        }}
-                    ></iframe>
-                </div>
-            </Box>
+            
 
 
         </Box>

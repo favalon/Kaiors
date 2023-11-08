@@ -1,0 +1,827 @@
+{
+    "a": {
+        "title": "五十音",
+        "practice_jp": {
+            "easy": [
+                {
+                    "jp_text": "あか",
+                    "zh_text": "红色",
+                    "roma_text": "a ka",
+                    "wav_path": "80dbaa7527a5f7ba.wav",
+                    "stable_ts": {
+                        "text": "赤",
+                        "segments": [
+                            {
+                                "start": 0.12,
+                                "end": 0.4,
+                                "text": "赤",
+                                "seek": 0.0,
+                                "tokens": [
+                                    5266,
+                                    97
+                                ],
+                                "temperature": 0.0,
+                                "avg_logprob": -0.2766530752182007,
+                                "compression_ratio": 0.2727272727272727,
+                                "no_speech_prob": 0.32508593797683716,
+                                "words": [
+                                    {
+                                        "word": "赤",
+                                        "start": 0.12,
+                                        "end": 0.4,
+                                        "probability": 0.9622319638729095,
+                                        "tokens": [
+                                            5266,
+                                            97
+                                        ],
+                                        "segment_id": 0,
+                                        "id": 0
+                                    }
+                                ],
+                                "id": 0
+                            }
+                        ],
+                        "language": "japanese",
+                        "ori_dict": {
+                            "text": "赤",
+                            "segments": [
+                                {
+                                    "id": 0,
+                                    "start": 0.12,
+                                    "end": 0.4,
+                                    "text": "赤",
+                                    "seek": 0.0,
+                                    "tokens": [
+                                        5266,
+                                        97
+                                    ],
+                                    "temperature": 0.0,
+                                    "avg_logprob": -0.2766530752182007,
+                                    "compression_ratio": 0.2727272727272727,
+                                    "no_speech_prob": 0.32508593797683716,
+                                    "words": [
+                                        {
+                                            "word": "赤",
+                                            "start": 0.12,
+                                            "end": 0.4,
+                                            "probability": 0.9622319638729095,
+                                            "tokens": [
+                                                5266,
+                                                97
+                                            ],
+                                            "segment_id": null,
+                                            "id": null
+                                        }
+                                    ]
+                                }
+                            ],
+                            "language": "japanese",
+                            "time_scale": null
+                        }
+                    }
+                },
+                {
+                    "jp_text": "あさ",
+                    "zh_text": "早上",
+                    "roma_text": "a sa",
+                    "wav_path": "4e5c032f2310ae66.wav",
+                    "stable_ts": {
+                        "text": "朝",
+                        "segments": [
+                            {
+                                "start": 0.04,
+                                "end": 0.4,
+                                "text": "朝",
+                                "seek": 0.0,
+                                "tokens": [
+                                    46610
+                                ],
+                                "temperature": 0.0,
+                                "avg_logprob": -0.32442039251327515,
+                                "compression_ratio": 0.2727272727272727,
+                                "no_speech_prob": 0.7066770195960999,
+                                "words": [
+                                    {
+                                        "word": "朝",
+                                        "start": 0.04,
+                                        "end": 0.4,
+                                        "probability": 0.7865846753120422,
+                                        "tokens": [
+                                            46610
+                                        ],
+                                        "segment_id": 0,
+                                        "id": 0
+                                    }
+                                ],
+                                "id": 0
+                            }
+                        ],
+                        "language": "japanese",
+                        "ori_dict": {
+                            "text": "朝",
+                            "segments": [
+                                {
+                                    "id": 0,
+                                    "start": 0.04,
+                                    "end": 0.4,
+                                    "text": "朝",
+                                    "seek": 0.0,
+                                    "tokens": [
+                                        46610
+                                    ],
+                                    "temperature": 0.0,
+                                    "avg_logprob": -0.32442039251327515,
+                                    "compression_ratio": 0.2727272727272727,
+                                    "no_speech_prob": 0.7066770195960999,
+                                    "words": [
+                                        {
+                                            "word": "朝",
+                                            "start": 0.04,
+                                            "end": 0.4,
+                                            "probability": 0.7865846753120422,
+                                            "tokens": [
+                                                46610
+                                            ],
+                                            "segment_id": null,
+                                            "id": null
+                                        }
+                                    ]
+                                }
+                            ],
+                            "language": "japanese",
+                            "time_scale": null
+                        }
+                    }
+                },
+                {
+                    "jp_text": "いえ",
+                    "zh_text": "家",
+                    "roma_text": "i e",
+                    "wav_path": "e8fe609d17ab3f37.wav",
+                    "stable_ts": {
+                        "text": "いえ",
+                        "segments": [
+                            {
+                                "start": 0.0,
+                                "end": 0.42,
+                                "text": "いえ",
+                                "seek": 0.0,
+                                "tokens": [
+                                    1764,
+                                    6474
+                                ],
+                                "temperature": 0.0,
+                                "avg_logprob": -0.3977735757827759,
+                                "compression_ratio": 0.42857142857142855,
+                                "no_speech_prob": 0.4704332649707794,
+                                "words": [
+                                    {
+                                        "word": "い",
+                                        "start": 0.0,
+                                        "end": 0.42,
+                                        "probability": 0.37631750106811523,
+                                        "tokens": [
+                                            1764
+                                        ],
+                                        "segment_id": 0,
+                                        "id": 0
+                                    },
+                                    {
+                                        "word": "え",
+                                        "start": 0.42,
+                                        "end": 0.42,
+                                        "probability": 0.806982696056366,
+                                        "tokens": [
+                                            6474
+                                        ],
+                                        "segment_id": 0,
+                                        "id": 1
+                                    }
+                                ],
+                                "id": 0
+                            }
+                        ],
+                        "language": "japanese",
+                        "ori_dict": {
+                            "text": "いえ",
+                            "segments": [
+                                {
+                                    "id": 0,
+                                    "start": 0.0,
+                                    "end": 0.42,
+                                    "text": "いえ",
+                                    "seek": 0.0,
+                                    "tokens": [
+                                        1764,
+                                        6474
+                                    ],
+                                    "temperature": 0.0,
+                                    "avg_logprob": -0.3977735757827759,
+                                    "compression_ratio": 0.42857142857142855,
+                                    "no_speech_prob": 0.4704332649707794,
+                                    "words": [
+                                        {
+                                            "word": "い",
+                                            "start": 0.0,
+                                            "end": 0.42,
+                                            "probability": 0.37631750106811523,
+                                            "tokens": [
+                                                1764
+                                            ],
+                                            "segment_id": null,
+                                            "id": null
+                                        },
+                                        {
+                                            "word": "え",
+                                            "start": 0.42,
+                                            "end": 0.42,
+                                            "probability": 0.806982696056366,
+                                            "tokens": [
+                                                6474
+                                            ],
+                                            "segment_id": null,
+                                            "id": null
+                                        }
+                                    ]
+                                }
+                            ],
+                            "language": "japanese",
+                            "time_scale": null
+                        }
+                    }
+                },
+                {
+                    "jp_text": "いし",
+                    "zh_text": "石头",
+                    "roma_text": "i shi",
+                    "wav_path": "5354a673b437a3c5.wav",
+                    "stable_ts": {
+                        "text": "石",
+                        "segments": [
+                            {
+                                "start": 0.16,
+                                "end": 0.4,
+                                "text": "石",
+                                "seek": 0.0,
+                                "tokens": [
+                                    36783
+                                ],
+                                "temperature": 0.0,
+                                "avg_logprob": -0.2887727916240692,
+                                "compression_ratio": 0.2727272727272727,
+                                "no_speech_prob": 0.4880828559398651,
+                                "words": [
+                                    {
+                                        "word": "石",
+                                        "start": 0.16,
+                                        "end": 0.4,
+                                        "probability": 0.33429935574531555,
+                                        "tokens": [
+                                            36783
+                                        ],
+                                        "segment_id": 0,
+                                        "id": 0
+                                    }
+                                ],
+                                "id": 0
+                            }
+                        ],
+                        "language": "japanese",
+                        "ori_dict": {
+                            "text": "石",
+                            "segments": [
+                                {
+                                    "id": 0,
+                                    "start": 0.16,
+                                    "end": 0.4,
+                                    "text": "石",
+                                    "seek": 0.0,
+                                    "tokens": [
+                                        36783
+                                    ],
+                                    "temperature": 0.0,
+                                    "avg_logprob": -0.2887727916240692,
+                                    "compression_ratio": 0.2727272727272727,
+                                    "no_speech_prob": 0.4880828559398651,
+                                    "words": [
+                                        {
+                                            "word": "石",
+                                            "start": 0.16,
+                                            "end": 0.4,
+                                            "probability": 0.33429935574531555,
+                                            "tokens": [
+                                                36783
+                                            ],
+                                            "segment_id": null,
+                                            "id": null
+                                        }
+                                    ]
+                                }
+                            ],
+                            "language": "japanese",
+                            "time_scale": null
+                        }
+                    }
+                },
+                {
+                    "jp_text": "うみ",
+                    "zh_text": "海",
+                    "roma_text": "u mi",
+                    "wav_path": "ce9b66aaf57b337f.wav",
+                    "stable_ts": {
+                        "text": "海",
+                        "segments": [
+                            {
+                                "start": 0.12,
+                                "end": 0.32,
+                                "text": "海",
+                                "seek": 0.0,
+                                "tokens": [
+                                    20078
+                                ],
+                                "temperature": 0.0,
+                                "avg_logprob": -0.5653897523880005,
+                                "compression_ratio": 0.2727272727272727,
+                                "no_speech_prob": 0.20948722958564758,
+                                "words": [
+                                    {
+                                        "word": "海",
+                                        "start": 0.12,
+                                        "end": 0.32,
+                                        "probability": 0.7750088572502136,
+                                        "tokens": [
+                                            20078
+                                        ],
+                                        "segment_id": 0,
+                                        "id": 0
+                                    }
+                                ],
+                                "id": 0
+                            }
+                        ],
+                        "language": "japanese",
+                        "ori_dict": {
+                            "text": "海",
+                            "segments": [
+                                {
+                                    "id": 0,
+                                    "start": 0.12,
+                                    "end": 0.32,
+                                    "text": "海",
+                                    "seek": 0.0,
+                                    "tokens": [
+                                        20078
+                                    ],
+                                    "temperature": 0.0,
+                                    "avg_logprob": -0.5653897523880005,
+                                    "compression_ratio": 0.2727272727272727,
+                                    "no_speech_prob": 0.20948722958564758,
+                                    "words": [
+                                        {
+                                            "word": "海",
+                                            "start": 0.12,
+                                            "end": 0.32,
+                                            "probability": 0.7750088572502136,
+                                            "tokens": [
+                                                20078
+                                            ],
+                                            "segment_id": null,
+                                            "id": null
+                                        }
+                                    ]
+                                }
+                            ],
+                            "language": "japanese",
+                            "time_scale": null
+                        }
+                    }
+                },
+                {
+                    "jp_text": "うえ",
+                    "zh_text": "上面",
+                    "roma_text": "u e",
+                    "wav_path": "1001fdc342759946.wav",
+                    "stable_ts": {
+                        "text": "うえ",
+                        "segments": [
+                            {
+                                "start": 0.06,
+                                "end": 0.48,
+                                "text": "うえ",
+                                "seek": 0.0,
+                                "tokens": [
+                                    2646,
+                                    6474
+                                ],
+                                "temperature": 0.0,
+                                "avg_logprob": -0.539723539352417,
+                                "compression_ratio": 0.42857142857142855,
+                                "no_speech_prob": 0.635992705821991,
+                                "words": [
+                                    {
+                                        "word": "う",
+                                        "start": 0.06,
+                                        "end": 0.36,
+                                        "probability": 0.2966114282608032,
+                                        "tokens": [
+                                            2646
+                                        ],
+                                        "segment_id": 0,
+                                        "id": 0
+                                    },
+                                    {
+                                        "word": "え",
+                                        "start": 0.36,
+                                        "end": 0.48,
+                                        "probability": 0.5556672215461731,
+                                        "tokens": [
+                                            6474
+                                        ],
+                                        "segment_id": 0,
+                                        "id": 1
+                                    }
+                                ],
+                                "id": 0
+                            }
+                        ],
+                        "language": "japanese",
+                        "ori_dict": {
+                            "text": "うえ",
+                            "segments": [
+                                {
+                                    "id": 0,
+                                    "start": 0.06,
+                                    "end": 0.48,
+                                    "text": "うえ",
+                                    "seek": 0.0,
+                                    "tokens": [
+                                        2646,
+                                        6474
+                                    ],
+                                    "temperature": 0.0,
+                                    "avg_logprob": -0.539723539352417,
+                                    "compression_ratio": 0.42857142857142855,
+                                    "no_speech_prob": 0.635992705821991,
+                                    "words": [
+                                        {
+                                            "word": "う",
+                                            "start": 0.06,
+                                            "end": 0.36,
+                                            "probability": 0.2966114282608032,
+                                            "tokens": [
+                                                2646
+                                            ],
+                                            "segment_id": null,
+                                            "id": null
+                                        },
+                                        {
+                                            "word": "え",
+                                            "start": 0.36,
+                                            "end": 0.48,
+                                            "probability": 0.5556672215461731,
+                                            "tokens": [
+                                                6474
+                                            ],
+                                            "segment_id": null,
+                                            "id": null
+                                        }
+                                    ]
+                                }
+                            ],
+                            "language": "japanese",
+                            "time_scale": null
+                        }
+                    }
+                },
+                {
+                    "jp_text": "えき",
+                    "zh_text": "车站",
+                    "roma_text": "e ki",
+                    "wav_path": "47546dc177c6d2a7.wav",
+                    "stable_ts": {
+                        "text": "駅",
+                        "segments": [
+                            {
+                                "start": 0.14,
+                                "end": 0.46,
+                                "text": "駅",
+                                "seek": 0.0,
+                                "tokens": [
+                                    165,
+                                    100,
+                                    227
+                                ],
+                                "temperature": 0.0,
+                                "avg_logprob": -0.44670812288920086,
+                                "compression_ratio": 0.2727272727272727,
+                                "no_speech_prob": 0.6816563606262207,
+                                "words": [
+                                    {
+                                        "word": "駅",
+                                        "start": 0.14,
+                                        "end": 0.46,
+                                        "probability": 0.7999008595943451,
+                                        "tokens": [
+                                            165,
+                                            100,
+                                            227
+                                        ],
+                                        "segment_id": 0,
+                                        "id": 0
+                                    }
+                                ],
+                                "id": 0
+                            }
+                        ],
+                        "language": "japanese",
+                        "ori_dict": {
+                            "text": "駅",
+                            "segments": [
+                                {
+                                    "id": 0,
+                                    "start": 0.14,
+                                    "end": 0.46,
+                                    "text": "駅",
+                                    "seek": 0.0,
+                                    "tokens": [
+                                        165,
+                                        100,
+                                        227
+                                    ],
+                                    "temperature": 0.0,
+                                    "avg_logprob": -0.44670812288920086,
+                                    "compression_ratio": 0.2727272727272727,
+                                    "no_speech_prob": 0.6816563606262207,
+                                    "words": [
+                                        {
+                                            "word": "駅",
+                                            "start": 0.14,
+                                            "end": 0.46,
+                                            "probability": 0.7999008595943451,
+                                            "tokens": [
+                                                165,
+                                                100,
+                                                227
+                                            ],
+                                            "segment_id": null,
+                                            "id": null
+                                        }
+                                    ]
+                                }
+                            ],
+                            "language": "japanese",
+                            "time_scale": null
+                        }
+                    }
+                },
+                {
+                    "jp_text": "え",
+                    "zh_text": "画",
+                    "roma_text": "e",
+                    "wav_path": "456505723301b8ce.wav",
+                    "stable_ts": {
+                        "text": "え?",
+                        "segments": [
+                            {
+                                "start": 0.0,
+                                "end": 0.28,
+                                "text": "え?",
+                                "seek": 0.0,
+                                "tokens": [
+                                    6474,
+                                    30
+                                ],
+                                "temperature": 0.0,
+                                "avg_logprob": -0.40035672187805177,
+                                "compression_ratio": 0.3333333333333333,
+                                "no_speech_prob": 0.567794680595398,
+                                "words": [
+                                    {
+                                        "word": "え?",
+                                        "start": 0.0,
+                                        "end": 0.28,
+                                        "probability": 0.22164605557918549,
+                                        "tokens": [
+                                            6474,
+                                            30
+                                        ],
+                                        "segment_id": 0,
+                                        "id": 0
+                                    }
+                                ],
+                                "id": 0
+                            }
+                        ],
+                        "language": "japanese",
+                        "ori_dict": {
+                            "text": "え?",
+                            "segments": [
+                                {
+                                    "id": 0,
+                                    "start": 0.0,
+                                    "end": 0.28,
+                                    "text": "え?",
+                                    "seek": 0.0,
+                                    "tokens": [
+                                        6474,
+                                        30
+                                    ],
+                                    "temperature": 0.0,
+                                    "avg_logprob": -0.40035672187805177,
+                                    "compression_ratio": 0.3333333333333333,
+                                    "no_speech_prob": 0.567794680595398,
+                                    "words": [
+                                        {
+                                            "word": "え?",
+                                            "start": 0.0,
+                                            "end": 0.28,
+                                            "probability": 0.22164605557918549,
+                                            "tokens": [
+                                                6474,
+                                                30
+                                            ],
+                                            "segment_id": null,
+                                            "id": null
+                                        }
+                                    ]
+                                }
+                            ],
+                            "language": "japanese",
+                            "time_scale": null
+                        }
+                    }
+                },
+                {
+                    "jp_text": "おか",
+                    "zh_text": "山丘",
+                    "roma_text": "o ka",
+                    "wav_path": "2c4e88c20798909e.wav",
+                    "stable_ts": {
+                        "text": "おか",
+                        "segments": [
+                            {
+                                "start": 0.18,
+                                "end": 0.46,
+                                "text": "おか",
+                                "seek": 0.0,
+                                "tokens": [
+                                    6117,
+                                    3703
+                                ],
+                                "temperature": 0.0,
+                                "avg_logprob": -0.3934814214706421,
+                                "compression_ratio": 0.42857142857142855,
+                                "no_speech_prob": 0.36665526032447815,
+                                "words": [
+                                    {
+                                        "word": "お",
+                                        "start": 0.18,
+                                        "end": 0.34,
+                                        "probability": 0.08541470021009445,
+                                        "tokens": [
+                                            6117
+                                        ],
+                                        "segment_id": 0,
+                                        "id": 0
+                                    },
+                                    {
+                                        "word": "か",
+                                        "start": 0.34,
+                                        "end": 0.46,
+                                        "probability": 0.9623704552650452,
+                                        "tokens": [
+                                            3703
+                                        ],
+                                        "segment_id": 0,
+                                        "id": 1
+                                    }
+                                ],
+                                "id": 0
+                            }
+                        ],
+                        "language": "japanese",
+                        "ori_dict": {
+                            "text": "おか",
+                            "segments": [
+                                {
+                                    "id": 0,
+                                    "start": 0.18,
+                                    "end": 0.46,
+                                    "text": "おか",
+                                    "seek": 0.0,
+                                    "tokens": [
+                                        6117,
+                                        3703
+                                    ],
+                                    "temperature": 0.0,
+                                    "avg_logprob": -0.3934814214706421,
+                                    "compression_ratio": 0.42857142857142855,
+                                    "no_speech_prob": 0.36665526032447815,
+                                    "words": [
+                                        {
+                                            "word": "お",
+                                            "start": 0.18,
+                                            "end": 0.34,
+                                            "probability": 0.08541470021009445,
+                                            "tokens": [
+                                                6117
+                                            ],
+                                            "segment_id": null,
+                                            "id": null
+                                        },
+                                        {
+                                            "word": "か",
+                                            "start": 0.34,
+                                            "end": 0.46,
+                                            "probability": 0.9623704552650452,
+                                            "tokens": [
+                                                3703
+                                            ],
+                                            "segment_id": null,
+                                            "id": null
+                                        }
+                                    ]
+                                }
+                            ],
+                            "language": "japanese",
+                            "time_scale": null
+                        }
+                    }
+                },
+                {
+                    "jp_text": "おとこ",
+                    "zh_text": "男人",
+                    "roma_text": "o to ko",
+                    "wav_path": "d9b20df6800c643e.wav",
+                    "stable_ts": {
+                        "text": "男",
+                        "segments": [
+                            {
+                                "start": 0.06,
+                                "end": 0.5,
+                                "text": "男",
+                                "seek": 0.0,
+                                "tokens": [
+                                    25243
+                                ],
+                                "temperature": 0.0,
+                                "avg_logprob": -0.39495259523391724,
+                                "compression_ratio": 0.2727272727272727,
+                                "no_speech_prob": 0.16268864274024963,
+                                "words": [
+                                    {
+                                        "word": "男",
+                                        "start": 0.06,
+                                        "end": 0.5,
+                                        "probability": 0.942602813243866,
+                                        "tokens": [
+                                            25243
+                                        ],
+                                        "segment_id": 0,
+                                        "id": 0
+                                    }
+                                ],
+                                "id": 0
+                            }
+                        ],
+                        "language": "japanese",
+                        "ori_dict": {
+                            "text": "男",
+                            "segments": [
+                                {
+                                    "id": 0,
+                                    "start": 0.06,
+                                    "end": 0.5,
+                                    "text": "男",
+                                    "seek": 0.0,
+                                    "tokens": [
+                                        25243
+                                    ],
+                                    "temperature": 0.0,
+                                    "avg_logprob": -0.39495259523391724,
+                                    "compression_ratio": 0.2727272727272727,
+                                    "no_speech_prob": 0.16268864274024963,
+                                    "words": [
+                                        {
+                                            "word": "男",
+                                            "start": 0.06,
+                                            "end": 0.5,
+                                            "probability": 0.942602813243866,
+                                            "tokens": [
+                                                25243
+                                            ],
+                                            "segment_id": null,
+                                            "id": null
+                                        }
+                                    ]
+                                }
+                            ],
+                            "language": "japanese",
+                            "time_scale": null
+                        }
+                    }
+                }
+            ] 
+        }
+    }
+}

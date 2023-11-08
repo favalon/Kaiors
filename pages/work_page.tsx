@@ -39,10 +39,8 @@ interface Message {
 interface WorkPageProps {
   work_data: any; // work data;
   practice_page_data: any; // practice data;
-  chat_page_data: any; // chat data;
+  work_page_data: any; // chat data;
   onListItemClick: (chatSettings: any) => void;
-  pageData: PageData;
-  setPageData: (value: React.SetStateAction<PageData>) => void;
   setMessages: (value: React.SetStateAction<Message[]>) => void
   onReset: () => void;
   onBackClick: () => void;
@@ -52,17 +50,13 @@ interface WorkPageProps {
 const WorkPage: React.FC<WorkPageProps> = ({ 
   work_data, 
   practice_page_data, 
-  chat_page_data, 
+  work_page_data, 
   onListItemClick,
-  pageData,
-  setPageData,
   setMessages,
   onReset,
   onBackClick,
   onSendMessage
 }) => {
-
-  console.log("chat_page_data", chat_page_data)
 
   const color = "#70ae6e";
   const n = 120;
@@ -78,7 +72,33 @@ const WorkPage: React.FC<WorkPageProps> = ({
     setWorkType(newValue);
   };
 
-  console.log("practice_page_data", practice_page_data)
+  useEffect(() => {
+    // Trigger click on the first item when the component mounts or when work_data changes
+    const defaultClick = () => {
+      switch (value) {
+        case 0:
+          if (work_data.easy?.length && work_data.easy.length > 0) {
+            onListItemClick(work_data.easy[0]);
+          }
+          break;
+        case 1:
+          if (work_data.mid?.length && work_data.mid.length > 0) {
+            onListItemClick(work_data.mid[0]);
+          }
+          break;
+        case 2:
+          if (work_data.hard?.length && work_data.hard.length > 0) {
+            onListItemClick(work_data.hard[0]);
+          }
+          break;
+        default:
+          // Handle other cases or do nothing
+          break;
+      }
+    };
+
+    defaultClick();
+  }, [value, work_data]); 
 
   return (
 
@@ -93,7 +113,7 @@ const WorkPage: React.FC<WorkPageProps> = ({
         backgroundColor: '#faf6f6',
       }}
     >
-      <Box sx={{ width: '20%', maxWidth: '400px', height: '100vh' }}>
+      <Box sx={{ width: '20%', maxWidth: '400px', height: 'max-content' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={value} onChange={handleChange} aria-label="practice difficulty tabs" sx={{
             '.MuiTab-root': { // Targets the root of the Tab component
@@ -105,9 +125,9 @@ const WorkPage: React.FC<WorkPageProps> = ({
               }
             }
           }}>
-            <Tab label="简单" />
-            <Tab label="中等" />
-            <Tab label="困难" />
+            {work_data?.easy && work_data.easy.length > 0 && (<Tab label="简单" />)}
+            {work_data?.mid && work_data.mid.length > 0 && (<Tab label="中等" />)}
+            {work_data?.hard && work_data.hard.length > 0 && (<Tab label="困难" />)}
           </Tabs>
         </Box>
         {work_data?(
@@ -115,24 +135,27 @@ const WorkPage: React.FC<WorkPageProps> = ({
           {
             maxWidth: '400px',
             overflowY: 'auto',
-            height: '100vh',
+            height: '93vh',
             margin: '0px',
             padding: '2px',
             borderRight: '2px solid divider'
           }}>
           <TabPanel value={value} index={0}>
-            <PraticeList scene_items={work_data.easy} onListItemClick={onListItemClick} />
+          {work_data.easy?(
+            <PraticeList scene_items={work_data.easy} onListItemClick={onListItemClick} />):null}
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <PraticeList scene_items={work_data.mid} onListItemClick={onListItemClick} />
+          {work_data.mid?(
+            <PraticeList scene_items={work_data.mid} onListItemClick={onListItemClick} />):null}
           </TabPanel>
           <TabPanel value={value} index={2}>
-            <PraticeList scene_items={work_data.hard} onListItemClick={onListItemClick} />
+            {work_data.hard?(
+            <PraticeList scene_items={work_data.hard} onListItemClick={onListItemClick} />):null}
           </TabPanel>
         </Box>
         ): null}
       </Box>
-      <Box sx={{ width: '100%', height: '100vh' }}>
+      <Box sx={{ width: '100%', height: 'max-content' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={workType} onChange={handleWorkChange} aria-label="practice difficulty tabs" sx={{
             '.MuiTab-root': { // Targets the root of the Tab component
@@ -144,8 +167,8 @@ const WorkPage: React.FC<WorkPageProps> = ({
               }
             }
           }}>
-            <Tab label="口语练习" />
-            <Tab label="互动对话" />
+            {practice_page_data && <Tab label="口语练习" />}
+            {work_page_data?.interative_option && (<Tab label="互动对话" />)}
           </Tabs>
         </Box>
           <Box>
@@ -153,24 +176,21 @@ const WorkPage: React.FC<WorkPageProps> = ({
             {practice_page_data && (<SoundWave
                 audioPath={practice_page_data.audio_path}
                 text_content={practice_page_data.text_content}
-                n={n}
-                color={color} />)}
+                n={n}/>)}
             </TabPanel>
             <TabPanel value={workType} index={1}>
-              {pageData?(
+              {work_page_data && (
               <WorkChatPage
-                key={chat_page_data.messages.length}
-                chatName={chat_page_data.title || "Chat Name"}
-                messages={chat_page_data.messages}
-                botchatSettings={chat_page_data.chatSettings.bot}
-                userChatSettings={chat_page_data.chatSettings.user}
-                pageData={pageData}
-                setPageData={setPageData}
+                key={work_page_data.messages.length}
+                chatName={work_page_data.title || "Chat Name"}
+                messages={work_page_data.messages}
+                botchatSettings={work_page_data.chatSettings.bot}
+                userChatSettings={work_page_data.chatSettings.user}
                 setMessages={setMessages}
                 onReset={onReset}
                 onBackClick={onBackClick}
                 onSendMessage={onSendMessage}
-              />):null}
+              />)}
             </TabPanel>
           </Box>
         

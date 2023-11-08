@@ -1,0 +1,155 @@
+{
+    "interative_scene": [
+        {
+            "id": 1,
+            "info_key": "coffee_shop",
+            "scene_name": "咖啡店",
+            "imageUrl": "/scene_img/coffee_shop.jpeg",
+            "description": "欢迎来到咖啡店，体验一下点单的流程吧！",
+            "prompt": " Act as a waiter at Japan Star Coffee Shop and have a conversation with me in Japanese Only. \n Respond in a very short, conversational and friendly style.\n  Make sure to clarify all options, customized request, extras sizes and the payment.\n *You can not respond with any English*",
+             "objective": [
+                {
+                    "zh_text": "1. 购买一杯小杯的无糖的美式咖啡（Americano)。 \n2. 使用Alipay进行结账。",
+                    "en_text": "1. Purchase a small cup of sugar-free Americano. \n2. Pay with Alipay."
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "info_key": "air_port_checkin",
+            "scene_name": "机场：值机",
+            "imageUrl": "/scene_img/air_port_checkin.jpeg",
+            "description": "欢迎来到机场！体验一下值机的流程吧！",
+            "prompt": "Act as a check-in agent at the Airport Counter and you will have a dialogue with me in only Japanese. I am the passenger and has a hidden objective they need to achieve. \n The passenger objectives: \n${objective}\n If passenger finishes the objectives above, respond with a sign '###'. \n **You can't provide any hints to the passenger.** \n You first greet the passenger as agent, do not mention all tasks listed in the objectives below before the passenger asks. \n You proceed based on the passenger's questions and requests. \n Finally, you hand over the boarding pass and luggage receipt. \n Make sure to clarify details from the standard process. \n Respond in short sentence and conversational friendly style. **Waiting for passenger reply after saying a word** \n Only If passenger finishes the objectives above, respond with a sign '###'. \n Let's start,こんにちは,",
+            "objective": [
+                {
+                    "zh_text": "1. 完成值机过程，你的航班号是NA371。 \n2. 托运一件超重的行李。 \n3. 请求一个靠窗的座位。",
+                    "en_text": "1. Complete the check-in process, your flight number is NA371. \n2. Check in one piece of overweight luggage. \n3. Request a window seat."
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "info_key": "air_port_duty_free",
+            "scene_name": "机场：免税店",
+            "imageUrl": "/character.png",
+            "description": "欢迎来到机场，体验一下免税店购物的流程吧！",
+            "prompt": "Act as a sales assistant at the Duty-Free Shop and you will have a casual dialogue with me in only Japanese. I am the customer and have a hidden objective I need to achieve.\n The customer objectives: \n${objective}\nIf the customer finishes the objectives above, respond with a sign '###'.\n**You can't provide any hints to the customers.**\n You first greet the customer, do not mention all tasks listed in the objectives below before the customer asks.\n You proceed based on the customer's questions and requests.\n Finally, you hand over the book and payment receipt.\n Make sure to clarify details from the standard process.\n Respond in short sentence and conversational friendly style. **Waiting for customer reply after saying a word**\n Only If customer finishes the objectives above, respond with a sign '###'.\n Let's start, こんにちは,",
+            "objective": [
+                {
+                    "zh_text": "1. 购买一本科幻题材的小说。 \n2. 使用信用卡付款。",
+                    "en_text": "1. Purchase a science fiction themed novel. \n2. Pay with a credit card."
+                },
+                {
+                    "zh_text": "1. 购买一本悬疑题材的小说。 \n2. 使用现金卡付款。",
+                    "en_text": "1. Purchase a mystery themed novel. \n2. Pay with a cash card."
+                },
+                {
+                    "zh_text": "1. 购买一本言情题材的小说。 \n2. 使用Wechat Pay付款。",
+                    "en_text": "1. Purchase a romance themed novel. \n2. Pay with Wechat Pay."
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "info_key": "air_port_information",
+            "scene_name": "机场：信息咨询台",
+            "imageUrl": "/character.png",
+            "description": "欢迎来到机场，使用咨询台解决目标问题吧！",
+            "prompt": "Act as an information desk assistant at the Airport. You will have a dialogue with me in only Japanese. I am the passenger and have a hidden objective I need to achieve.\n The passenger objectives: \n${objective}\nIf the passenger finishes the objectives above, respond with a sign '###'.\n**You can't provide any hints to the passenger.**\n You first greet the passenger as an assistant, do not mention all tasks listed in the objectives below before the passenger asks.\n You proceed based on the passenger's questions and requests.\n Finally, you provide directions and next steps for lost property.\n Make sure to clarify details from the standard process.\n Respond in short sentence and conversational friendly style. **Waiting for passenger reply after saying a word**\n Only If passenger finishes the objectives above, respond with a sign '###'.\n Let's start, こんにちは,",
+            "objective": [
+                {
+                    "zh_text": "1. 询问NA371的登机口在哪里。 \n2. 请求帮助寻找丢失的手机。",
+                    "en_text": "1. Ask where the boarding gate for NA371 is. \n2. Request help in finding a lost cellphone."
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "info_key": "cinema",
+            "scene_name": "电影院",
+            "imageUrl": "/character.png",
+            "description": "欢迎来到电影院，体验一下购票的流程吧！",
+            "prompt": "Act as a ticket seller at the movie theater and you will have a dialogue with me in only Japanese. I am the customer and have a hidden objective I need to achieve.\nThe customer objectives:\n${objective}\nIf the customer finishes the objectives above, respond with a sign '###'.\n**You can't provide any hints to the customers.**\nYou first greet the customer, do not mention all tasks listed in the objectives below before the customer asks.\nYou proceed based on the customer's questions and requests.\nFinally, you hand over the movie ticket and receipt.\nMake sure to clarify details from the standard process.\nRespond in short sentence and conversational friendly style. **Waiting for customer reply after saying a word**\nOnly If customer finishes the objectives above, respond with a sign '###'.\nLet's start, こんにちは,",
+            "objective": [
+                {
+                    "zh_text": "1. 购买一张科幻电影的电影票。\n2. 购买晚上10点的电影票。\n3.使用折扣劵购买。",
+                    "en_text": "1. Purchase a ticket for a science fiction movie.\n2. Purchase a movie ticket for 10 PM.\n3. Purchase with a discount coupon."
+                }
+            ]
+        }
+    ],
+    "basic_learning": [
+        {   
+        "id": 9001,
+        "info_key": "hiragana_a",
+        "scene_name": "あ 行",
+        "imageUrl": "/scene_img/coffee_shop.jpeg",
+        "show": false
+    },
+    {   
+        "id": 9002,
+        "info_key": "hiragana_k",
+        "scene_name": "か 行",
+        "imageUrl": "/scene_img/coffee_shop.jpeg",
+        "show": false
+    },
+    {   
+        "id": 9003,
+        "info_key": "hiragana_s",
+        "scene_name": "さ 行",
+        "imageUrl": "/scene_img/coffee_shop.jpeg",
+        "show": false
+    },
+    {   
+        "id": 9004,
+        "info_key": "hiragana_t",
+        "scene_name": "た 行",
+        "imageUrl": "/scene_img/coffee_shop.jpeg",
+        "show": false
+    },
+    {   
+        "id": 9005,
+        "info_key": "hiragana_n",
+        "scene_name": "な 行",
+        "imageUrl": "/scene_img/coffee_shop.jpeg",
+        "show": false
+    },
+    {   
+        "id": 9006,
+        "info_key": "hiragana_h",
+        "scene_name": "は 行",
+        "imageUrl": "/scene_img/coffee_shop.jpeg",
+        "show": false
+    },
+    {   
+        "id": 9007,
+        "info_key": "hiragana_m",
+        "scene_name": "ま 行",
+        "imageUrl": "/scene_img/coffee_shop.jpeg",
+        "show": false
+    },
+    {   
+        "id": 9008,
+        "info_key": "hiragana_y",
+        "scene_name": "や 行",
+        "imageUrl": "/scene_img/coffee_shop.jpeg",
+        "show": false
+    },
+    {   
+        "id": 9009,
+        "info_key": "hiragana_r",
+        "scene_name": "ら 行",
+        "imageUrl": "/scene_img/coffee_shop.jpeg",
+        "show": false
+    },
+    {   
+        "id": 9010,
+        "info_key": "hiragana_wa",
+        "scene_name": "わ 行",
+        "imageUrl": "/scene_img/coffee_shop.jpeg",
+        "show": false
+    }
+    
+    ]
+}

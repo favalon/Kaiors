@@ -1,45 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 //import ChatPage from '../pages/home';
-import ChatPage from "@/pages/chat_page";
-import WorkChatPage from "@/pages/work_chat_page";
-import ConceptBase from '../pages/concept_base';
-import Settings from '@/pages/settings';
-import AudioRecorder from "./AudioRecorder";
-import { PageData } from "./types";
-import MainPageList from "@/pages/main_page_list";
-import basic_value from "@/public/basic_value.json";
-import scene_practice_data from "@/public/jp_practice_data/info.json";
+import main_page_list from "@/public/jp_practice_data/main_page_list_info.json";
+import scene_practice_data from "@/public/jp_practice_data/practice_data_info.json";
 import AboutPage from "@/pages/AboutPage";
-import AccountPage from "@/pages/live2D";
-import PracticeBasic from "@/pages/practice_basic";
 import InterativeListPage from "@/pages/interative_list_page";
 import WorkPage from "@/pages/work_page";
 
 interface MainPageProps {
+  language: string;
   selectedPage: string;
   setSelectPage: React.Dispatch<React.SetStateAction<string>>;
   setShowHeader: React.Dispatch<React.SetStateAction<boolean>>;
-  pageData: PageData;
-  setPageData: React.Dispatch<React.SetStateAction<PageData>>;
 }
 
-interface CharacterSetting {
-
-  id: number;
-  imageUrl: string;
-  title: string;
-  description: string;
-  chatSettings: any;
-  show: boolean;
-  quiz: any;
-}
-
-interface ChatPageData {
+interface WorkPageData {
   id: string;
   title: string;
   chatSettings: any;
   messages: Message[];
-
+  interative_option: boolean;
 }
 
 interface Message {
@@ -50,50 +29,49 @@ interface Message {
   isOwnMessage: boolean;
 }
 
+type PracticeInfoKey = keyof typeof scene_practice_data;
 
+function MainPage({ language, setShowHeader, selectedPage, setSelectPage }: MainPageProps) {
 
-function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPageData }: MainPageProps) {
-
-  console.log("pageData", scene_practice_data[0])
-  const [chatSettings, setChatSettings] = useState<any>(null);
-  const [chatPageData, setChatPageData] = useState<ChatPageData>({} as ChatPageData);
+  const [workPageData, setWorkPageData] = useState<WorkPageData>({} as WorkPageData);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [allMessages, setAllMessages] = useState<ChatPageData[]>([]);
+  const [allMessages, setAllMessages] = useState<WorkPageData[]>([]);
 
   const [practiceBasicPageData, setPracticeBasicPageData] = useState<any>(null);
-  const [practiceChatData, setPracticeChatData] = useState<any>(null);
 
-
+  const [interativeItems, setInterativeItems] = useState<any>(null);
+  const [basicLearningItems, setBasicLearningItems] = useState<any>(null);
+  const [interativeItem, setInterativeItem] = useState<PracticeInfoKey | null >("coffee_shop");
+  const [workData, setWorkData] = useState<any>(null);
 
   // Helper function to save allMessages to local storage
-  const saveAllMessagesToLocalStorage = (allMessages: ChatPageData[]) => {
+  const saveAllMessagesToLocalStorage = (allMessages: WorkPageData[]) => {
     localStorage.setItem("allMessages", JSON.stringify(allMessages));
   };
 
   // Helper function to load allMessages from local storage
-  const loadAllMessagesFromLocalStorage = (): ChatPageData[] => {
+  const loadAllMessagesFromLocalStorage = (): WorkPageData[] => {
     const storedData = localStorage.getItem("allMessages");
     return storedData ? JSON.parse(storedData) : [];
-
-
   };
 
   // Load data from local storage when the component mounts on the client-side
   useEffect(() => {
     setAllMessages(loadAllMessagesFromLocalStorage());
+    setWorkData(scene_practice_data.coffee_shop.practice_jp);
   }, []);
 
   // Update allMessages and save to local storage when messages or chatPageData change
   useEffect(() => {
-    if (chatPageData.id) {
+    if (workPageData.id) {
       setAllMessages((prevAllMessages) => {
-        const index = prevAllMessages.findIndex((chat) => chat.id === chatPageData.id);
+        const index = prevAllMessages.findIndex((chat) => chat.id === workPageData.id);
 
         let updatedAllMessages;
 
         if (index === -1) {
           // If the id is not found in the allMessages array, add the new chatPageData
-          updatedAllMessages = [...prevAllMessages, chatPageData];
+          updatedAllMessages = [...prevAllMessages, workPageData];
         } else {
           // If the id is found, update the corresponding singleSectionChat
           updatedAllMessages = prevAllMessages?.map((chat, i) =>
@@ -113,149 +91,76 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
         return updatedAllMessages;
       });
     }
-  }, [messages, chatPageData, setMessages]);
-
-  const [userSetting, setUserSetting] = useState({
-    englishLevel: "A2",
-    userName: "Alice",
-    language: "English",
-    imageUrl: '/usericon.png',
-  }
-  );
+  }, [messages, workPageData, setMessages]);
 
   useEffect(() => {
-    if (pageData) {
-      setUserSetting({
-        englishLevel: pageData.setting.englishLevel,
-        userName: pageData.setting.userName,
-        language: pageData.setting.language,
-        imageUrl: '/usericon.png',
+    if (main_page_list && main_page_list.interative_scene) {
+      // Assuming that interative_data.scene_interative is an array and you want to map it
+      const mappedItems = main_page_list.interative_scene.map((item) => {
+        return {
+          id: item.id,
+          imageUrl: item.imageUrl || '/character.png', // fallback to '/character.png' if imageUrl is not provided
+          title: item.scene_name,
+          infoKey: item.info_key,
+          description: item.description || "",
+          chatSettings: {
+            bot: {
+              botName: "Frank",
+              title: item.scene_name || "",
+              description: item.prompt || "",
+              objective: item.objective || "",
+              imageUrl: item.imageUrl || '/character.png'
+            },
+          },
+          interative_option: true,
+          lock: false
+        };
       });
+
+      setInterativeItems(mappedItems);
     }
-  }, [pageData]);
+  }, []);
 
-  const piazza_items = [
-    {
-      id: 0,
-      imageUrl: '/character.png',
-      title: '咖啡馆',
-      description: "",
-      chatSettings: {
-        bot: {
-          botName: "Frank",
-          title: "咖啡馆",
-          description: basic_value.scene_interative.coffee_shop.prompt,
-          objective: basic_value.scene_interative.coffee_shop.objective,
-          imageUrl: '/character.png',
-          createNote: basic_value.role_setting.create_note,
-          getResult: basic_value.role_setting.get_level,
-        },
-        user: userSetting
-      },
-      show: true
-    },
-    {
-      id: 1,
-      imageUrl: '/character.png',
-      title: '机场：值机',
-      description: "",
-      chatSettings: {
-        bot: {
-          botName: "Frank",
-          title: "机场：值机",
-          description: basic_value.scene_interative.airport_checkin.prompt,
-          objective: basic_value.scene_interative.airport_checkin.objective,
-          imageUrl: '/character.png',
-          createNote: basic_value.role_setting.create_note,
-          getResult: basic_value.role_setting.get_level,
-        },
-        user: userSetting
-      },
-      show: true
-    },
-    {
-      id: 2,
-      imageUrl: '/character.png',
-      title: '机场：免税店"',
-      description: "",
-      chatSettings: {
-        bot: {
-          botName: "Frank",
-          title: "机场：免税店",
-          description: basic_value.scene_interative.duty_free_shop.prompt,
-          objective: basic_value.scene_interative.duty_free_shop.objective,
-          imageUrl: '机场：免税店',
-          createNote: basic_value.role_setting.create_note,
-          getResult: basic_value.role_setting.get_level,
-        },
-        user: userSetting
-      },
-      show: true
-    },
-    {
-      id: 3,
-      imageUrl: '/character.png',
-      title: '机场：信息台',
-      description: "",
-      chatSettings: {
-        bot: {
-          botName: "Frank",
-          title: "机场：信息台",
-          description: basic_value.scene_interative.information_desk.prompt,
-          objective: basic_value.scene_interative.information_desk.objective,
-          imageUrl: '/character.png',
-          createNote: basic_value.role_setting.create_note,
-          getResult: basic_value.role_setting.get_level,
-        },
-        user: userSetting
-      },
-      show: true
-    },
-    {
-      id: 3,
-      imageUrl: '/character.png',
-      title: '电影院：购票',
-      description: "",
-      chatSettings: {
-        bot: {
-          botName: "Frank",
-          title: "电影院：购票",
-          description: basic_value.scene_interative.movie_ticket_purchase.prompt,
-          objective: basic_value.scene_interative.movie_ticket_purchase.objective,
-          imageUrl: '/character.png',
-          createNote: basic_value.role_setting.create_note,
-          getResult: basic_value.role_setting.get_level,
-        },
-        user: userSetting
-      },
-      show: true
-    },
-  ];
+  useEffect(() => {
+    if (main_page_list && main_page_list.basic_learning) {
+      // Assuming that interative_data.scene_interative is an array and you want to map it
+      const mappedItems = main_page_list.basic_learning.map((item) => {
+        return {
+          id: item.id,
+          imageUrl: item.imageUrl || '/character.png', // fallback to '/character.png' if imageUrl is not provided
+          title: item.scene_name,
+          infoKey: item.info_key,
+          description: "",
+          chatSettings: {
+            bot: {
+              botName: "Frank",
+              title: item.scene_name || "",
+              description: "",
+              objective:  "",
+              imageUrl: '/character.png'
+            },
+          },
+          interative_option: false
+        };
+      });
 
-  const handleListItemClick = (item: CharacterSetting) => {
+      setBasicLearningItems(mappedItems);
+    }
+  }, []);
 
-    // Update chatPageData
-    setChatPageData(
+  const handleListItemClick = (item: any) => {
+    console.log(" handleListItemClick item", item)
+    setWorkPageData(
       {
         id: item.title,
         title: item.title,
         chatSettings: item.chatSettings,
-        messages: allMessages.find((chat) => chat.id === item.title)?.messages || []
-      }
-    );
-    setSelectPage("chat");
-  };
-
-  const handleInterativeListItemClick = (item: any) => {
-    setChatPageData(
-      {
-        id: item.title,
-        title: item.title,
-        chatSettings: item.chatSettings,
-        messages: allMessages.find((chat) => chat.id === item.title)?.messages || []
+        messages: allMessages.find((chat) => chat.id === item.title)?.messages || [],
+        interative_option: item.interative_option
       }
     );
     setSelectPage("practice");
+    setInterativeItem(item.infoKey);
   }
 
   const handlePracticeListItemClick = (item: any) => {
@@ -269,6 +174,7 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
           zh_text: item.zh_text,
           roma_text: item.roma_text,
           stable_ts: item.stable_ts,
+          imageUrl: item.imageUrl
         },
         n: 100,
         color: "#FFC300"
@@ -289,16 +195,16 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
 
   const handleResetClick = () => {
     // setChatPageData message to empty
-    setChatPageData(
+    setWorkPageData(
       {
-        id: chatPageData.title,
-        title: chatPageData.title,
-        chatSettings: chatPageData.chatSettings,
-        messages: []
+        id: workPageData.title,
+        title: workPageData.title,
+        chatSettings: workPageData.chatSettings,
+        messages: [],
+        interative_option: workPageData.interative_option
       }
     );
   };
-
 
   // handle hide header
   useEffect(() => {
@@ -310,45 +216,34 @@ function MainPage({ setShowHeader, selectedPage, setSelectPage, pageData, setPag
     }
   }, [selectedPage]);
 
+  useEffect(() => {
+    const key = language === "JP" ? 'practice_jp' : 'practice_en';
+    const practiceData = interativeItem ? scene_practice_data[interativeItem]?.[key] : null;
+    if (practiceData) {
+      setWorkData(practiceData);
+    }
+  }, [language, interativeItem]);
+  
+
   switch (selectedPage) {
-    // case "account":
-    //   return <AccountPage />
-    // case "setting":
-    //   return <Settings pageData={pageData} setPageData={setPageData} />;
-    // case "concept base":
-    //   return pageData && <ConceptBase pageData={pageData} setPageData={setPageData} />;
-    // case "main":
-    //   return pageData && <InterativeListPage interative_scene={piazza_items} onListItemClick={handleListItemClick} />;
-    // case "chat":
-    //   return <ChatPage
-    //     key={chatPageData.messages.length}
-    //     chatName={chatPageData.title || "Chat Name"}
-    //     messages={chatPageData.messages}
-    //     botchatSettings={chatPageData.chatSettings.bot}
-    //     userChatSettings={chatPageData.chatSettings.user}
-    //     pageData={pageData}
-    //     setPageData={setPageData}
-    //     setMessages={setMessages}
-    //     onReset={handleResetClick}
-    //     onBackClick={handleBackClick}
-    //     onSendMessage={handleSendMessage}
-    //   />
     case "about":
       return <AboutPage />;
     case "practice":
       return <WorkPage
-        work_data={scene_practice_data[0].partice}
+        work_data={workData}
         practice_page_data={practiceBasicPageData}
-        chat_page_data={chatPageData}
+        work_page_data={workPageData}
         onListItemClick={handlePracticeListItemClick}
-        pageData={pageData}
-        setPageData={setPageData}
         setMessages={setMessages}
         onReset={handleResetClick}
         onBackClick={handleBackClick}
-        onSendMessage={handleSendMessage}/>;
+        onSendMessage={handleSendMessage} />;
     default:
-      return <InterativeListPage interative_scene={piazza_items} onListItemClick={handleInterativeListItemClick} />;
+      return <InterativeListPage
+      language={language}
+      basic_learning_items={basicLearningItems}
+      interative_scene={interativeItems} 
+      onListItemClick={handleListItemClick} />;
   }
 }
 

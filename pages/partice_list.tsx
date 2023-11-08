@@ -7,10 +7,11 @@ import {
     CardMedia,
     Typography,
     LinearProgress,
-    TextField
+    TextField,
+    IconButton
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
-
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 
 
 interface PraticeListProps {
@@ -19,10 +20,7 @@ interface PraticeListProps {
 }
 
 
-const PraticeList: React.FC<PraticeListProps> = ({scene_items, onListItemClick }) => {
-
-    console.log("scene_items", scene_items)
-    const safeSceneItems = scene_items || { partice: [] };
+const PraticeList: React.FC<PraticeListProps> = ({ scene_items, onListItemClick }) => {
 
     // Conditional rendering based on the data
     if (!scene_items?.length) {
@@ -33,6 +31,18 @@ const PraticeList: React.FC<PraticeListProps> = ({scene_items, onListItemClick }
             </Box>
         );
     }
+
+    const onListItemPlayClick = (wavPath: string) => {
+        // Create a new audio object with the path to the wav file
+        const audio = new Audio(wavPath);
+
+        // Play the audio
+        audio.play().catch(error => {
+            console.error('Error playing audio:', error);
+            // Handle any errors playing the audio file here
+        });
+    };
+
     return (
         <Box
             sx={{
@@ -60,23 +70,23 @@ const PraticeList: React.FC<PraticeListProps> = ({scene_items, onListItemClick }
                         alignItems: 'center',
                     }}
                 >
-                    <Typography gutterBottom
+                    {/* <Typography gutterBottom
                                 variant="body1"
                                 component="div"
                                 sx={{
                                     fontWeight: 'bold',
                                     color: '#d3d3d3',
                                     backgroundColor: '#70ae6e',
-                                    margin: '10px',
                                     padding: '5px',
                                     borderRadius: '12px',
                                 }}>
                                 {idx || '0'}
-                        </Typography>
+                        </Typography> */}
                     <CardActionArea
                         sx={{
                             display: 'flex',
                             flexDirection: 'row',
+                            maxWidth: '80%',
                         }}
                     >
                         <CardContent sx={{
@@ -84,30 +94,46 @@ const PraticeList: React.FC<PraticeListProps> = ({scene_items, onListItemClick }
                             height: "100%", justifyContent: 'center',
                             padding: "5px",
                         }}>
-                            <Typography gutterBottom
+                            <Typography
+                                gutterBottom
                                 variant="body1"
                                 component="div"
                                 sx={{
                                     fontWeight: 'bold',
                                     color: '#333333',
-                                }}>
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                    whiteSpace: 'nowrap',
+                                    maxWidth: '100%', // Or a specific pixel value
+                                }}
+                            >
                                 {item.jp_text || 'Default text'}
                             </Typography>
-                            <Typography gutterBottom
+                            <Typography
+                                gutterBottom
                                 variant="caption"
                                 component="div"
                                 sx={{
                                     fontWeight: 'bold',
                                     color: '#333333',
-                                }}>
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                    whiteSpace: 'nowrap',
+                                    maxWidth: '100%', // Or a specific pixel value
+                                }}
+                            >
                                 {item.zh_text || 'Default text'}
                             </Typography>
+
                         </CardContent>
                     </CardActionArea>
+                    <IconButton>
+                        <VolumeUpIcon onClick={() => onListItemPlayClick(item.wav_path)} />
+                    </IconButton>
                 </Card>
 
             ))}
-        </Box>     
+        </Box>
     );
 };
 

@@ -104,7 +104,7 @@ const Header: React.FC<HeaderProps> = ({ selectedPage, onMenuItemSelect }) => {
                     }}
                 >
                     <Box sx={{ flexGrow: 1 }}>
-                        <LeftSideMenu onSelect={onMenuItemSelect} />
+                       
                     </Box>
                     <Typography variant="h6" component="div" sx={{fontWeight:"bold"}}>
                         {renderIcon()}

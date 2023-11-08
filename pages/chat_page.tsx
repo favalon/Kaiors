@@ -307,18 +307,18 @@ const ChatPage: React.FC<ChatPageProps> = ({
 
 
         let request_message = FormattedMessage({
+            title: "Your title here",
+            objective: "Your objective here",
             chat_history: chat_history,
             history_messages: history_messages,
             roleSettings: roleSettings,
-            title: botchatSettings.title,
             userName: userChatSettings.userName,
-            userEnglishLevel: userChatSettings.englishLevel,
-            userLanguage: userChatSettings.language,
             botName: botchatSettings.botName,
         });
 
+        console.log('request_message 123', request_message);
         // Send user question and history to API
-        const response = await fetch('/api/chat1', {
+        const response = await fetch('/api/chat_azure', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -498,8 +498,6 @@ const ChatPage: React.FC<ChatPageProps> = ({
                             // Decode the audio data from the TTS result
                             const audioContext = new AudioContext();
                             const audioBuffer = await audioContext.decodeAudioData(result.audioData);
-                            // console.log('audioBuffer', audioBuffer.sampleRate);
-                            // Convert the AudioBuffer to a .wav file
                             const wav = toWav(audioBuffer);
                             const wavBlob = new Blob([new DataView(wav)], { type: 'audio/wav' });
 
@@ -533,15 +531,11 @@ const ChatPage: React.FC<ChatPageProps> = ({
 
     useEffect(() => {
         const latestMessage = currentMessages[currentMessages?.length - 1];
-        console.log('tts check 1');
-        console.log('latestMessage', latestMessage);
-        console.log('isSynthesizingRef', isSynthesizingRef);
         if (latestMessage && !latestMessage.isOwnMessage && useTTS
             && latestMessage.text !== prevMessages?.text && !isSynthesizingRef.current) {
             
             // Set the flag to true, indicating synthesis is in progress
             isSynthesizingRef.current = true;
-            console.log('tts check 2');
             // Set the flag to false, which will stop the previous synthesized audio
             playAudioRef.current = false;
             synthesizeTextToSpeech(filterText(latestMessage.text))
