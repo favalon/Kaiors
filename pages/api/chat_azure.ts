@@ -1,7 +1,7 @@
 const { OpenAIClient, AzureKeyCredential } = require("@azure/openai");
 import type { NextApiRequest, NextApiResponse } from 'next';
-const endpoint = "https://learnmategpt.openai.azure.com/";
-const azureApiKey = "5c80b5455c9f42f3a558101a97c97e0d";
+const endpoint = process.env.AZURE_OPENAI_ENDPOINT;
+const azureApiKey = process.env.AZURE_OPENAI_API_KEY;
 
 const messages = [
     { role: "system", content: "You are a helpful assistant." },
