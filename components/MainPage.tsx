@@ -109,7 +109,8 @@ function MainPage({ language, setShowHeader, selectedPage, setSelectPage }: Main
               title: item.scene_name || "",
               description: item.prompt || "",
               objective: item.objective || "",
-              imageUrl: item.imageUrl || '/character.png'
+              imageUrl: item.imageUrl || '/character.png',
+              background: item.imageUrl || ''
             },
           },
           interative_option: true,

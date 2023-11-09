@@ -55,6 +55,7 @@ interface ChatSettings {
     describe: string;
     botName: string;
     objective: string;
+    imageUrl: string;
     [key: string]: string;
 }
 
@@ -308,7 +309,7 @@ const WorkChatPage: React.FC<WorkChatPageProps> = ({
         const newMessage = {
             id: uuidv4(),
             senderName: 'bot',
-            senderImage: botchatSettings.imageUrl,
+            senderImage: botchatSettings?.imageUrl || '/character.png',
             text: data.answer,
             isOwnMessage: false,
         };
@@ -325,7 +326,7 @@ const WorkChatPage: React.FC<WorkChatPageProps> = ({
         const newMessage = {
             id: uuidv4(),
             senderName: 'bot',
-            senderImage: botchatSettings.imageUrl,
+            senderImage: botchatSettings?.imageUrl || '/character.png',
             text: "Oops! There seems to be an error. Please try again.",
             isOwnMessage: false,
         };
@@ -565,6 +566,71 @@ const WorkChatPage: React.FC<WorkChatPageProps> = ({
 
     }, [initialMessageSent]);
 
+    // handle task complete check
+
+    const handleCheckTaskComplete = () => {
+        console.log("all messages", currentMessages)
+        console.log("obj", objective.zh_text)
+        handleCheckTaskCompleteSend({ preventDefault: () => { } });
+    };
+
+    const handleResetObjective = () => {
+        selectRandomObjective()
+    };
+
+    const handleCheckTaskCompleteSend = async (e: any) => {
+        e.preventDefault();
+    
+        console.log('handleSubmit')
+    
+        setLoading(true);
+    
+    
+        let request_message = FormattedMessage({
+          chat_history: currentMessages,
+          history_messages: [],
+          roleSettings: "'''\n ${chat_history} \n'''\n According to the above chat history, check if the user has completed the following task: '${objective}'. ‘是’或 ‘否 xxx’, 并用中文解释原因。",
+          title: "Functional button",
+          objective: objective.en_text,
+          userName: "",
+          botName: "",
+          functionMessage: "",
+        });
+    
+    
+        console.log('send-messages:', request_message)
+    
+        // Send user question and history to API
+        const response = await fetch('/api/chat_azure', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ request_message: request_message }
+          ),
+        });
+    
+    
+        if (!response.ok) {
+          console.log('response not ok');
+          handleError();
+          return;
+        }
+    
+        const data = await response.json();
+    
+    
+        if (data.error === "Unauthorized") {
+          console.log("Unauthorized");
+          handleError();
+          return;
+        }
+    
+    
+        setLoading(false);
+        alert(data.answer);
+        // setNextQuiz(true);
+      };
 
 
 
@@ -580,7 +646,7 @@ const WorkChatPage: React.FC<WorkChatPageProps> = ({
                     width: '92%',
                     margin: '5px',
                     borderRadius: '20px',
-                    backgroundImage: `url(${'https://wallpapercave.com/wp/wp2352850.jpg'})`, // Replace imgurl with your actual image URL
+                    backgroundImage: `url(${ botchatSettings?.imageUrl || '/character.png'})`, // Replace imgurl with your actual image URL
                     backgroundSize: 'cover', // This will ensure that the background covers the entire Box
                     backgroundPosition: 'center', // This will center the background image in the Box
                     backgroundRepeat: 'no-repeat' // This will prevent the background image from repeating
@@ -618,6 +684,8 @@ const WorkChatPage: React.FC<WorkChatPageProps> = ({
                     }}
                 ></iframe>
             </Box>
+            
+            {/* top bar part */}
             <Toolbar
                 sx={{
                     backgroundColor: '#faf6f6',
@@ -642,23 +710,55 @@ const WorkChatPage: React.FC<WorkChatPageProps> = ({
                 </Typography>
                 <Button
                     sx={{
-                        color: '#70ae6e', // Text color
+                        color: '#ffffff', // Text color
+                        fontWeight: 'bold',
+                        backgroundColor: '#70ae6e !important',
+                        mx: '20px',
+                        my: '10px',
                         '&:hover': {
-                            backgroundColor: '#f0f0f0', // Light grey background on hover
+                            backgroundColor: '#33333333 !important', // Light grey background on hover
                             color: '#5e8b5a', // A darker shade of green on hover
                         },
                         
                     }}
                     onClick={handleClickInfo}
-                >查看目标</Button>
+                >互动任务</Button>
                 <Menu
                     anchorEl={anchorElInfo}
                     open={Boolean(anchorElInfo)}
                     onClose={handleInfoClose}
+                    
                 >
                     <MenuItem style={{ whiteSpace: 'pre-wrap' }}>
                         {objective.zh_text}
                     </MenuItem>
+                    <Button
+                    onClick={handleCheckTaskComplete}
+                    sx={{
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#ffffff', // Text color
+                        borderRadius: '12px',
+                        backgroundColor: '#70ae6e !important',
+                        mx: '20px',
+                        my: '10px',
+                        '&:hover': {
+                            backgroundColor: '#33333333 !important', // Light grey background on hover
+                            color: '#5e8b5a', // A darker shade of green on hover
+                        },}}>
+                        完成任务
+                    </Button>
+                    <Button
+                    onClick={handleResetObjective}
+                    sx={{
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#70ae6e', // Text color
+                        borderRadius: '12px',
+                        my: '10px',
+                        }}>
+                        换一个任务
+                    </Button>
                 </Menu>
 
                 <Button
@@ -701,6 +801,7 @@ const WorkChatPage: React.FC<WorkChatPageProps> = ({
                     <RefreshIcon />
                 </IconButton>
             </Toolbar>
+
             <Box
 
                 sx={{
@@ -840,6 +941,7 @@ const WorkChatPage: React.FC<WorkChatPageProps> = ({
 
                 </Box>
             </Box>
+            
 
         </Box>
     );

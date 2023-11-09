@@ -3,13 +3,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 const endpoint = process.env.AZURE_OPENAI_ENDPOINT;
 const azureApiKey = process.env.AZURE_OPENAI_API_KEY;
 
-const messages = [
-  { role: "system", content: "You are a helpful assistant." },
-  { role: "user", content: "Does Azure OpenAI support customer managed keys?" },
-  { role: "assistant", content: "Yes, customer managed keys are supported by Azure OpenAI" },
-  { role: "user", content: "Do other Azure AI services support this too" },
-];
-
 const fetch = require('node-fetch');
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

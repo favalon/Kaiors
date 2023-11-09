@@ -399,6 +399,7 @@ const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n }) => 
                     right: '5px',
                     bottom: '5px',
                     position: 'absolute',
+                    zIndex: 0,
 
                 }}
             >
@@ -451,6 +452,7 @@ const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n }) => 
                             gap: '0px',
                             px: 2,
                             py: 1,
+                            zIndex: 1,
                         }}
                     >
                         <Typography variant="body1" component="p" paragraph sx={{ margin: '3px' }}>

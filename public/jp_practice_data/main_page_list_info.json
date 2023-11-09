@@ -6,47 +6,80 @@
             "scene_name": "咖啡店",
             "imageUrl": "/scene_img/coffee_shop.jpeg",
             "description": "欢迎来到咖啡店，体验一下点单的流程吧！",
-            "prompt": " Act as a waiter at Japan Star Coffee Shop and have a conversation with me in Japanese Only. \n Respond in a very short, conversational and friendly style.\n  Make sure to clarify all options, customized request, extras sizes and the payment.\n *You can not respond with any English*",
+            "prompt": " Act as a waiter at Japaneese Maid cafés and have a conversation with me in Japanese Only. Guided me through the entire buying process. \n Respond in a very concise, friendly style.\n  Make sure to clarify all options, customized request, extras sizes and the payment.\n *You can not respond with any English*",
              "objective": [
                 {
                     "zh_text": "1. 购买一杯小杯的无糖的美式咖啡（Americano)。 \n2. 使用Alipay进行结账。",
                     "en_text": "1. Purchase a small cup of sugar-free Americano. \n2. Pay with Alipay."
-                }
+                },
+                {
+                    "zh_text": "1. 购买杯大杯的拿铁。 \n2. 使用现金结账。",
+                    "en_text": "1. Purchase a large cup of latte. \n2. Pay with cash."
+                },
+                {
+                    "zh_text": "1. 选购一块经典的纽约芝士蛋糕。 \n2. 使用信用卡支付。",
+                    "en_text": "1. Select a slice of classic New York cheesecake. \n2. Pay with a credit card."
+                    },
+                    {
+                    "zh_text": "1. 点一份新鲜烘焙的羊角面包。 \n2. 通过手机银行应用转账。",
+                    "en_text": "1. Order a freshly baked croissant. \n2. Transfer payment via mobile banking app."
+                    },
+                    {
+                    "zh_text": "1. 尝试店里特制的南瓜香料拿铁。 \n2. 使用数字货币进行结算。",
+                    "en_text": "1. Try the shop's special Pumpkin Spice Latte. \n2. Settle the bill with digital currency."
+                    }
             ]
         },
         {
             "id": 2,
             "info_key": "air_port_checkin",
             "scene_name": "机场：值机",
-            "imageUrl": "/scene_img/air_port_checkin.jpeg",
+            "imageUrl": "/scene_img/airport.png",
             "description": "欢迎来到机场！体验一下值机的流程吧！",
-            "prompt": "Act as a check-in agent at the Airport Counter and you will have a dialogue with me in only Japanese. I am the passenger and has a hidden objective they need to achieve. \n The passenger objectives: \n${objective}\n If passenger finishes the objectives above, respond with a sign '###'. \n **You can't provide any hints to the passenger.** \n You first greet the passenger as agent, do not mention all tasks listed in the objectives below before the passenger asks. \n You proceed based on the passenger's questions and requests. \n Finally, you hand over the boarding pass and luggage receipt. \n Make sure to clarify details from the standard process. \n Respond in short sentence and conversational friendly style. **Waiting for passenger reply after saying a word** \n Only If passenger finishes the objectives above, respond with a sign '###'. \n Let's start,こんにちは,",
+            "prompt": "Act as a check-in agent at the Airport Counter and you will have a dialogue with me in only Japanese. I am the passenger and has a hidden objective they need to achieve. \n The passenger objectives: \n${objective}\n **You can't provide any hints to the passenger about his objectives.** \n Respond in a very concise, friendly and professional style. Ask only one question each time. \n Make sure to clarify all important aspect. \n *You can never speak English*",
             "objective": [
                 {
                     "zh_text": "1. 完成值机过程，你的航班号是NA371。 \n2. 托运一件超重的行李。 \n3. 请求一个靠窗的座位。",
                     "en_text": "1. Complete the check-in process, your flight number is NA371. \n2. Check in one piece of overweight luggage. \n3. Request a window seat."
+                },
+                {
+                    "zh_text": "1. 询问关于航班延误的补偿政策，航班号是CA980。\n2. 找到转机柜台，你的下一程是通过航班LH467。\n3. 获取机场WiFi密码。",
+                    "en_text": "1. Inquire about the compensation policy for flight delays, your flight number is CA980.\n2. Locate the transfer counter, your connecting flight is via LH467.\n3. Obtain the airport WiFi password."
+                },
+                {
+                    "zh_text": "1. 报告并寻找遗失的随身物品。\n2. 更改座位，因为原座位旁边的乘客有宠物。\n3. 询问贵宾休息室的位置和使用条件。",
+                    "en_text": "1. Report and search for a lost carry-on item.\n2. Change seats because the passenger next to the original seat has a pet.\n3. Ask for the location and conditions for using the VIP lounge."
+                },
+                {
+                    "zh_text": "1. 申请入境签证的紧急审批，因为你有即将开始的会议。\n2. 确认行李直挂到最终目的地。\n3. 解决过境签证的问题，你的中转时间超过了免签时间。",
+                    "en_text": "1. Apply for expedited approval of an entry visa due to an upcoming meeting.\n2. Confirm that luggage is checked through to the final destination.\n3. Address transit visa issues, as your layover time exceeds the visa-free period."
                 }
+            
             ]
         },
         {
             "id": 3,
-            "info_key": "air_port_duty_free",
-            "scene_name": "机场：免税店",
-            "imageUrl": "/character.png",
-            "description": "欢迎来到机场，体验一下免税店购物的流程吧！",
-            "prompt": "Act as a sales assistant at the Duty-Free Shop and you will have a casual dialogue with me in only Japanese. I am the customer and have a hidden objective I need to achieve.\n The customer objectives: \n${objective}\nIf the customer finishes the objectives above, respond with a sign '###'.\n**You can't provide any hints to the customers.**\n You first greet the customer, do not mention all tasks listed in the objectives below before the customer asks.\n You proceed based on the customer's questions and requests.\n Finally, you hand over the book and payment receipt.\n Make sure to clarify details from the standard process.\n Respond in short sentence and conversational friendly style. **Waiting for customer reply after saying a word**\n Only If customer finishes the objectives above, respond with a sign '###'.\n Let's start, こんにちは,",
+            "info_key": "school_select_course",
+            "scene_name": "学校：选课",
+            "imageUrl": "/scene_img/office.png",
+            "description": "学校选课会遇到的问题",
+            "prompt": " Act as a course advisor at the university registration office and you will have a casual dialogue with me in only Japanese. Guided me through the course select process. \n Respond in a very concise, friendly and professional style.\n Ask only one question each time.\n Make sure to clarify all important aspect. \n *You can not respond with any English*",
             "objective": [
                 {
-                    "zh_text": "1. 购买一本科幻题材的小说。 \n2. 使用信用卡付款。",
-                    "en_text": "1. Purchase a science fiction themed novel. \n2. Pay with a credit card."
+                    "zh_text": "1. 讨论了下学期的课程选择。 \n2. 选择则四门课程，包括两门专业课和两门选修课",
+                    "en_text": "1. Discussed the course selection for the next semester. \n2. choosing four courses including two major courses and two electives.."
                 },
                 {
-                    "zh_text": "1. 购买一本悬疑题材的小说。 \n2. 使用现金卡付款。",
-                    "en_text": "1. Purchase a mystery themed novel. \n2. Pay with a cash card."
+                    "zh_text": "你由于未能完成计算机CSE303的前置课程数学MTH203而导致无法选课, \n你需要询问如何解决。 \n1. 解决因为先决条件没有满足无法选课的问题 \n",
+                    "en_text": "1. Solve the unmet prerequisites for certain courses during the course selection."
                 },
                 {
-                    "zh_text": "1. 购买一本言情题材的小说。 \n2. 使用Wechat Pay付款。",
-                    "en_text": "1. Purchase a romance themed novel. \n2. Pay with Wechat Pay."
+                    "zh_text": "你由于数学MTH203和物理PHY303的冲突导致你无法选课，\n这是两门必修课，你需要询问如何解决。\n1. 解决冲突的课程时间无法选课的问题 \n",
+                    "en_text": "1. Solve the conflicting course times during the course selection."
+                },
+                {
+                    "zh_text": "1. 你由于健康问题可能需要休学，你需要了解清楚这对你毕业的影响 \n",
+                    "en_text": "1. The student may need to take a medical leave of absence， discussed the impact. \n"
                 }
             ]
         },

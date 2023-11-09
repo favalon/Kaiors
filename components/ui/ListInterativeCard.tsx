@@ -10,11 +10,14 @@ interface ListInterativeCardProps {
     starsNeeded?: number;
     title?: string;
     description?: string;
+    
   };
+  language: string;
   onListItemClick: (item: any) => void; // Replace 'any' with a proper type if available
 }
 
-const ListInterativeCard: React.FC<ListInterativeCardProps> = ({ item, onListItemClick }) => {
+const ListInterativeCard: React.FC<ListInterativeCardProps> = ({ item, language, onListItemClick }) => {
+  console.log(language);
   return (
     <Card
       key={item.id}
@@ -48,7 +51,7 @@ const ListInterativeCard: React.FC<ListInterativeCardProps> = ({ item, onListIte
         }
       }}
     >
-      {item.lock && (
+      {(item.lock||language=="EN") && (
         <Box
           sx={{
             position: 'absolute',
@@ -63,7 +66,7 @@ const ListInterativeCard: React.FC<ListInterativeCardProps> = ({ item, onListIte
         />
       )}
         <CardContent sx={{}}>
-          {item.lock && (
+          {(item.lock||language=="EN") && (
             <LockIcon
               sx={{
                 color: 'white',

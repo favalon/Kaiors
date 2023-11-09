@@ -215,7 +215,7 @@ const InterativeListPage: React.FC<InterativeListPageProps> = ({ language, basic
                         }}
                     >
                         {interative_scene?.map((item) => (
-                            <ListInterativeCard key={item.id} item={item} onListItemClick={onListItemClick} />
+                            <ListInterativeCard key={item.id} language={language} item={item} onListItemClick={onListItemClick} />
 
                         ))}
                     </Box>

@@ -52,6 +52,7 @@ const FormattedMessage = ({
     const getRandomValue = (list: string | any[]) => list[Math.floor(Math.random() * list.length)];
 
     const replaceSettings = {
+        "chat_history": formattedMessages,
         "user_name": userName,
         "bot_name": botName,
         "function_message":functionMessage,
@@ -60,6 +61,8 @@ const FormattedMessage = ({
 
 
     const replacedTemplate = replacePlaceholders(roleSettings, replaceSettings);
+
+    console.log("replacedTemplate: ", replacedTemplate);
 
     const messages = [
         { role: "user", content: replacedTemplate },
