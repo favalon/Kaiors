@@ -53,7 +53,7 @@
         {
             "id": 4,
             "info_key": "air_port_information",
-            "scene_name": "机场：信息咨询台",
+            "scene_name": "机场：咨询台",
             "imageUrl": "/character.png",
             "description": "欢迎来到机场，使用咨询台解决目标问题吧！",
             "prompt": "Act as an information desk assistant at the Airport. You will have a dialogue with me in only Japanese. I am the passenger and have a hidden objective I need to achieve.\n The passenger objectives: \n${objective}\nIf the passenger finishes the objectives above, respond with a sign '###'.\n**You can't provide any hints to the passenger.**\n You first greet the passenger as an assistant, do not mention all tasks listed in the objectives below before the passenger asks.\n You proceed based on the passenger's questions and requests.\n Finally, you provide directions and next steps for lost property.\n Make sure to clarify details from the standard process.\n Respond in short sentence and conversational friendly style. **Waiting for passenger reply after saying a word**\n Only If passenger finishes the objectives above, respond with a sign '###'.\n Let's start, こんにちは,",

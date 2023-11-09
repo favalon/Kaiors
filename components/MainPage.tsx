@@ -185,7 +185,7 @@ function MainPage({ language, setShowHeader, selectedPage, setSelectPage }: Main
   };
 
   const handleBackClick = () => {
-    setSelectPage("main");
+    setSelectPage("Main");
     setShowHeader(true);
   };
 
@@ -226,7 +226,7 @@ function MainPage({ language, setShowHeader, selectedPage, setSelectPage }: Main
   
 
   switch (selectedPage) {
-    case "about":
+    case "About":
       return <AboutPage />;
     case "practice":
       return <WorkPage

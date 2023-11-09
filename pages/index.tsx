@@ -50,7 +50,7 @@ const Home: React.FC = () => {
                     <LeftSideMenu onSelect={handleMenuItemSelect} language={language} setLanguage={setLanguage}/>
                 </Box>
                 {/* MainPage taking the rest of the width */}
-                <Box sx={{ flexGrow: 1, width: '95%' }}>
+                <Box sx={{ flexGrow: 1, width: '94%' }}>
                     {Object.keys(pageData).length > 0 && (
                         <div className={styles.allWidth}>
                             <MainPage

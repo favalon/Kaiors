@@ -12,6 +12,8 @@ import {
 import styles from '@/styles/interativeList.module.css';
 import CheckInTracker from '@/components/ui/checkin';
 import LockIcon from '@mui/icons-material/Lock';
+import ListCard from '@/components/ui/ListCard';
+import ListInterativeCard from '@/components/ui/ListInterativeCard';
 
 interface InterativeSetting {
     id: number;
@@ -86,7 +88,6 @@ const InterativeListPage: React.FC<InterativeListPageProps> = ({ language, basic
                 alignItems: 'start',
                 flexDirection: 'column',
                 width: '100%',
-                maxWidth: '1200px',
                 mx: 'auto',
                 height: '100%',
             }}
@@ -98,7 +99,7 @@ const InterativeListPage: React.FC<InterativeListPageProps> = ({ language, basic
                     alignItems: 'center',
                     flexDirection: 'row',
                     mx: '10px',
-                    width: '100%',
+                    width: '90%',
                 }}
             >
                 <Box
@@ -148,206 +149,74 @@ const InterativeListPage: React.FC<InterativeListPageProps> = ({ language, basic
                 <CheckInTracker checkInData={checkInData} handleCheckIn={handleCheckIn} />
             </Box>
 
-
             <Box
                 sx={{
+                    alignItems: 'start',
                     justifyContent: 'center',
                     width: '100%',
                     display: 'flex',
-                    flexDirection: 'row',
-                    gap: '100px',
+                    flexDirection: 'column',
+                    gap: '10px',
                 }}>
 
                 {language === 'JP' && (
                     <Box sx={{
                         display: 'flex',
                         flexDirection: 'column',
-                        alignItems: 'center', width: '100%',
-                        maxWidth: '400px',
+                        alignItems: 'start', width: '100%',
                         maxHeight: '100vh',
-                        my: '10px',
+                        mx: '20px',
                     }}>
-                        <Typography variant="h4" component="div" sx={{ fontWeight: 'bold', color: '#333333' }}>
+                        <Typography variant="h4" component="div" sx={{ fontWeight: 'bold', color: '#333333', mx: '20px', my: '8px' }}>
                             基础:五十音
                         </Typography>
-                        <Grid container spacing={2} sx={{ maxWidth: '100%', margin: '0 auto' }}>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                overflowX: 'auto',
+                                padding: '10px',
+                                width: '90%',
+                                borderRadius: '20px',
+                                // Hide scrollbar for Chrome, Safari and newer versions of Edge
+                                '&::-webkit-scrollbar': {
+                                    display: 'none',
+                                },
+                                // Hide scrollbar for Firefox
+                                scrollbarWidth: 'none', // Firefox
+                                // IE and Edge
+                                '-ms-overflow-style': 'none',
+                            }}>
                             {basic_learning_items?.map((item) => (
-                                <Grid item xs={12} sm={6} md={4} key={item.id}> {/* Adjust grid breakpoints as needed */}
-                                    <Card
-                                        onClick={() => onListItemClick(item)}
-                                        className={styles.cube}  // Add the cube class here
-                                        sx={{
-                                            height: '100px',
-                                            borderRadius: '20px',
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            backgroundColor: '#70ae6e',
-                                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.25)',
-                                            '&:hover': {
-                                                boxShadow: '0 15px 30px rgba(0, 0, 0, 0.25)',
-                                            },
-                                            // You may need to adjust the transformOrigin based on your design
-                                            transformOrigin: 'center center'
-                                        }}
-                                    >
-                                        <CardActionArea
-                                            sx={{
-                                                display: 'flex',
-                                                flexDirection: 'row',
-                                                alignItems: 'start',
-                                                justifyContent: 'start',
-                                                width: '100%', // make sure action area fills the card
-                                            }}
-                                        >
-                                            <CardContent sx={{ marginLeft: "20px" }}>
-                                                <Typography gutterBottom variant="h5" component="div"
-                                                    sx={{ fontWeight: 'bold', color: 'white', fontSize: 'clamp(14px, 4vw, 24px)' }}
-                                                >
-                                                    {item.title || 'Default title'}
-                                                </Typography>
-                                            </CardContent>
-                                        </CardActionArea>
-                                    </Card>
-                                </Grid>
+                                <ListCard item={item} onListItemClick={onListItemClick} />
+
                             ))}
-                        </Grid>
+                        </Box>
                     </Box>)}
 
                 <Box sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    alignItems: 'center', width: '100%',
+                    alignItems: 'start', width: '100%',
                     maxWidth: '400px',
                     maxHeight: '100vh',
-                    my: '10px',
+                    mx: '20px',
                 }}>
-                    <Typography variant="h4" component="div" sx={{ fontWeight: 'bold', color: '#333333' }}>
+                    <Typography variant="h4" component="div" sx={{ fontWeight: 'bold', color: '#333333', mx: '20px', my: '8px' }}>
                         实战互动
                     </Typography>
                     <Box
                         sx={{
                             display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            gap: '10px',
-                            width: '100%',
-                            maxWidth: '400px',
-                            margin: '10px',
+                            flexDirection: 'row',
+                            overflowX: 'auto',
                             padding: '10px',
-                            overflow: 'auto', // Enable scrolling for overflow content
+
                         }}
                     >
-
                         {interative_scene?.map((item) => (
-                            <Card
-                                key={item.id}
-                                sx={{
-                                    width: '100%',
-                                    height: '100px',
-                                    borderRadius: '20px',
-                                    mx: '25px',
-                                    display: 'flex',
-                                    color: '#333333',
-                                    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-                                    backgroundImage: `url(${item.imageUrl || 'https://via.placeholder.com/100'})`,
-                                    backgroundSize: 'cover',
-                                    backgroundRepeat: 'no-repeat',
-                                    backgroundPosition: 'center',
-                                    position: 'relative', // Needed for pseudo-element positioning
-                                    '&:after': { // Pseudo-element for overlay
-                                        content: '""',
-                                        display: 'block',
-                                        position: 'absolute',
-                                        top: 0,
-                                        left: 0,
-                                        right: 0,
-                                        bottom: 0,
-                                        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Adjust darkness here
-                                        borderRadius: 'inherit', // To match the Card's border radius
-                                    },
-                                    // Ensure that content of the card is positioned above the overlay
-                                    '& > *': { position: 'relative', zIndex: 1 },
-                                }}
-                                onClick={() => {
-                                    if (!item.lock) {
-                                        onListItemClick(item);
-                                    } else {
-                                        alert(`还需要获得${item.starsNeeded}个星星进行解锁。`); // Show message if locked
-                                    }
-                                }}
-                            >
-                                {/* Add an overlay if the item is locked */}
-                                {item.lock && (
-                                    <Box
-                                        sx={{
-                                            position: 'absolute',
-                                            top: 0,
-                                            left: 0,
-                                            right: 0,
-                                            bottom: 0,
-                                            backgroundColor: 'rgba(0, 0, 0, 0.7)', // More darkness for locked items
-                                            zIndex: 1, // Below the lock icon but above the content
-                                            borderRadius: 'inherit',
-                                        }}
-                                    />
-                                )}
-                                <CardActionArea
-                                    sx={{
-                                        display: 'flex',
-                                        flexDirection: 'row',
-                                        alignItems: 'center',
-                                        justifyContent: 'start',
-                                        my: 'auto',
-                                    }}
-                                >
-                                    <CardContent sx={{ marginLeft: "20px", position: 'relative' }}>
-                                        {item.lock && (
-                                            <LockIcon
-                                                sx={{
-                                                    color: 'white',
-                                                    position: 'absolute',
-                                                    top: '50%',
-                                                    left: '50%',
-                                                    transform: 'translate(-50%, -50%)',
-                                                    zIndex: 2, // Make sure the lock icon appears above the content
-                                                    fontSize: '2rem', // Adjust the size as needed
-                                                }}
-                                            />
-                                        )}
+                            <ListInterativeCard item={item} onListItemClick={onListItemClick} />
 
-                                        <Typography
-                                            gutterBottom
-                                            variant="h5"
-                                            component="div"
-                                            sx={{
-                                                fontWeight: 'bold',
-                                                color: item.lock ? 'rgba(255, 255, 255, 0.5)' : 'white', // Dimmed color for locked items
-                                                fontSize: 'clamp(14px, 4vw, 24px)',
-                                                position: 'relative',
-                                                zIndex: 1
-                                            }}
-                                        >
-                                            {item.title || 'Default title'}
-                                        </Typography>
-                                        {item.description !== "" && (
-                                            <Typography
-                                                variant="body2"
-                                                sx={{
-                                                    color: item.lock ? 'rgba(255, 255, 255, 0.5)' : '#f2f2f2', // Dimmed color for locked items
-                                                    position: 'relative',
-                                                    zIndex: 1
-                                                }}
-                                            >
-                                                {item.description || 'Default description'}
-                                            </Typography>
-                                        )}
-
-
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
                         ))}
                     </Box>
                 </Box>

@@ -24,7 +24,7 @@ const CheckInTracker: React.FC<CheckInTrackerProps> = ({ checkInData, handleChec
         if (scrollContainer) {
             const todayItem = scrollContainer.querySelector('.today') as HTMLElement; // Type assertion here
             if (todayItem) {
-                const scrollPosition = todayItem.offsetLeft + todayItem.clientWidth - scrollContainer.clientWidth / 1;
+                const scrollPosition = todayItem.offsetLeft + todayItem.clientWidth - scrollContainer.clientWidth / 1.5;
                 scrollContainer.scrollTo({ left: scrollPosition, behavior: 'smooth' });
             }
         }
