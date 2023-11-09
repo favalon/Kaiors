@@ -188,7 +188,7 @@ const InterativeListPage: React.FC<InterativeListPageProps> = ({ language, basic
                                 '-ms-overflow-style': 'none',
                             }}>
                             {basic_learning_items?.map((item) => (
-                                <ListCard item={item} onListItemClick={onListItemClick} />
+                                <ListCard key= {item.id} item={item} onListItemClick={onListItemClick} />
 
                             ))}
                         </Box>
@@ -215,7 +215,7 @@ const InterativeListPage: React.FC<InterativeListPageProps> = ({ language, basic
                         }}
                     >
                         {interative_scene?.map((item) => (
-                            <ListInterativeCard item={item} onListItemClick={onListItemClick} />
+                            <ListInterativeCard key={item.id} item={item} onListItemClick={onListItemClick} />
 
                         ))}
                     </Box>
