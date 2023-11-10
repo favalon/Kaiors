@@ -1,11 +1,12 @@
 {
-  "name": "Kairos",
+  "name": "kairos",
   "version": "0.1.0",
   "private": true,
   "homepage": "https://favalon.github.io/gpt4-chatbot/",
   "engines": {
     "node": ">=18"
   },
+  "main": "public/main.js",
   "license": "MIT",
   "author": "Favalon",
   "type": "module",
@@ -18,7 +19,9 @@
     "format": "prettier --ignore-path .gitignore \"**/*.+(ts|js|tsx)\" --write",
     "ingest": "tsx -r dotenv/config scripts/ingest-data.ts",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d out"
+    "deploy": "gh-pages -d out",
+    "electron-dev": "electron .",
+    "electron-pack": "electron-builder -mw"
   },
   "dependencies": {
     "@azure/openai": "^1.0.0-beta.7",
@@ -71,13 +74,14 @@
   "devDependencies": {
     "@types/audiobuffer-to-wav": "^1.0.2",
     "@types/node": "^18.14.6",
-    "@types/react": "^18.0.28",
-    "@types/react-dom": "^18.0.11",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
     "@types/react-helmet": "^6.1.6",
     "@types/uuid": "^9.0.1",
     "@typescript-eslint/parser": "^5.54.0",
     "autoprefixer": "^10.4.13",
     "electron": "^27.0.4",
+    "electron-builder": "^24.6.4",
     "electron-is-dev": "^2.0.0",
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.3",

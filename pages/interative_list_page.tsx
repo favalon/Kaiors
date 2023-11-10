@@ -203,7 +203,7 @@ const InterativeListPage: React.FC<InterativeListPageProps> = ({ language, basic
                     mx: '20px',
                 }}>
                     <Typography variant="h4" component="div" sx={{ fontWeight: 'bold', color: '#333333', mx: '20px', my: '8px' }}>
-                        实战互动
+                        现实模拟
                     </Typography>
                     <Box
                         sx={{

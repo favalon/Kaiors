@@ -82,16 +82,36 @@
 .scoreTypo {
   position: absolute;
   width: 80px;
-  height: 50px;
+  height: 80px;
   display: flex;        /* Declare the container as a flex container */
   align-items: center;  /* Center children along the cross axis */
   justify-content: center; /* Center children along the main axis */
-  top: 0;
+  top: 10px;
   right: 20px;
-  font-size: 1.4rem;
-  background-color: #ffc300;
+  font-size: 2.4rem;
+  background-color: #70ae6e;
   font-weight: bold;
-  color: #333333;
+  color: #FFFFFF;
   padding: 10px;
-  border-radius: 0px 0px 20px 20px;
+  border-radius: 20px;
+  z-index: 1;
+}
+
+.live2Dmessage {
+  position: absolute;
+  width: 300px;
+  height: 150px;
+  display: flex;        /* Declare the container as a flex container */
+  align-items: start;  /* Center children along the cross axis */
+  justify-content: start; /* Center children along the main axis */
+  bottom: 10px;
+  right: 30px;
+  font-size: 1.2rem;
+  background-color: #dda15eaa;
+  border: #dda15e 5px solid;
+  font-weight: normal;
+  color: #000000;
+  padding: 10px;
+  border-radius: 20px;
+  z-index: 1;
 }

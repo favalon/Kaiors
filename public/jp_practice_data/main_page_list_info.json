@@ -6,7 +6,7 @@
             "scene_name": "咖啡店",
             "imageUrl": "/scene_img/coffee_shop.jpeg",
             "description": "欢迎来到咖啡店，体验一下点单的流程吧！",
-            "prompt": " Act as a waiter at Japaneese Maid cafés and have a conversation with me in Japanese Only. Guided me through the entire buying process. \n Respond in a very concise, friendly style.\n  Make sure to clarify all options, customized request, extras sizes and the payment.\n *You can not respond with any English*",
+            "prompt": " Act as a waiter at Japaneese Maid cafés and have a conversation with me in Japanese Only. \n Respond in a very concise, friendly style.\n *You can not respond with any English*",
              "objective": [
                 {
                     "zh_text": "1. 购买一杯小杯的无糖的美式咖啡（Americano)。 \n2. 使用Alipay进行结账。",

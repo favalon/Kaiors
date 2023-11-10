@@ -17,9 +17,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         messages: request_message,
       });
 
-      if (completion.data.choices && completion.data.choices.length > 0&&
+      if (completion && completion.data.choices && completion.data.choices.length > 0&&
         completion.data.choices[0].message) {
-        res.status(200).json({ answer: completion.data.choices[0].message.content.trim() });
+        res.status(200).json({ answer: completion});
       } else {
         res.status(400).json({ error: 'No response from the ChatGPT API', details: completion });
       }

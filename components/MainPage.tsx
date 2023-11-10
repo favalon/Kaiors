@@ -169,6 +169,7 @@ function MainPage({ language, setShowHeader, selectedPage, setSelectPage }: Main
     // Update chatPageData
     setPracticeBasicPageData(
       {
+        uid: item.uid,
         audio_path: item.wav_path,
         text_content: {
           jp_text: item.jp_text,
@@ -181,6 +182,7 @@ function MainPage({ language, setShowHeader, selectedPage, setSelectPage }: Main
         color: "#FFC300"
       }
     );
+    
 
     setSelectPage("practice");
   };

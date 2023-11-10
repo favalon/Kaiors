@@ -1,5 +1,5 @@
 import React, { useState, forwardRef, useEffect, useRef } from 'react';
-import { Box, Avatar, Typography, List, ListItem, ListItemText, IconButton, Chip } from "@mui/material";
+import { Box, Avatar } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -190,7 +190,7 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
     return () => {
       document.removeEventListener('mouseup', handleMouseUp);
     };
-  }, []);
+  }, [handleMouseUp, handleMouseUp]);
 
   const speechConfig = SpeechConfig.fromSubscription(
     process.env.REACT_APP_AZURE_SPEECH_KEY as string,

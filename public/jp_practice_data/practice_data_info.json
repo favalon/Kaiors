@@ -4500,7 +4500,7 @@
                     "jp_text": "コーヒー",
                     "zh_text": "咖啡",
                     "roma_text": "koーhī",
-                    "imageUrl": "/images/",
+                    "imageUrl": "https://files.oaiusercontent.com/file-ZOoNhoycCQoNdnMoKKnp9PqI?se=2023-11-09T23%3A12%3A42Z&sp=r&sv=2021-08-06&sr=b&rscc=max-age%3D31536000%2C%20immutable&rscd=attachment%3B%20filename%3D158f57e8-5157-4147-9b75-b93563536812.webp&sig=Mu%2B4frIXI5Wxp3YTuvAywMMASaZ3MGUnwjOnTnbRWsU%3D",
                     "wav_path": "/audio/2eebd23884f737c0.wav",
                     "stable_ts": {
                         "text": "コーヒー",
@@ -5560,7 +5560,7 @@
                     "jp_text": "ミルクと砂糖は入れますか？",
                     "zh_text": "需要加牛奶和糖吗？",
                     "roma_text": "miruku to satou wa iremasu ka?",
-                    "imageUrl": "/images/",
+                    "imageUrl": "https://files.oaiusercontent.com/file-fnqqCtBiB2K4MXRrUKugMlcQ?se=2023-11-09T23%3A04%3A30Z&sp=r&sv=2021-08-06&sr=b&rscc=max-age%3D31536000%2C%20immutable&rscd=attachment%3B%20filename%3Db2104651-6d83-4b56-b396-a7f6be9d0e4c.webp&sig=OL9LMhDdZFDV9OzQqZE6Hmuv2bRt45%2BsDbIBBKN3kjg%3D",
                     "wav_path": "/audio/0a071ec751f6fec2.wav",
                     "stable_ts": {
                         "text": "ミルクと砂糖はいれますか",
@@ -8143,7 +8143,7 @@
                     "jp_text": "お支払いは現金ですか、それともクレジットカードですか？",
                     "zh_text": "支付方式是现金还是信用卡？",
                     "roma_text": "oshiharai wa genkin desu ka, soretomo kurejitto kādo desu ka?",
-                    "imageUrl": "/images/",
+                    "imageUrl": "https://files.oaiusercontent.com/file-eDcxOjEbw6tr5dqYdhdSbxEO?se=2023-11-09T23%3A09%3A26Z&sp=r&sv=2021-08-06&sr=b&rscc=max-age%3D31536000%2C%20immutable&rscd=attachment%3B%20filename%3D5d5a1485-e67c-4cf2-9e6c-3ff0789a0b82.webp&sig=6kLQyymlK73DEfS4Z%2BXT%2BCBKMKB%2B4Vey2nGRTkpvXQo%3D",
                     "wav_path": "/audio/66221017ffb39d8f.wav",
                     "stable_ts": {
                         "text": "お支払いは現金ですかそれともクレジットカードですか",

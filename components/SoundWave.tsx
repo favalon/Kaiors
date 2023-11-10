@@ -8,12 +8,13 @@ import StopIcon from '@mui/icons-material/Stop';
 
 
 interface SoundWaveProps {
+    uid: string;
     audioPath: string;
     text_content: any;
     n: number;
 }
 
-const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n }) => {
+const SoundWave: React.FC<SoundWaveProps> = ({ uid, audioPath, text_content, n }) => {
     // Function to resample the data to the desired length (n)
     const [changedBars, setChangedBars] = useState<number[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -51,6 +52,7 @@ const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n }) => 
 
     // Score
     const [score, setScore] = useState<number>(0);
+    const [live2dMessage, setLive2dMessage] = useState<string>("");
 
     // live2D
     const [showWindow, setShowWindow] = useState<boolean>(false);
@@ -80,9 +82,11 @@ const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n }) => 
                 let motion = 1
                 if (score > 0) {
                     expression = "F05"
+                    setLive2dMessage("你的发音很棒哦！");
                 } else {
                     expression = "F03"
                     motion = 4
+                    setLive2dMessage("你的发音还需要加油哦！");
                 }
                 contentWindow.postMessage({ expression: expression, motion: motion }, '*');
                 console.log("score", expression);
@@ -275,6 +279,17 @@ const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n }) => 
             }
         }, interval * 1000); // Convert to milliseconds
 
+        // Update the score for the item in localStorage
+        const preScore = getScore(uid)
+        const newScore = preScore + 1; // for example increment by 1
+        // Update the score in localStorage
+        localStorage.setItem(`score-${uid}`, newScore.toString());
+
+    };
+
+    const getScore = (item_uid: string) => {
+        const score = localStorage.getItem(`score-${item_uid}`);
+        return score !== null ? parseInt(score, 10) : 0;
     };
 
     if (!audioData) return null;  // Wait until audio data is loaded
@@ -387,7 +402,7 @@ const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n }) => 
                 flexDirection: 'row',
                 width: '100%',
             }}>
-                <Box
+            <Box
                 sx={{
                     width: '60%',
                     height: '80%',
@@ -403,6 +418,15 @@ const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n }) => 
 
                 }}
             >
+                {/* <div className={styles.scoreTypo}>
+                    {parseFloat(score.toFixed(0))}
+                </div> */}
+
+                <div className={styles.live2Dmessage}>
+                    
+                    {live2dMessage}
+                </div>
+                
                 <iframe
                     title="live2d"
                     ref={iframeRef}
@@ -417,7 +441,9 @@ const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n }) => 
                         border: 'none',
                         borderRadius: '20px',
                     }}
-                ></iframe>
+                >
+                    
+                </iframe>
 
             </Box>
             <Box
@@ -441,7 +467,9 @@ const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n }) => 
                             {jpText}
                         </div>
                     )
+
                 }
+                
                 {stableTs && zhText && (
                     <Box
                         sx={{
@@ -516,9 +544,7 @@ const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n }) => 
                                     );
                                 })}
                             </div>
-                            <div className={styles.scoreTypo}>
-                                {parseFloat(score.toFixed(0))}
-                            </div>
+
                         </div>
                     </Box>
                 )}
@@ -569,9 +595,11 @@ const SoundWave: React.FC<SoundWaveProps> = ({ audioPath, text_content, n }) => 
                         }}>
                         <PlayArrowIcon /> 回放录音
                     </Button>
+
                 </div>
+
             </Box>
-            
+
 
 
         </Box>

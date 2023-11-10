@@ -6,7 +6,6 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import WorkChatPage from "@/pages/work_chat_page";
-import { Item, PageData } from '@/components/types';
 
 function TabPanel(props: any) {
   const { children, value, index, ...other } = props;
@@ -174,6 +173,7 @@ const WorkPage: React.FC<WorkPageProps> = ({
           <Box>
             <TabPanel value={workType} index={0}>
             {practice_page_data && (<SoundWave
+                uid={practice_page_data.uid}
                 audioPath={practice_page_data.audio_path}
                 text_content={practice_page_data.text_content}
                 n={n}/>)}
