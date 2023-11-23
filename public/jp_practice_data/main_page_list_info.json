@@ -6,7 +6,7 @@
             "scene_name": "咖啡店",
             "imageUrl": "/scene_img/coffee_shop.jpeg",
             "description": "欢迎来到咖啡店，体验一下点单的流程吧！",
-            "prompt": " Act as a waiter at Japaneese Maid cafés and have a conversation with me in Japanese Only. \n Respond in a very concise, friendly style.\n *You can not respond with any English*",
+            "prompt": "Act as a waiter at Japan Star Coffee Shop and have a conversation with me in Japanese Only. \n Respond in a concise, conversational and friendly style. One response or question each time. \n Guide me through the entire progress. Clarify all options, customized request, sizes and the payment.\n *You can not respond with any English*. Opening with いらっしゃいませ, .....",
              "objective": [
                 {
                     "zh_text": "1. 购买一杯小杯的无糖的美式咖啡（Americano)。 \n2. 使用Alipay进行结账。",
@@ -113,6 +113,13 @@
         }
     ],
     "basic_learning": [
+        {   
+        "id": 8001,
+        "info_key": "n5_reading1",
+        "scene_name": "N5 Reading\n Part 1",
+        "imageUrl": "/scene_img/coffee_shop.jpeg",
+        "show": false
+    },
         {   
         "id": 9001,
         "info_key": "hiragana_a",

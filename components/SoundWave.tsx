@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Typography, Box } from '@mui/material';
 import styles from '@/styles/AudioWave.module.css';
+import live2Dstyles from '@/styles/live2dmessage.module.css';
 import Button from '@mui/material/Button';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import MicIcon from '@mui/icons-material/Mic';
@@ -80,13 +81,25 @@ const SoundWave: React.FC<SoundWaveProps> = ({ uid, audioPath, text_content, n }
             if (contentWindow) {
                 let expression = "F05"
                 let motion = 1
-                if (score > 0) {
+                if (score > 100) {
                     expression = "F05"
-                    setLive2dMessage("你的发音很棒哦！");
-                } else {
-                    expression = "F03"
+                    setLive2dMessage("你的发音简直完美！👏");
+                } else if (score > 50) {
+                    expression = "F04"
                     motion = 4
-                    setLive2dMessage("你的发音还需要加油哦！");
+                    setLive2dMessage("你的发音已经很好了！👍");
+                } else if (score > 0) {
+                    expression = "F01"
+                    motion = 3
+                    setLive2dMessage("你的发音还可以 ！😐");
+                } else if (score > -25) {
+                    expression = "F02"
+                    motion = 2
+                    setLive2dMessage("你的发音还有待提高 ！😅");
+                }else {
+                    expression = "F01"
+                    motion = 4
+                    setLive2dMessage("你的发音还需要加油 ！💪");
                 }
                 contentWindow.postMessage({ expression: expression, motion: motion }, '*');
                 console.log("score", expression);
@@ -421,11 +434,12 @@ const SoundWave: React.FC<SoundWaveProps> = ({ uid, audioPath, text_content, n }
                 {/* <div className={styles.scoreTypo}>
                     {parseFloat(score.toFixed(0))}
                 </div> */}
-
-                <div className={styles.live2Dmessage}>
-                    
+                {live2dMessage && live2dMessage !="" && (
+                    <div className={styles.live2Dmessage}>
                     {live2dMessage}
                 </div>
+                )}
+                
                 
                 <iframe
                     title="live2d"

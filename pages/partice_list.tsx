@@ -163,7 +163,8 @@ const PraticeList: React.FC<PraticeListProps> = ({ scene_items, onListItemClick 
                 width: '100%',
             }}
         >
-            {sortedItems.map((item: any, idx: any) => {
+            {scene_items.map((item: any, idx: any) => {
+            // {sortedItems.map((item: any, idx: any) => {
                 const lock = localStorage.getItem(`item-${item.id}`) || 'yes';
 
                 return (
@@ -184,11 +185,11 @@ const PraticeList: React.FC<PraticeListProps> = ({ scene_items, onListItemClick 
                             alignItems: 'center',
                             position: 'relative',
                             '&:hover': {
-                                backgroundColor: '#333333',
+                                backgroundColor: '#333333aa',
                                 opacity: 0.7, // Dim the card on hover
                                 boxShadow: '0px 3px 3px rgba(0, 0, 0, 0.5)', // Add a deeper shadow to the card on hover
                                 '& .hover-button': {
-                                  opacity: 1,
+                                  opacity: 0.5,
                                   visibility: 'visible',
                                 },
                             },
@@ -266,7 +267,7 @@ const PraticeList: React.FC<PraticeListProps> = ({ scene_items, onListItemClick 
                         <IconButton>
                             <VolumeUpIcon onClick={() => onListItemPlayClick(item.wav_path, item.uid, item.score)} />
                         </IconButton>
-                        <Box
+                        {/* <Box
                             className="hover-button"
                             sx={{
                                 position: 'absolute',
@@ -327,7 +328,7 @@ const PraticeList: React.FC<PraticeListProps> = ({ scene_items, onListItemClick 
                                 onClick={() => ResetItemScore(item)}
                             >忘记</Button>
 
-                        </Box>
+                        </Box> */}
 
                     </Card>
 

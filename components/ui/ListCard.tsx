@@ -14,14 +14,14 @@ const ListCard: React.FC<ListCardProps> = ({ item, onListItemClick }) => {
       onClick={() => onListItemClick(item)}
       sx={{
         position: 'relative',
-        height: '100px',
-        width: '100px',
-        minWidth: '100px',
+        height: '150px',
+        width: '150px',
+        minWidth: '150px',
         mx: '10px',
         borderRadius: '20px',
         display: 'flex',
         flexDirection: 'column',
-        backgroundColor: '#70ae6e',
+        backgroundColor: '#333333',
         boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)',
         '&:hover': {
           boxShadow: '0 5px 5px rgba(0, 0, 0, 0.25)',
@@ -32,9 +32,15 @@ const ListCard: React.FC<ListCardProps> = ({ item, onListItemClick }) => {
       }}
     >
 
-        <CardContent sx={{ marginLeft: "20px" }}>
+        <CardContent sx={{  }}>
           <Typography gutterBottom variant="h5" component="div"
-            sx={{ fontWeight: 'bold', color: 'white', fontSize: 'clamp(14px, 4vw, 24px)' }}
+            sx={{ 
+              fontWeight: 'bold', 
+              color: 'white', 
+              fontSize: 'clamp(14px, 4vw, 24px)',
+              m: 'auto',
+              textAlign: 'center',
+            }}
           >
             {item.title || 'Default title'}
           </Typography>

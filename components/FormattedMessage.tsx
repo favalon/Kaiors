@@ -72,7 +72,6 @@ const FormattedMessage = ({
         })),
       ];
     
-    console.log("messages:  123123 ", messages);
 
     return messages
 

@@ -6,6 +6,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import WorkChatPage from "@/pages/work_chat_page";
+import WorkFixChatPage from "@/pages/work_fix_chat_page";
 
 function TabPanel(props: any) {
   const { children, value, index, ...other } = props;
@@ -124,9 +125,9 @@ const WorkPage: React.FC<WorkPageProps> = ({
               }
             }
           }}>
-            {work_data?.easy && work_data.easy.length > 0 && (<Tab label="简单" />)}
-            {work_data?.mid && work_data.mid.length > 0 && (<Tab label="中等" />)}
-            {work_data?.hard && work_data.hard.length > 0 && (<Tab label="困难" />)}
+            {work_data?.easy && work_data.easy.length > 0 && (<Tab label="C 1" />)}
+            {work_data?.mid && work_data.mid.length > 0 && (<Tab label="C 2" />)}
+            {work_data?.hard && work_data.hard.length > 0 && (<Tab label="C 3" />)}
           </Tabs>
         </Box>
         {work_data?(
@@ -167,6 +168,7 @@ const WorkPage: React.FC<WorkPageProps> = ({
             }
           }}>
             {practice_page_data && <Tab label="口语练习" />}
+            {/* {work_page_data?.interative_option && (<Tab label="场景练习" />)} */}
             {work_page_data?.interative_option && (<Tab label="互动对话" />)}
           </Tabs>
         </Box>
@@ -192,6 +194,20 @@ const WorkPage: React.FC<WorkPageProps> = ({
                 onSendMessage={onSendMessage}
               />)}
             </TabPanel>
+            {/* <TabPanel value={workType} index={2}>
+              {work_page_data && (
+              <WorkFixChatPage
+                key={work_page_data.messages.length}
+                chatName={work_page_data.title || "Chat Name"}
+                messages={work_page_data.messages}
+                botchatSettings={work_page_data.chatSettings.bot}
+                userChatSettings={work_page_data.chatSettings.user}
+                setMessages={setMessages}
+                onReset={onReset}
+                onBackClick={onBackClick}
+                onSendMessage={onSendMessage}
+              />)}
+            </TabPanel> */}
           </Box>
         
       </Box>

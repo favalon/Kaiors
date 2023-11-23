@@ -5,6 +5,7 @@ import { Typography, Box, Link, List, ListItem, ListItemIcon, ListItemText } fro
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import ChatIcon from '@mui/icons-material/Chat';
+import { GithubIcon } from 'lucide-react';
 
 interface AboutPageProps {}
 
@@ -39,11 +40,17 @@ const AboutPage: React.FC<AboutPageProps> = () => {
                     </ListItemIcon>
                     <ListItemText primary="Email" secondary="bleedavalon@gmail.com" />
                 </ListItem>
+                <ListItem>
+                    <ListItemIcon>
+                        <GithubIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="GitHub: Leran-Language-By-Scene" secondary="https://github.com/favalon/Leran-Language-By-Scene" />
+                </ListItem>
             </List>
 
-            <Typography variant="h5" component="h2" gutterBottom>
+            {/* <Typography variant="h5" component="h2" gutterBottom>
                 Links
-            </Typography>
+            </Typography> */}
         </Box>
     );
 };

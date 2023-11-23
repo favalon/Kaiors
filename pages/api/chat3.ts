@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { request_message } = req.body;
 
     try {
-      const response = await fetch(`${endpoint}/openai/deployments/learnmategpt35/chat/completions?api-version=2023-05-15`, {
+      const response = await fetch(`${endpoint}/openai/deployments/learnmategpt35/chat/completions?api-version=2023-09-01-preview`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

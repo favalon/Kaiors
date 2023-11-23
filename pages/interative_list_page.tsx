@@ -102,7 +102,7 @@ const InterativeListPage: React.FC<InterativeListPageProps> = ({ language, basic
                     width: '90%',
                 }}
             >
-                <Box
+                {/* <Box
                     sx={{
                         display: 'flex',
                         justifyContent: 'center',
@@ -123,7 +123,7 @@ const InterativeListPage: React.FC<InterativeListPageProps> = ({ language, basic
                     <Typography variant="h4" component="div" sx={{ fontWeight: 'bold', color: '#333333' }}>
                         {checkInData.length}
                     </Typography>
-                </Box>
+                </Box> */}
                 <Box
                     sx={{
                         display: 'flex',
@@ -168,7 +168,7 @@ const InterativeListPage: React.FC<InterativeListPageProps> = ({ language, basic
                         mx: '20px',
                     }}>
                         <Typography variant="h4" component="div" sx={{ fontWeight: 'bold', color: '#333333', mx: '20px', my: '8px' }}>
-                            基础:五十音
+                            基础
                         </Typography>
                         <Box
                             sx={{

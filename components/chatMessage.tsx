@@ -111,7 +111,7 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
     console.log('send-messages:', request_message)
 
     // Send user question and history to API
-    const response = await fetch('/api/chat_azure', {
+    const response = await fetch('/api/chat1', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -119,8 +119,6 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
       body: JSON.stringify({ request_message: request_message }
       ),
     });
-
-    console.log('fetch', response, "azure")
 
     if (!response.ok) {
       console.log('response not ok');
@@ -351,7 +349,7 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
                 <TranslateIcon sx={{ fontSize: '1rem', padding: 0 }} />
               </Box>
               )}
-              {isOwnMessage && (<Box
+              {/* {isOwnMessage && (<Box
                 sx={{
                   color: isOwnMessage ? '#fff' : '#333333',
                   borderRadius: '12px',
@@ -368,8 +366,8 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(({
               >
                 <SpellcheckIcon sx={{ fontSize: '1rem', padding: 0 }} />
               </Box>
-              )}
-              {(<Box
+              )} */}
+              {!isOwnMessage && (<Box
                 sx={{
                   color: isOwnMessage ? '#fff' : '#333333',
                   borderRadius: '12px',

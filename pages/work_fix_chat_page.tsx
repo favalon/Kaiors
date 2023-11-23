@@ -60,7 +60,7 @@ interface ChatSettings {
     [key: string]: string;
 }
 
-interface WorkFixChatPageProps {
+interface WorkChatPageProps {
     chatName: string;
     messages: Message[];
     botchatSettings: ChatSettings;
@@ -71,7 +71,7 @@ interface WorkFixChatPageProps {
     onSendMessage: (text: string) => void;
 }
 
-const WorkFixChatPage: React.FC<WorkFixChatPageProps> = ({
+const WorkChatPage: React.FC<WorkChatPageProps> = ({
     chatName,
     messages,
     botchatSettings,
@@ -81,6 +81,7 @@ const WorkFixChatPage: React.FC<WorkFixChatPageProps> = ({
     onBackClick,
     onSendMessage,
 }) => {
+
     const [messageText, setMessageText] = useState('');
     const messageListRef = useRef<HTMLDivElement>(null);
     const [lastMessageRef, setLastMessageRef] = useState<null | HTMLDivElement>(null);
@@ -215,19 +216,19 @@ const WorkFixChatPage: React.FC<WorkFixChatPageProps> = ({
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
-        if (messageText.trim() === "" && currentMessages.length > 0 ) {
+
+
+        if (messageText.trim() === "" && currentMessages.length > 2 ) {
             return;
         }
-        if (isSubmittingRef.current) return;
 
-        isSubmittingRef.current = true;
         setLoading(true);
         let n_chat_history = 10;
         let history_messages: Message[] = [];
         let roleSettings = botchatSettings.description
         const chat_history = latestNMessages(currentMessages, n_chat_history);
 
-        let n_history = 6;
+        let n_history = 10;
         history_messages = latestNMessages(currentMessages, n_history);
         roleSettings = botchatSettings.description
 
@@ -282,7 +283,6 @@ const WorkFixChatPage: React.FC<WorkFixChatPageProps> = ({
 
 
         setLoading(false);
-        isSubmittingRef.current = false;
         // setNextQuiz(true);
     };
 
@@ -501,10 +501,18 @@ const WorkFixChatPage: React.FC<WorkFixChatPageProps> = ({
 
 
     // First submit
-    const isSubmittingRef = useRef(false);
+    const [initialMessageSent, setInitialMessageSent] = useState(false);
+    const greeting_messages = [""]
+
+    const getRandomValue = (list: string | any[]) => list[Math.floor(Math.random() * list.length)];
+
     useEffect(() => {
-        if (currentMessages.length < 1 && !isSubmittingRef.current) {
-            handleSubmit({ preventDefault: () => {} });
+        console.log('handleSubmit 123', currentMessages)
+
+        if (currentMessages.length < 1) {
+            // setMessageText(getRandomValue(greeting_messages));
+            handleSubmit({ preventDefault: () => { } });
+            setInitialMessageSent(true);
         }
     }, [currentMessages]);
 
@@ -885,4 +893,4 @@ const WorkFixChatPage: React.FC<WorkFixChatPageProps> = ({
     );
 };
 
-export default WorkFixChatPage;
+export default WorkChatPage;
