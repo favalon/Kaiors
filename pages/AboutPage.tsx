@@ -3,9 +3,8 @@
 import React from 'react';
 import { Typography, Box, Link, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
-import PhoneIcon from '@mui/icons-material/Phone';
 import ChatIcon from '@mui/icons-material/Chat';
-import { GithubIcon } from 'lucide-react';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 interface AboutPageProps {}
 
@@ -42,7 +41,7 @@ const AboutPage: React.FC<AboutPageProps> = () => {
                 </ListItem>
                 <ListItem>
                     <ListItemIcon>
-                        <GithubIcon />
+                        <GitHubIcon />
                     </ListItemIcon>
                     <ListItemText primary="GitHub: Leran-Language-By-Scene" secondary="https://github.com/favalon/Leran-Language-By-Scene" />
                 </ListItem>

@@ -120,6 +120,20 @@
         "imageUrl": "/scene_img/coffee_shop.jpeg",
         "show": false
     },
+    {   
+        "id": 8002,
+        "info_key": "n5_reading2",
+        "scene_name": "N5 Reading\n Part 2",
+        "imageUrl": "/scene_img/coffee_shop.jpeg",
+        "show": false
+    },
+    {   
+        "id": 8003,
+        "info_key": "n5_reading3",
+        "scene_name": "N5 Reading\n Part 3",
+        "imageUrl": "/scene_img/coffee_shop.jpeg",
+        "show": false
+    },
         {   
         "id": 9001,
         "info_key": "hiragana_a",
