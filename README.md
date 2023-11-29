@@ -27,9 +27,11 @@ pnpm install
 pnpm run dev
 ```
 ## 添加 OpenAI API Key
-在.env.local中添加自己的
+在.env.local.example 或 .env.example 文件中添加自己的
 - OpenAI API Key： 用于场景对话 
 - Azure API Key ： 用于Azure语音合成的tts服务
+
+然后将文件名改为 .env.local 或 .env。选择使用哪个文件取决于你的开发环境。
 
 ## 数据
 目前所有的数据都在public文件夹下，音频数据在public/audio中，调取音频数据的文件在public/public/jp_practice_data/中，可以根据自己的需要修改。
