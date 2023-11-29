@@ -114,6 +114,34 @@
     ],
     "basic_learning": [
         {   
+            "id": 8008,
+            "info_key": "n5_reading8",
+            "scene_name": "N5 Reading\n Part 8",
+            "imageUrl": "/scene_img/coffee_shop.jpeg",
+            "show": false
+        },
+        {   
+            "id": 8009,
+            "info_key": "n5_reading9",
+            "scene_name": "N5 Reading\n Part 9",
+            "imageUrl": "/scene_img/coffee_shop.jpeg",
+            "show": false
+        },
+        {   
+        "id": 8006,
+        "info_key": "n5_reading6",
+        "scene_name": "N5 Reading\n Part 6",
+        "imageUrl": "/scene_img/coffee_shop.jpeg",
+        "show": false
+    },
+    {   
+        "id": 8007,
+        "info_key": "n5_reading7",
+        "scene_name": "N5 Reading\n Part 7",
+        "imageUrl": "/scene_img/coffee_shop.jpeg",
+        "show": false
+    },
+        {   
         "id": 8001,
         "info_key": "n5_reading1",
         "scene_name": "N5 Reading\n Part 1",
@@ -131,6 +159,20 @@
         "id": 8003,
         "info_key": "n5_reading3",
         "scene_name": "N5 Reading\n Part 3",
+        "imageUrl": "/scene_img/coffee_shop.jpeg",
+        "show": false
+    },
+    {   
+        "id": 8004,
+        "info_key": "n5_reading4",
+        "scene_name": "N5 Reading\n Part 4",
+        "imageUrl": "/scene_img/coffee_shop.jpeg",
+        "show": false
+    },
+    {   
+        "id": 8005,
+        "info_key": "n5_reading5",
+        "scene_name": "N5 Reading\n Part 5",
         "imageUrl": "/scene_img/coffee_shop.jpeg",
         "show": false
     },
